@@ -1,6 +1,7 @@
 import React from 'react';
 import Board from './board';
 import * as Connect4 from '../connect4/connect4';
+import {connect} from 'react-redux'
 
 export default class Game extends React.Component {
     constructor(props) {
@@ -22,12 +23,13 @@ export default class Game extends React.Component {
             this.setState({currentColor: "red"})
         }
 
-        if (this.state.board.win()) {
-            this.setState({gameOver: true})
-            alert("Game Over!")
-        } 
 
-        if (this.state.board.full() && !this.state.board.win()) {
+        if (this.state.board.gameOver) {
+            this.setState({gameOver: true})
+            alert(`Game Over. ${this.state.currentColor} wins!`)
+        }
+
+        if (this.state.board.full() && !this.state.board.gameOver) {
             this.setState({gameOver: true, tie: true})
             alert("It's a tie!")
         }
@@ -42,3 +44,4 @@ export default class Game extends React.Component {
         )
     }
 }
+
