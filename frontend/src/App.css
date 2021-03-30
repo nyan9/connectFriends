@@ -44,6 +44,7 @@ body {
 .board {
   background-color: yellow;
   display: inline-block;
+  min-width: 560px;
 }
 
 .col {
