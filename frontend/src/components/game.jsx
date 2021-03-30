@@ -7,7 +7,9 @@ export default class Game extends React.Component {
         super(props)
         this.state = {
             board: new Connect4.Board(6,7),
-            currentColor: "red"
+            currentColor: "red",
+            gameOver: false,
+            tie: false
         }
         this.updateGame = this.updateGame.bind(this)
     }
@@ -18,6 +20,16 @@ export default class Game extends React.Component {
             this.setState({currentColor: "black"})
         } else {
             this.setState({currentColor: "red"})
+        }
+
+        if (this.state.board.win()) {
+            this.setState({gameOver: true})
+            alert("Game Over!")
+        } 
+
+        if (this.state.board.full() && !this.state.board.win()) {
+            this.setState({gameOver: true, tie: true})
+            alert("It's a tie!")
         }
     }
 
