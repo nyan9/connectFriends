@@ -18,6 +18,7 @@ export default class Board extends React.Component {
                 if (this.props.board.emptyAt(i, y) && (!this.props.board.emptyAt(i + 1, y) || (i == 5) )) {
                     // define Connect4.Board.fillPos: fillpos, switch turns 
                     this.props.board.fillPos(i, y, this.props.currentColor)
+                    this.props.board.win(i,y)
                     document.getElementById(`${i},${y}`).style.backgroundColor = this.props.currentColor
                     this.props.updateGame();
                 }

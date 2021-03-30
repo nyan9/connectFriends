@@ -11,6 +11,7 @@ export class Board {
         this.row = row;
         this.col = col;
         this.grid = [];
+        this.gameOver = false;
         this.generateBoard(row, col);
     }
 
@@ -34,51 +35,165 @@ export class Board {
     }
 
     validPos(x, y) {
-        return ((x < 6) && (y < 7))
+        return (((0 <= x) &&  (x < 6)) && ((0 <= y) && (y < 7)))
     }
 
-    win() {
-        return (this.winDiag() || this.winRow() || this.winCol())
+    win(x, y) {
+        if (this.winDiagL(x,y) || this.winDiagR(x,y) || this.winRow(x,y) || this.winCol(x,y)) this.gameOver = true;
     }
 
-    winDiag() {
-        
-    }
+    winDiagL(x,y) {
+        let dRight = 0
+        let uLeft = 0
 
-    winRow() {
-        let count = 1;
-        for (let i = 0; i < 6; i++) {
-            for (let j = 0; j < 6; j++) {
-                let currPiece = this.grid[i][j]
-                let next = this.grid[i][j+1] 
-                if ((currPiece instanceof Piece) && (next instanceof Piece)) {
-                    if (currPiece.color == next.color) {
-                        count += 1 
-                    }
+        let startX = x
+        let startY = y
+
+        while (this.validPos(startX+1, startY + 1)) {
+            let curr = this.grid[startX][startY]
+            let next = this.grid[startX+1][startY + 1]
+            if (next instanceof Piece) {
+                if (curr.color === next.color) {
+                    dRight++;
+                    startX++;
+                    startY++;
                 } else {
-                    count = 1
+                    break;
                 }
-                if (count == 4) return true;
+            } else {
+                break;
             }
         }
+
+        startX = x
+        startY = y
+
+        while (this.validPos(startX - 1, startY - 1)) {
+            let curr = this.grid[startX][startY]
+            let next = this.grid[startX - 1][startY - 1]
+            if (next instanceof Piece) {
+                if (curr.color === next.color) {
+                    uLeft++;
+                    startX--;
+                    startY--;
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+
+        if (uLeft + 1 + dRight === 4) return true;
+    }
+    
+
+    winDiagR(x,y) {
+        let dLeft = 0
+        let uRight = 0
+
+        let startX = x
+        let startY = y
+
+        while (this.validPos(startX + 1, startY - 1)) {
+            let curr = this.grid[startX][startY]
+            let next = this.grid[startX + 1][startY - 1]
+            if (next instanceof Piece) {
+                if (curr.color === next.color) {
+                    dLeft++;
+                    startX++;
+                    startY--;
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+
+        startX = x
+        startY = y
+
+        while (this.validPos(startX - 1, startY + 1)) {
+            let curr = this.grid[startX][startY]
+            let next = this.grid[startX - 1][startY + 1]
+            if (next instanceof Piece) {
+                if (curr.color === next.color) {
+                    uRight++;
+                    startX--;
+                    startY++;
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+
+        if (dLeft + 1 + uRight === 4) return true;
     }
 
-    winCol() {
-       let count = 1; 
-       for (let j = 0; j < 7; j++) {
-           for (let i = 0; i < 5; i++) {
-               let curr = this.grid[i][j] 
-               let next = this.grid[i+1][j]
-               if ((curr instanceof Piece) && (next instanceof Piece)) {
-                   if (curr.color == next.color) {
-                       count += 1
-                   }
-               } else {
-                   count = 1
-               }  
-               if (count == 4) return true;
-           }
-       }
+    winRow(x,y) {
+        let left = 0 
+        let right = 0 
+        let start = y
+
+        while (this.validPos(x, start+1)) {
+            let curr = this.grid[x][start]
+            let next = this.grid[x][start+1] 
+            if (next instanceof Piece) {
+                if (curr.color === next.color) {
+                    right++;
+                    start++;
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        } 
+
+        start = y
+
+        while (this.validPos(x, start - 1)) {
+            let curr = this.grid[x][start]
+            let next = this.grid[x][start - 1]
+            if (next instanceof Piece) {
+                if (curr.color === next.color) {
+                    left++;
+                    start--;
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+
+        if (left + 1 + right === 4) return true;
+    }
+
+    winCol(x,y) {
+        let up = 0
+        let start = x
+
+        while (this.validPos(start + 1, y)) {
+            let curr = this.grid[start][y]
+            let next = this.grid[start+1][y]
+            if (next instanceof Piece) {
+                if (curr.color === next.color) {
+                    up++;
+                    start++;
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+
+        if (up + 1 === 4) return true;
+
     }
 
     full() {
