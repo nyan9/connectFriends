@@ -12,21 +12,22 @@ window.axios = axios;
 
 document.addEventListener("DOMContentLoaded", () => {
   let store;
-
+  
   // If a returning user has a session token stored in localStorage
   if (localStorage.jwtToken) {
     // Set the token as a common header for all axios requests
     setAuthToken(localStorage.jwtToken);
-
+    
     // Decode the token to obtain the user's information
     const decodedUser = jwt_decode(localStorage.jwtToken);
-
+    
     // Create a preconfigured state we can immediately add to our store
     const preloadedState = {
       session: { isAuthenticated: true, user: decodedUser },
     };
-
+    
     store = configureStore(preloadedState);
+    window.getState = store.getState;
 
     const currentTime = Date.now() / 1000;
 
