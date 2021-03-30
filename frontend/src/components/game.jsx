@@ -6,8 +6,7 @@ export default class Game extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            bSize: 8,
-            board: new Connect4.Board(8)
+            board: new Connect4.Board(6,7)
         }
     }
 
