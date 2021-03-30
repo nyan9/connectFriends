@@ -10,7 +10,7 @@ export default class Board extends React.Component {
     render() {
         const grid = this.props.board.grid.map((row, idx) => {
             const elements = row.map((ele, idx2) => {
-                return <span>&nbsp;X&nbsp;</span>
+                return <div id="space">&nbsp;</div>
             })
             
             return (
