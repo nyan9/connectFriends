@@ -1,4 +1,4 @@
-import e from 'express';
+
 import React from 'react'
 import { io } from "socket.io-client";
 import {connect} from "react-redux";
@@ -8,9 +8,10 @@ class Chatbox extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            chatMessage = "",
+            chatMessage: "",
         }
         this.handleInput = this.handleInput.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     componentDidMount(){
@@ -37,7 +38,8 @@ class Chatbox extends React.Component {
             userId,
             userName,
             nowTime
-        })
+        });
+        this.setState({ chatMessage: ''})
     }
     render(){
         return (
@@ -46,7 +48,7 @@ class Chatbox extends React.Component {
                     <p>Chat with opponent</p>
                 </div>
                 
-                <form onSubmit>
+                <form onSubmit={this.handleSubmit}>
                     <input type='text' placeholder="Start chatting" value={this.state.chatMessage} onChange={this.handleInput}/>
                     <button>Send message</button>
                 </form>
@@ -54,18 +56,20 @@ class Chatbox extends React.Component {
         )
     }
 }
+// const express = require("express")
+// const app = express();
+// const server = require("http").createServer(app)
+// const io = require("socket.io")(server)
 
-const express =require('express')
 
 
-const app = express()
-const server = require('http').createServer(app)
-const io = require('socket.io')(server)
-
-const mSTP = state = ({
+const mSTP = (state) => ({
     
         user: state.user
     
 })
 
 export default connect(mSTP)(Chatbox)
+
+
+
