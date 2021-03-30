@@ -2,7 +2,10 @@
 import React from 'react'
 import { io } from "socket.io-client";
 import {connect} from "react-redux";
-import {moment} from "moment";
+import moment from "moment";
+import {getChat, afterPostMessage} from "../../actions/chat_actions"
+import ChatCard from "./chatcard"
+
 
 class Chatbox extends React.Component {
     constructor(props){
@@ -11,41 +14,74 @@ class Chatbox extends React.Component {
             chatMessage: "",
         }
         this.handleInput = this.handleInput.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
+       
     }
 
     componentDidMount(){
-        let server = "http://localhost:5000"
+        let server = "http://localhost:5000";
 
-        this.socket = io(server)
+        this.props.getChats()
+
+        this.socket = io(server);
+
+        this.socket.on("Output Chat Message", messageFromBackEnd => {
+            console.log(messageFromBackEnd)
+            this.props.afterPostMessage(messageFromBackEnd)
+        })
     } 
-
+    componentDidUpdate(){
+        this.messagesEnd.scrollIntoView({behavior: 'smooth'})
+    }
     handleInput(e) {
         this.setState({
             chatMessage: e.target.value
         })
     } 
-    handleSubmit(e){
+    handleSubmit = (e)=>{
         e.preventDefault();
 
         let chatMessage = this.state.chatMessage
-        let userId = this.props.user.userData.id 
-        let userName = this.props.user.userData.username
+        let userId = this.props.user.id 
+        let userName = this.props.user.username
         let nowTime = moment();
-        
+        let type = "Text"
         this.socket.emit("Input Chat Message", {
             chatMessage,
             userId,
             userName,
-            nowTime
+            nowTime,
+            type
         });
         this.setState({ chatMessage: ''})
     }
+
+    renderCards = () => 
+        
+        this.props.chats && 
+        this.props.chats.map((chat, i)=>(
+           <ChatCard key={chat.id} {...chat} sender={chat.sender} message={chat.message}/>
+         
+      ))
+    
     render(){
+        
         return (
             <div>
                 <div>
                     <p>Chat with opponent</p>
+                </div>
+                <div>
+                    
+                        <div style={{height: '500px', overflowY:'scroll'}}>
+                            {this.renderCards()}
+                            <div
+                                ref={el=>{
+                                    this.messagesEnd = el
+                                }}
+                                style={{float: "left", clear:"both"}}
+                            />
+                        </div>
+                 
                 </div>
                 
                 <form onSubmit={this.handleSubmit}>
@@ -63,13 +99,21 @@ class Chatbox extends React.Component {
 
 
 
-const mSTP = (state) => ({
-    
-        user: state.user
-    
-})
+const mSTP = (state) => {
+    debugger
+    return{
+        user: state.session.user,
+        chats: state.chat.chats ? Object.values(state.chat.chats) : ""
+    }
+}
+const mDTP = (dispatch) => {
+    return {
+        getChats: () => dispatch(getChat()),
+        afterPostMessage: (data) => dispatch(afterPostMessage(data))
+    }
+}
 
-export default connect(mSTP)(Chatbox)
+export default connect(mSTP, mDTP)(Chatbox)
 
 
 
