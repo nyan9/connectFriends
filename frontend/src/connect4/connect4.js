@@ -4,68 +4,20 @@ export class Game {
         this.players = players;
         this.currentPlayer = this.players[0];
     }
-
-    play() {
-
-    }
-
-    swap_turn() {
-
-    }
 }
 
 export class Board {
-    constructor(gridSize) {
-        this.gridSize = gridSize;
-        this.grid = []
-        this.generateBoard(this.gridSize);
+    constructor(row, col) {
+        this.row = row;
+        this.col = col;
+        this.grid = [];
+        this.generateBoard(row, col);
     }
 
-
-    indexAt(pos) {
-
-    }
-
-    indexAtEquals(pos, piece) {
-
-    }
-
-    gameOver() {
-
-    }
-
-    winDiagonal() {
-
-    }
-
-    winRow() {
-
-    }
-
-    winCol() {
-
-    }
-
-    emptyPos(pos) {
-
-    }
-
-    validCol(rowIdx) {
-
-    }
-
-    dropPiece(piece, rowIdx) {
-
-    }
-
-    isFull() {
-
-    }
-
-    generateBoard(gridSize) {
-        for (let i = 0; i < gridSize; i++) {
+    generateBoard(row, col) {
+        for (let i = 0; i < row; i++) {
             this.grid.push([]);
-            for (let j = 0; j < gridSize; j++) {
+            for (let j = 0; j < col; j++) {
                 this.grid[i].push(null);
             }
         }
@@ -82,9 +34,5 @@ export class Player {
     constructor(color, name) {
         this.color = color;
         this.name = name;
-    }
-
-    getMove() {
-
     }
 }
