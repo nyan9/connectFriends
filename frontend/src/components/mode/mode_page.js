@@ -1,7 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {connect} from "react-redux";
+import {resetChat} from "../../actions/chat_actions"
 
 class ModePage extends React.Component {
+
+  componentDidMount(){
+    this.props.resetChat()
+  }
   render() {
     return (
       <>
@@ -16,4 +22,13 @@ class ModePage extends React.Component {
     );
   }
 }
-export default ModePage;
+
+
+
+const mDTP = dispatch => {
+  return {
+    resetChat: () => dispatch(resetChat())
+  }
+}
+
+export default connect(null, mDTP)(ModePage)

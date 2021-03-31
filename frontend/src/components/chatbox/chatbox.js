@@ -14,20 +14,26 @@ class Chatbox extends React.Component {
             chatMessage: "",
         }
         this.handleInput = this.handleInput.bind(this)
-       
+       this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     componentDidMount(){
+       
         let server = "http://localhost:5000";
 
         this.props.getChats()
 
         this.socket = io(server);
-
         this.socket.on("Output Chat Message", messageFromBackEnd => {
-            console.log(messageFromBackEnd)
-            this.props.afterPostMessage(messageFromBackEnd)
-        })
+            debugger
+            if (this.state.chatMessage === ''){
+                this.props.afterPostMessage(messageFromBackEnd)}
+                this.props.getChats()
+                this.setState({ chatMessage: ' '})
+            }
+                // if (this.props.chats.length > 0 && this.props.chats[this.props.chats.length -1]._id !== messageFromBackEnd[0]._id  ) {
+                    // }
+                )
     } 
     componentDidUpdate(){
         // this.messagesEnd.scrollIntoView({behavior: 'smooth'})
@@ -37,7 +43,8 @@ class Chatbox extends React.Component {
             chatMessage: e.target.value
         })
     } 
-    handleSubmit = (e)=>{
+    handleSubmit = (e) =>{
+        debugger
         e.preventDefault();
         let chatMessage = this.state.chatMessage
         let userId = this.props.user.id 
@@ -51,16 +58,16 @@ class Chatbox extends React.Component {
             nowTime,
             type
         });
-        this.setState({ chatMessage: ''})
+        this.setState({ chatMessage:''})
     }
 
-    renderCards = () => 
+    renderCards = () => (
         
         this.props.chats && 
         this.props.chats.map((chat, i)=>(
            <ChatCard key={i} {...chat} sender={chat.sender} message={chat.message}/>
          
-      ))
+      )))
     
     render(){
         
@@ -72,7 +79,8 @@ class Chatbox extends React.Component {
                 <div>
                     
                         <div style={{height: '500px', overflowY:'scroll'}}>
-                            {this.renderCards()}
+                           
+                           {this.renderCards()}
                             <div
                                 ref={el=>{
                                     this.messagesEnd = el
@@ -83,7 +91,7 @@ class Chatbox extends React.Component {
                  
                 </div>
                 
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={(e) => this.handleSubmit(e)}>
                     <input type='text' placeholder="Start chatting" value={this.state.chatMessage} onChange={this.handleInput} style={{width: '81.5%'}}/>
                     <button>Send</button>
                 </form>
@@ -91,11 +99,6 @@ class Chatbox extends React.Component {
         )
     }
 }
-// const express = require("express")
-// const app = express();
-// const server = require("http").createServer(app)
-// const io = require("socket.io")(server)
-
 
 
 const mSTP = (state) => {
@@ -109,7 +112,7 @@ const mDTP = (dispatch) => {
     return {
         getChats: () => dispatch(getChat()),
         afterPostMessage: (data) => dispatch(afterPostMessage(data)),
-       
+        
     }
 }
 

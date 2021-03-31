@@ -6,7 +6,7 @@ export default function(state = {}, action){
             return {...state, chats: action.payload.data}
             // return Object.assign({},state, action.payload.data)
         case AFTER_POST_MESSAGE:
-            return {...state, chats: state.chats.concat(action.payload)}
+            return { chats: state.chats.concat(action.payload)}
         default:
             return state;
     }

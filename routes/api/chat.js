@@ -11,4 +11,12 @@ router.get("/getChats", (req, res) => {
         })
 })
 
+router.delete("/resetChats", (req, res) => {
+   Chat.remove({}, function(err,chat){
+       if (err) return console.error(err);
+       console.log('User successfully removed from polls collection!');
+       res.status(200).send();
+   })
+})
+
 module.exports = router;

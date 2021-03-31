@@ -2,8 +2,7 @@ import React from 'react'
 import moment from 'moment';
 import {Comment, Tooltip, Avatar} from 'antd'
 
-function ChatCard(props) {
-    debugger    
+function ChatCard(props) {  
     return (
         <div style={{width: '100%', display: 'flex'}}>
             <Comment 
