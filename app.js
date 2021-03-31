@@ -22,7 +22,6 @@ const connect = mongoose
 .then(() => console.log("Connected to MongoDB successfully"))
 .catch((err) => console.log(err));
 
-
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("frontend/build"));
   app.get("/", (req, res) => {
