@@ -39,10 +39,9 @@ class Chatbox extends React.Component {
     } 
     handleSubmit = (e)=>{
         e.preventDefault();
-        if (this.state.chatMessage === "") return ""
         let chatMessage = this.state.chatMessage
-        let userId = this.props.user.id ? this.props.user.id : 100
-        let userName = this.props.user.username ? this.props.user.username : 'Guest'
+        let userId = this.props.user.id 
+        let userName = this.props.user.username 
         let nowTime = moment();
         let type = "Text"
         this.socket.emit("Input Chat Message", {
@@ -101,8 +100,6 @@ class Chatbox extends React.Component {
 
 const mSTP = (state) => {
     debugger
-    var colors = ["red","blue","green","yellow"];
-    var randomColor = colors[Math.floor(Math.random()*colors.length)]
     return{
         user: state.session.user ? state.session.user : {id: "6063bd9b403ae4ff23d7e14b", username: "Guest"}, 
         chats: state.chat.chats ? Object.values(state.chat.chats) : ""

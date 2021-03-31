@@ -3,6 +3,7 @@ import moment from 'moment';
 import {Comment, Tooltip, Avatar} from 'antd'
 
 function ChatCard(props) {
+    debugger    
     return (
         <div style={{width: '100%', display: 'flex'}}>
             <Comment 
