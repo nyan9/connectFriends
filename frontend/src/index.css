@@ -40,3 +40,12 @@ body {
   margin: 10px;
 }
 
+.outer-chatbox{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    left: 75%;
+    top: -580px;
+    border: 1px solid lightgray;
+    width: 300px;
+}

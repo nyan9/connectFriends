@@ -2,7 +2,7 @@ import React from 'react';
 import Board from './board';
 import * as Connect4 from '../connect4/connect4';
 import {connect} from 'react-redux'
-
+import Chatbox from './chatbox/chatbox'
 export default class Game extends React.Component {
     constructor(props) {
         super(props)
@@ -43,11 +43,13 @@ export default class Game extends React.Component {
         return(
             <div>
                 <h1>this is the game component</h1>
+                
                 <Board board={this.state.board} 
                 updateGame={this.updateGame} 
                 currentColor={this.state.currentColor} 
                 gameOver={this.state.gameOver}
                 />
+                <Chatbox/>
             </div>
         )
     }
