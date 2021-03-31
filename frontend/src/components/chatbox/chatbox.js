@@ -109,7 +109,7 @@ const mDTP = (dispatch) => {
     return {
         getChats: () => dispatch(getChat()),
         afterPostMessage: (data) => dispatch(afterPostMessage(data)),
-        resetChat: () => dispatch(resetChat())
+       
     }
 }
 

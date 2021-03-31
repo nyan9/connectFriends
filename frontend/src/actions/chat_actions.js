@@ -1,10 +1,10 @@
 import axios from 'axios'
 import {CHAT_SERVER} from '../components/Config.js'
-import {getChats, resetChats} from '../util/chat_api_util'
+import {getChats} from '../util/chat_api_util'
 
 export const GET_CHAT = 'GET_CHAT'
 export const AFTER_POST_MESSAGE = 'AFTER_POST_MESSAGE'
-export const RESET_CHAT = 'RESET_CHAT'
+
 
 export function receiveChats(payload){
     return {
@@ -12,16 +12,6 @@ export function receiveChats(payload){
         payload
     }
 }
-export function deleteChats(){
-    return {
-        type: RESET_CHAT
-    }
-}
-
-export const resetChat = () => dispatch => {
-    return resetChats().then(() => dispatch(deleteChats()))
-}
-
 
 export const getChat = () => (dispatch) => {
     return getChats().then((chats) => dispatch(receiveChats(chats)))
