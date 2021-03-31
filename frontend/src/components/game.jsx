@@ -12,6 +12,7 @@ export default class Game extends React.Component {
             // currentPlayer: players[1]
             // instead of currentColor, currentPlayer.color
             currentColor: "red",
+            // currentPlayer: [this.props.players.first],
             gameOver: false,
             tie: false
         }
