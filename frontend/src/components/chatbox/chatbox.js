@@ -26,17 +26,18 @@ class Chatbox extends React.Component {
         this.socket = io(server);
         this.socket.on("Output Chat Message", messageFromBackEnd => {
             debugger
+            this.props.getChats()
             if (this.state.chatMessage === ''){
                 this.props.afterPostMessage(messageFromBackEnd)}
                 this.setState({ chatMessage: ' '})
-                this.props.getChats()
+                
             }
                 // if (this.props.chats.length > 0 && this.props.chats[this.props.chats.length -1]._id !== messageFromBackEnd[0]._id  ) {
                     // }
                 )
     } 
     componentDidUpdate(){
-        // this.messagesEnd.scrollIntoView({behavior: 'smooth'})
+        this.messagesEnd.scrollIntoView({behavior: 'smooth'})
     }
     handleInput(e) {
         this.setState({
