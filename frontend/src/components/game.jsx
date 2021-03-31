@@ -8,6 +8,9 @@ export default class Game extends React.Component {
         super(props)
         this.state = {
             board: new Connect4.Board(6,7),
+            // players: [] 
+            // currentPlayer: players[1]
+            // instead of currentColor, currentPlayer.color
             currentColor: "red",
             gameOver: false,
             tie: false
@@ -18,7 +21,8 @@ export default class Game extends React.Component {
     updateGame() {
         this.setState({board: this.state.board})
         if (this.state.currentColor == "red") {
-            this.setState({currentColor: "black"})
+            // setState({currentPlayer})
+            this.setState({currentColor: "yellow"})
         } else {
             this.setState({currentColor: "red"})
         }
@@ -39,7 +43,11 @@ export default class Game extends React.Component {
         return(
             <div>
                 <h1>this is the game component</h1>
-                <Board board={this.state.board} updateGame={this.updateGame} currentColor={this.state.currentColor} />
+                <Board board={this.state.board} 
+                updateGame={this.updateGame} 
+                currentColor={this.state.currentColor} 
+                gameOver={this.state.gameOver}
+                />
             </div>
         )
     }
