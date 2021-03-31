@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useSpring, animated } from "react-spring";
 import styled from "styled-components";
 import { MdClose } from "react-icons/md";
@@ -59,6 +59,7 @@ const CloseModalButton = styled(MdClose)`
 
 export const Modal = ({ showModal, toggleModal }) => {
   const [formType, setFormType] = useState("login");
+  const modalRef = useRef();
 
   const animation = useSpring({
     config: {
@@ -67,6 +68,12 @@ export const Modal = ({ showModal, toggleModal }) => {
     opacity: showModal ? 1 : 0,
     transform: showModal ? `translateY(0%)` : `translateY(-100%)`,
   });
+
+  const closeModal = (e) => {
+    if (modalRef.current === e.target) {
+      toggleModal(e);
+    }
+  };
 
   const escKeyPress = useCallback(
     (e) => {
@@ -102,7 +109,7 @@ export const Modal = ({ showModal, toggleModal }) => {
   return (
     <>
       {showModal ? (
-        <Background onClick={toggleModal}>
+        <Background ref={modalRef} onClick={closeModal}>
           <animated.div style={animation}>
             <ModalWrapper>
               <ModalContent>{renderForm}</ModalContent>
