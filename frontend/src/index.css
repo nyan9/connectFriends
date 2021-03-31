@@ -45,7 +45,7 @@ body {
     flex-direction: column;
     position: relative;
     left: 75%;
-    top: -640px;
+    top: -580px;
     border: 1px solid lightgray;
     width: 300px;
 }

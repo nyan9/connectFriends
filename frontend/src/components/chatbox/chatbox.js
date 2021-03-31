@@ -99,10 +99,10 @@ class Chatbox extends React.Component {
 
 
 const mSTP = (state) => {
-    debugger
+    
     return{
-        user: state.session.user ? state.session.user : {id: "6063bd9b403ae4ff23d7e14b", username: "Guest"}, 
-        chats: state.chat.chats ? Object.values(state.chat.chats) : ""
+        user: state.session.user, 
+        chats: (state.chat.chats && state.chat.chats != {}) ? Object.values(state.chat.chats) : ""
     }
 }
 const mDTP = (dispatch) => {

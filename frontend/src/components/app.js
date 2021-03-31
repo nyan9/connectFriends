@@ -13,8 +13,8 @@ const App = () => (
   <div>
     <NavBarContainer />
     <Switch>
-      <AuthRoute exact path="/" component={ModePage} />
-      <AuthRoute exact path="/play" component={Game} />
+      <ProtectedRoute exact path="/" component={ModePage} />
+      <ProtectedRoute exact path="/play" component={Game} />
     </Switch>
   </div>
 );
