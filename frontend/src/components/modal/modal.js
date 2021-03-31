@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useSpring, animated } from "react-spring";
 import styled from "styled-components";
 import { MdClose } from "react-icons/md";
 import LoginFormContainer from "../session/login_form_container";
@@ -56,8 +57,30 @@ const CloseModalButton = styled(MdClose)`
   z-index: 10;
 `;
 
-export const Modal = ({ showModal, openModal }) => {
+export const Modal = ({ showModal, toggleModal }) => {
   const [formType, setFormType] = useState("login");
+
+  const animation = useSpring({
+    config: {
+      duration: 250,
+    },
+    opacity: showModal ? 1 : 0,
+    transform: showModal ? `translateY(0%)` : `translateY(-100%)`,
+  });
+
+  const escKeyPress = useCallback(
+    (e) => {
+      if (e.key === "Escape" && showModal) {
+        toggleModal(e);
+      }
+    },
+    [toggleModal, showModal]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", escKeyPress);
+    return () => document.removeEventListener("keydown", escKeyPress);
+  }, [escKeyPress]);
 
   let renderForm;
   if (formType === "signup") {
@@ -71,7 +94,7 @@ export const Modal = ({ showModal, openModal }) => {
     renderForm = (
       <>
         <LoginFormContainer />
-        <button onClick={() => setFormType("signup")}>Creat account</button>
+        <button onClick={() => setFormType("signup")}>Create account</button>
       </>
     );
   }
@@ -79,11 +102,13 @@ export const Modal = ({ showModal, openModal }) => {
   return (
     <>
       {showModal ? (
-        <Background>
-          <ModalWrapper>
-            <ModalContent>{renderForm}</ModalContent>
-            <CloseModalButton onClick={openModal} />
-          </ModalWrapper>
+        <Background onClick={toggleModal}>
+          <animated.div style={animation}>
+            <ModalWrapper>
+              <ModalContent>{renderForm}</ModalContent>
+              <CloseModalButton onClick={toggleModal} />
+            </ModalWrapper>
+          </animated.div>
         </Background>
       ) : null}
     </>

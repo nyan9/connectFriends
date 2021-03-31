@@ -28,10 +28,10 @@ class NavBar extends React.Component {
 
     this.logoutUser = this.logoutUser.bind(this);
     this.getLinks = this.getLinks.bind(this);
-    this.openModal = this.openModal.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
-  openModal(e) {
+  toggleModal(e) {
     e.preventDefault();
     this.setState({
       showModal: !this.state.showModal,
@@ -54,9 +54,12 @@ class NavBar extends React.Component {
     } else {
       return (
         <>
-          <Modal showModal={this.state.showModal} openModal={this.openModal} />
+          <Modal
+            showModal={this.state.showModal}
+            toggleModal={this.toggleModal}
+          />
           <Container>
-            <Button onClick={this.openModal}>Login</Button>
+            <Button onClick={this.toggleModal}>Login</Button>
           </Container>
         </>
       );
