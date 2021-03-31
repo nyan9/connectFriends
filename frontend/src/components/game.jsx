@@ -22,7 +22,7 @@ export default class Game extends React.Component {
         this.setState({board: this.state.board})
         if (this.state.currentColor == "red") {
             // setState({currentPlayer})
-            this.setState({currentColor: "black"})
+            this.setState({currentColor: "yellow"})
         } else {
             this.setState({currentColor: "red"})
         }
