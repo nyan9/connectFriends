@@ -2,12 +2,15 @@ import React from 'react';
 import Board from './board';
 import * as Connect4 from '../connect4/connect4';
 import {connect} from 'react-redux'
-
+import Chatbox from './chatbox/chatbox'
 export default class Game extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             board: new Connect4.Board(6,7),
+            // players: [] 
+            // currentPlayer: players[1]
+            // instead of currentColor, currentPlayer.color
             currentColor: "red",
             // currentPlayer: [this.props.players.first],
             gameOver: false,
@@ -19,7 +22,8 @@ export default class Game extends React.Component {
     updateGame() {
         this.setState({board: this.state.board})
         if (this.state.currentColor == "red") {
-            this.setState({currentColor: "black"})
+            // setState({currentPlayer})
+            this.setState({currentColor: "yellow"})
         } else {
             this.setState({currentColor: "red"})
         }
@@ -40,11 +44,13 @@ export default class Game extends React.Component {
         return(
             <div>
                 <h1>this is the game component</h1>
+                
                 <Board board={this.state.board} 
-                    updateGame={this.updateGame} 
-                    currentColor={this.state.currentColor} 
-                    // currentPlayer={this.state.currentPlayer}
-                    />
+                updateGame={this.updateGame} 
+                currentColor={this.state.currentColor} 
+                gameOver={this.state.gameOver}
+                />
+                <Chatbox/>
             </div>
         )
     }
