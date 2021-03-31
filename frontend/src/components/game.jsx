@@ -43,7 +43,11 @@ export default class Game extends React.Component {
         return(
             <div>
                 <h1>this is the game component</h1>
-                <Board board={this.state.board} updateGame={this.updateGame} currentColor={this.state.currentColor} />
+                <Board board={this.state.board} 
+                updateGame={this.updateGame} 
+                currentColor={this.state.currentColor} 
+                gameOver={this.state.gameOver}
+                />
             </div>
         )
     }

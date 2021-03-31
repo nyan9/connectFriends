@@ -10,6 +10,7 @@ export default class Board extends React.Component {
     }
 
     placePiece(x, y) {
+        if (this.props.gameOver) return;
         return e => {
             e.preventDefault();
             for (let i = x; i < 6; i++) {
