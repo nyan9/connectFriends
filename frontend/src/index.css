@@ -30,3 +30,13 @@ body {
   border-radius: 50%;
   margin: 5px;
 }
+
+.outer-chatbox{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    left: 75%;
+    top: -640px;
+    border: 1px solid lightgray;
+    width: 300px;
+}

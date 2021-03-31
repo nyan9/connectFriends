@@ -3,7 +3,7 @@ import React from 'react'
 import { io } from "socket.io-client";
 import {connect} from "react-redux";
 import moment from "moment";
-import {getChat, afterPostMessage} from "../../actions/chat_actions"
+import {getChat, afterPostMessage, resetChat} from "../../actions/chat_actions"
 import ChatCard from "./chatcard"
 
 
@@ -30,7 +30,7 @@ class Chatbox extends React.Component {
         })
     } 
     componentDidUpdate(){
-        this.messagesEnd.scrollIntoView({behavior: 'smooth'})
+        // this.messagesEnd.scrollIntoView({behavior: 'smooth'})
     }
     handleInput(e) {
         this.setState({
@@ -39,7 +39,7 @@ class Chatbox extends React.Component {
     } 
     handleSubmit = (e)=>{
         e.preventDefault();
-
+        if (this.state.chatMessage === "") return ""
         let chatMessage = this.state.chatMessage
         let userId = this.props.user.id ? this.props.user.id : 100
         let userName = this.props.user.username ? this.props.user.username : 'Guest'
@@ -66,9 +66,9 @@ class Chatbox extends React.Component {
     render(){
         
         return (
-            <div>
+            <div className="outer-chatbox">
                 <div>
-                    <p>Chat with opponent</p>
+                    <p style={{borderBottom: '1px solid black', marginBottom: '1px', paddingBottom: '10px'}}>Chat with opponent</p>
                 </div>
                 <div>
                     
@@ -85,8 +85,8 @@ class Chatbox extends React.Component {
                 </div>
                 
                 <form onSubmit={this.handleSubmit}>
-                    <input type='text' placeholder="Start chatting" value={this.state.chatMessage} onChange={this.handleInput}/>
-                    <button>Send message</button>
+                    <input type='text' placeholder="Start chatting" value={this.state.chatMessage} onChange={this.handleInput} style={{width: '81.5%'}}/>
+                    <button>Send</button>
                 </form>
             </div>
         )
@@ -101,6 +101,8 @@ class Chatbox extends React.Component {
 
 const mSTP = (state) => {
     debugger
+    var colors = ["red","blue","green","yellow"];
+    var randomColor = colors[Math.floor(Math.random()*colors.length)]
     return{
         user: state.session.user ? state.session.user : {id: "6063bd9b403ae4ff23d7e14b", username: "Guest"}, 
         chats: state.chat.chats ? Object.values(state.chat.chats) : ""
@@ -109,7 +111,8 @@ const mSTP = (state) => {
 const mDTP = (dispatch) => {
     return {
         getChats: () => dispatch(getChat()),
-        afterPostMessage: (data) => dispatch(afterPostMessage(data))
+        afterPostMessage: (data) => dispatch(afterPostMessage(data)),
+        resetChat: () => dispatch(resetChat())
     }
 }
 

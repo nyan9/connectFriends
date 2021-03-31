@@ -1,4 +1,4 @@
-import {GET_CHAT, AFTER_POST_MESSAGE} from '../actions/chat_actions'
+import {GET_CHAT, AFTER_POST_MESSAGE, RESET_CHAT} from '../actions/chat_actions'
 
 export default function(state = {}, action){
     switch(action.type){
@@ -7,6 +7,8 @@ export default function(state = {}, action){
             // return Object.assign({},state, action.payload.data)
         case AFTER_POST_MESSAGE:
             return {...state, chats: state.chats.concat(action.payload)}
+        case RESET_CHAT:
+            return {}
         default:
             return state;
     }
