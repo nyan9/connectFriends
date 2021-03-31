@@ -56,7 +56,7 @@ const CloseModalButton = styled(MdClose)`
   z-index: 10;
 `;
 
-export const Modal = ({ showModal, openModal }) => {
+export const Modal = ({ showModal, toggleModal }) => {
   const [formType, setFormType] = useState("login");
 
   let renderForm;
@@ -82,7 +82,7 @@ export const Modal = ({ showModal, openModal }) => {
         <Background>
           <ModalWrapper>
             <ModalContent>{renderForm}</ModalContent>
-            <CloseModalButton onClick={openModal} />
+            <CloseModalButton onClick={toggleModal} />
           </ModalWrapper>
         </Background>
       ) : null}
