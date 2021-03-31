@@ -28,8 +28,8 @@ class Chatbox extends React.Component {
             debugger
             if (this.state.chatMessage === ''){
                 this.props.afterPostMessage(messageFromBackEnd)}
-                this.props.getChats()
                 this.setState({ chatMessage: ' '})
+                this.props.getChats()
             }
                 // if (this.props.chats.length > 0 && this.props.chats[this.props.chats.length -1]._id !== messageFromBackEnd[0]._id  ) {
                     // }
