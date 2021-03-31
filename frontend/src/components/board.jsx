@@ -1,5 +1,6 @@
 import React from 'react';
 import Piece from './piece';
+import * as computer from '../connect4/minimax';
 
 export default class Board extends React.Component {
     constructor(props) {
@@ -20,6 +21,12 @@ export default class Board extends React.Component {
                     this.props.board.fillPos(i, y, this.props.currentColor)
                     this.props.board.win(i,y)
                     document.getElementById(`${i},${y}`).style.backgroundColor = this.props.currentColor
+                    this.props.updateGame();
+
+                    let aiPos = computer.bestMove(this.props.board, this.props.currentColor);
+                    this.props.board.fillPos(aiPos[0],aiPos[1], this.props.currentColor);
+                    this.props.board.win(i,y);
+                    document.getElementById(`${i},${y}`).style.backgroundColor = this.props.currentColor;
                     this.props.updateGame();
                 }
             }
