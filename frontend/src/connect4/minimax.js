@@ -23,7 +23,8 @@ export function bestMove(board, color) {
 
 let scores = {
     red: -10,
-    black: 10,
+    // black: 10,
+    yellow: 10,
     tie: 0
 };
 
@@ -56,7 +57,9 @@ export function minimax(board, isMaximizing, color, pos, depth) {
         for(let i = 0; i < 6; i++) { //rows
             for(let j = 0; j < 7; j++){ //columns
                 if ((board.emptyAt(i,j))&&(!board.emptyAt(i+1,j) || i === 5)){ 
-                    board.grid[i][j] = new Piece("black"); //place that piece.
+                    // board.grid[i][j] = new Piece("black"); //place that piece.
+                    board.grid[i][j] = new Piece("yellow"); //place that piece.
+
                     let score = minimax(board, false, color, [i,j], depth-1); //run the minimax algo
                     board.grid[i][j] = null; //put it back to null
                     bestScore = Math.max(score, bestScore); //put the score in.

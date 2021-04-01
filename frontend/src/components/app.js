@@ -18,7 +18,9 @@ const App = () => (
     <NavBarContainer />
     <Switch>
       <Route exact path="/" component={ModePage} />
-      <ProtectedRoute exact path="/play" component={Game} />
+      <ProtectedRoute exact path="/cpu" component={Game} />
+      <ProtectedRoute exact path="/local" component={Game} />
+      <ProtectedRoute exact path="/online" component={Game} />
       <ProtectedRoute exact path="/leaderboard" component={Leaderboard}/>
     </Switch>
   </div>
