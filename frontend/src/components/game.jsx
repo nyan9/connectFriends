@@ -70,6 +70,7 @@ class Game extends React.Component {
 
     rematch(){
         let newBoard = new Connect4.Board(6,7)
+        this.winMsg = ""
         this.setState({board: newBoard, gameOver:false, key: this.state.key + 1})
     }
     handlewin(){
