@@ -31,10 +31,10 @@ const UserSchema = new Schema(
     //     required: true,
     //   },
     // },
-    // elo: {
-    //   type: Number,
-    //   required: true,
-    // },
+    elo: {
+      type: Number,
+      default: 1200,
+    },
   },
   {
     timestamps: true,
