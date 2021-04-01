@@ -11,7 +11,7 @@ class Chatbox extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            chatMessage: "",
+            chatMessage: " ",
         }
         this.handleInput = this.handleInput.bind(this)
        this.handleSubmit = this.handleSubmit.bind(this)
@@ -23,18 +23,18 @@ class Chatbox extends React.Component {
 
         this.props.getChats()
 
-        this.socket = io(server);
+        this.socket = io.connect("https://connectfriends.herokuapp.com/", {secure:true});
+
         this.socket.on("Output Chat Message", messageFromBackEnd => {
             debugger
-            this.props.getChats()
             if (this.state.chatMessage === ''){
-                this.props.afterPostMessage(messageFromBackEnd)}
                 this.setState({ chatMessage: ' '})
+                this.props.afterPostMessage(messageFromBackEnd)}
+                this.props.getChats()
                 
             }
-                // if (this.props.chats.length > 0 && this.props.chats[this.props.chats.length -1]._id !== messageFromBackEnd[0]._id  ) {
-                    // }
-                )
+
+        )
     } 
     componentDidUpdate(){
         this.messagesEnd.scrollIntoView({behavior: 'smooth'})
@@ -79,7 +79,7 @@ class Chatbox extends React.Component {
                 </div>
                 <div>
                     
-                        <div style={{height: '500px', overflowY:'scroll'}}>
+                        <div style={{height: '485px', overflowY:'scroll'}}>
                            
                            {this.renderCards()}
                             <div
@@ -93,7 +93,7 @@ class Chatbox extends React.Component {
                 </div>
                 
                 <form onSubmit={(e) => this.handleSubmit(e)}>
-                    <input type='text' placeholder="Start chatting" value={this.state.chatMessage} onChange={this.handleInput} style={{width: '81.5%'}}/>
+                    <input type='text' placeholder="Start chatting" value={this.state.chatMessage} onChange={this.handleInput} style={{width: '88%'}}/>
                     <button>Send</button>
                 </form>
             </div>

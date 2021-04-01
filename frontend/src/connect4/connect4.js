@@ -37,7 +37,21 @@ export class Board {
     validPos(x, y) {
         return (((0 <= x) &&  (x < 6)) && ((0 <= y) && (y < 7)))
     }
-
+    aiWin(x, y) {
+        if(this.full()){
+            if (this.winDiagL(x,y) || this.winDiagR(x,y) || this.winRow(x,y) || this.winCol(x,y)) {
+                return this.grid[x][y].color
+            } else {
+                return "tie";
+            }
+        } else {
+            if (this.winDiagL(x,y) || this.winDiagR(x,y) || this.winRow(x,y) || this.winCol(x,y)) {
+                return this.grid[x][y].color
+            } else {
+                return null
+            }
+        }
+    }
     win(x, y) {
         if (this.winDiagL(x,y) || this.winDiagR(x,y) || this.winRow(x,y) || this.winCol(x,y)) this.gameOver = true;
     }
@@ -84,7 +98,7 @@ export class Board {
             }
         }
 
-        if (uLeft + 1 + dRight === 4) return true;
+        if (uLeft + 1 + dRight >= 4) return true;
     }
     
 
@@ -130,7 +144,7 @@ export class Board {
             }
         }
 
-        if (dLeft + 1 + uRight === 4) return true;
+        if (dLeft + 1 + uRight >= 4) return true;
     }
 
     winRow(x,y) {
@@ -170,7 +184,7 @@ export class Board {
             }
         }
 
-        if (left + 1 + right === 4) return true;
+        if (left + 1 + right >= 4) return true;
     }
 
     winCol(x,y) {
@@ -192,7 +206,7 @@ export class Board {
             }
         }
 
-        if (up + 1 === 4) return true;
+        if (up + 1 >= 4) return true;
 
     }
 
