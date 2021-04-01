@@ -2,7 +2,7 @@ import React from 'react';
 import Piece from './piece';
 import * as computer from '../connect4/minimax';
 import {connect} from "react-redux"
-
+import {updateRating, getCurrUser} from "../actions/user_actions"
 
 class Board extends React.Component {
     constructor(props) {
@@ -21,6 +21,12 @@ class Board extends React.Component {
         this.placePiece = this.placePiece.bind(this)
         this.hoverColumn = this.hoverColumn.bind(this)
         this.unHoverColumn = this.unHoverColumn.bind(this)
+    }
+
+    componentDidMount(){
+        if(this.props.currentUser){
+            this.props.getUser(this.props.currentUser.username)
+        }
     }
 
     placePiece(x, y) {
@@ -46,7 +52,9 @@ class Board extends React.Component {
                     if (this.props.board.win(i,y)){
                         this.props.handlewin()
                         this.setState({gameOver:true})
-                      
+                        if(this.props.user){
+                            this.props.updateRating(this.props.user.username, (this.props.user.elo + 10))
+                        }
                     }
                     // document.getElementById(`${i},${y}`).style.backgroundColor = "red"
 
@@ -70,7 +78,12 @@ class Board extends React.Component {
                             if (this.props.board.win(aiPos[0],aiPos[1])){
                                 this.props.handleloss()
                                 this.setState({gameOver:true})
-                              
+                                
+                                if(this.props.user){
+                                    debugger
+                                    this.props.updateRating(this.props.user.username, (this.props.user.elo - 10))
+                                    this.props.getUser(this.props.currentUser.username)
+                                }
                             }
 
                             // document.getElementById(`${aiPos[0]},${aiPos[1]}`).style.backgroundColor = "black";
@@ -151,6 +164,7 @@ class Board extends React.Component {
         return(
             <div>
                 <h2>this is the board component</h2>
+                <div key={this.state.gameOver}>{this.props.user.elo}</div>
                 <div className="board">
                     {grid}
                 
@@ -162,10 +176,19 @@ class Board extends React.Component {
 }
 
 const mSTP = (state) => {
+    debugger
     return {
-        currentUser:state.session.user
+        currentUser:state.session.user,
+        user: state.rating
+    }
+}
+
+const mDTP = (dispatch) => {
+    return {
+        updateRating: (username, rating) => dispatch(updateRating(username, rating)),
+        getUser: (username) => dispatch(getCurrUser(username))
     }
 }
 
 
-export default connect(mSTP)(Board)
+export default connect(mSTP, mDTP)(Board)
