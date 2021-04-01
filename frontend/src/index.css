@@ -1,28 +1,30 @@
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Arial", sans-serif;
+}
+
+html {
+  --clr-dark-green: #073b4c;
+  --clr-blue: #118ab2;
+  --clr-light-green: #06d6a0;
+  --clr-yellow: #ffd166;
+  --clr-pink: #ef476f;
+  --font-family: "DM Mono", monospace;
 }
 
 body {
   height: 100vh;
   width: 100vw;
+  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  background-color: #073b4c;
+  font-family: "DM Mono", monospace;
+  text-align: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-body {
-  text-align: center;
 }
 
 .board {
@@ -40,17 +42,17 @@ body {
   margin: 10px;
 }
 
-.outer-chatbox{
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    left: 75%;
-    top: -537px;
-    border: 1px solid lightgray;
-    width: 300px;
+.outer-chatbox {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  left: 75%;
+  top: -537px;
+  border: 1px solid lightgray;
+  width: 300px;
 }
 
-.outer-leaderboard{
+.outer-leaderboard {
   display: flex;
   flex-direction: column;
   width: 50%;
