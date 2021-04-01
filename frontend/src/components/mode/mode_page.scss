@@ -38,15 +38,9 @@
   margin-bottom: auto;
 }
 
-.card-header p {
-  font-size: 14px;
-  margin: 0 0 1rem;
-  color: #7a7a8c;
-}
-
 .card-header h2 {
-  font-size: 20px;
-  margin: 0.25rem 0 auto;
+  font-size: 2rem;
+  margin: 0.25em 0 auto;
   text-decoration: none;
   color: white;
   border: 0;
@@ -55,9 +49,22 @@
 }
 
 .card-header h2:hover {
-  background: linear-gradient(90deg, #ff8a00, #e52e71);
+  background: linear-gradient(90deg, var(--clr-pink), var(--clr-yellow));
   text-shadow: none;
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
+}
+
+.card-button {
+  margin-top: 1.75em;
+
+  a {
+    background: white;
+    font-size: 1.25rem;
+    padding: 0.5em 1.5em;
+    border-radius: 50px;
+    display: inline-block;
+    color: black;
+  }
 }
