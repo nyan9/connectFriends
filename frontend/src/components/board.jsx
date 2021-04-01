@@ -30,7 +30,7 @@ class Board extends React.Component {
     }
 
     placePiece(x, y) {
-        
+        if (this.props.gameOver) return;
         
         return e => {
             e.preventDefault();
