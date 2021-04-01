@@ -8,6 +8,19 @@ const passport = require("passport");
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
+
+// router.get("/test", (req, res) => res.json({ msg: "This is the users route" }));
+
+
+router.get("/getUsers", (req, res) => {
+    User.find({})
+        .exec((err, users) =>{
+            if (err) return res.status(400).send(err)
+            res.status(200).send(users)
+        })
+})
+
+
 router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),

@@ -19,8 +19,8 @@ class SignupForm extends React.Component {
     if (nextProps.currentUser === true) {
       this.props.history.push("/game");
     }
-
     this.setState({ errors: nextProps.errors });
+
   }
 
   update(field) {

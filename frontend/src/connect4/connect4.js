@@ -37,6 +37,7 @@ export class Board {
     validPos(x, y) {
         return (((0 <= x) &&  (x < 6)) && ((0 <= y) && (y < 7)))
     }
+    
     aiWin(x, y) {
         if(this.full()){
             if (this.winDiagL(x,y) || this.winDiagR(x,y) || this.winRow(x,y) || this.winCol(x,y)) {
@@ -52,8 +53,12 @@ export class Board {
             }
         }
     }
+
     win(x, y) {
-        if (this.winDiagL(x,y) || this.winDiagR(x,y) || this.winRow(x,y) || this.winCol(x,y)) this.gameOver = true;
+        if (this.winDiagL(x,y) || this.winDiagR(x,y) || this.winRow(x,y) || this.winCol(x,y)) {
+            this.gameOver = true;
+            return true;
+        }
     }
 
     winDiagL(x,y) {
