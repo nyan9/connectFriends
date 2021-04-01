@@ -29,6 +29,7 @@ class Game extends React.Component {
         this.socket.emit("current color", this.state.currentColor)
         this.socket.on("test", msg => console.log(msg))
         console.log(this.state.type)
+        console.log(this.props.currentUser)
     }
 
     updateGame() {
@@ -71,7 +72,9 @@ class Game extends React.Component {
     }
 }
 
-const mstp = state => state; 
+const mstp = state => ({
+    currentUser: state.session.user
+}); 
 const mdtp = dispatch => ({})
 
 export default connect(mstp, null)(Game);
