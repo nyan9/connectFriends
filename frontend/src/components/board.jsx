@@ -24,7 +24,7 @@ class Board extends React.Component {
     }
 
     componentDidMount(){
-        if(this.props.currentUser){
+        if(this.props.currentUser && !this.props.user){
             this.props.getUser(this.props.currentUser.username)
         }
     }
@@ -80,7 +80,7 @@ class Board extends React.Component {
                                 this.setState({gameOver:true})
                                 
                                 if(this.props.user){
-                                    debugger
+                                    
                                     this.props.updateRating(this.props.user.username, (this.props.user.elo - 10))
                                     this.props.getUser(this.props.currentUser.username)
                                 }
@@ -164,7 +164,6 @@ class Board extends React.Component {
         return(
             <div>
                 <h2>this is the board component</h2>
-                <div key={this.state.gameOver}>{this.props.user.elo}</div>
                 <div className="board">
                     {grid}
                 
@@ -176,7 +175,7 @@ class Board extends React.Component {
 }
 
 const mSTP = (state) => {
-    debugger
+    
     return {
         currentUser:state.session.user,
         user: state.rating

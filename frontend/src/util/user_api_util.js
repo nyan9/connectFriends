@@ -9,7 +9,7 @@ export const getCurrentUser = (username) => {
 }
 
 export const updateUser = (username, rating) => {
-  debugger
+  
   return  axios.post('/api/users/update',
          {username: username,
            elo: rating,

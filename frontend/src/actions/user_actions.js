@@ -36,6 +36,6 @@ export const getUser = () => (dispatch) => {
 }
 
 export const updateRating = (username, rating) => (dispatch) => {
-    debugger
+    
     return updateUser(username, rating).then(((user) => dispatch(updateElo(user))), (err => console.log(err)))
 }
