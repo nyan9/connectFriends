@@ -11,7 +11,6 @@ class ModePage extends React.Component {
   render() {
     return (
       <section class="card-list">
-        <h1 class="hello">HELLO FRIENDS</h1>
         <article class="card">
           <header class="card-header">
             <h2>Single Player(AI)</h2>
