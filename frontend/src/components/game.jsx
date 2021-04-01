@@ -24,13 +24,16 @@ class Game extends React.Component {
             tieCount: 0,
         }
         this.updateGame = this.updateGame.bind(this)
+
+        this.winMsg = ""
+
         this.rematch = this.rematch.bind(this)
         this.handlewin =this.handlewin.bind(this)
         this.handleloss = this.handleloss.bind(this)
   
         this.socket = io.connect("https://connectfriends.herokuapp.com/", { secure: true });
         // this.socket = io.connect("http://localhost:5000/", { secure: true });
-        
+
     }
 
     componentDidMount(){
@@ -46,12 +49,14 @@ class Game extends React.Component {
         
         if (this.state.board.gameOver) {
             this.setState({gameOver: true})
-            alert(`Game Over. ${this.state.currentColor} wins!`)
+            this.winMsg = <div id="winMsg">{this.state.currentColor} wins!</div>
         }
         
         if (this.state.board.full() && !this.state.board.gameOver) {
+
             this.setState({gameOver: true, tie: true, tieCount: this.state.tieCount + 1})
-            alert("It's a tie!")
+            this.winMsg = <div id="winMsg">It's a tie!</div>
+
         }
         
         this.setState({board: this.state.board})
@@ -102,7 +107,11 @@ class Game extends React.Component {
                     handletie={this.handletie}
                     tie={this.state.tie}
                 />
+
+                 {this.winMsg}
+
                 {rematch}
+
                 <Chatbox/>
                 
             </div>

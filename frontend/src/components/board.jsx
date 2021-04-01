@@ -88,23 +88,41 @@ class Board extends React.Component {
     }
 
     hoverColumn(x,y){
+        let color = ""
+        if (this.props.currentColor === "red") {
+            color = "#fe6599"
+        } else {
+            color = "#ffff99"
+        }
+
+
         if (this.props.gameOver) return;
         return e => {
-            for (let i = x; i < 6; i++) {
-                if (this.props.board.emptyAt(i, y) && (!this.props.board.emptyAt(i + 1, y) || (i == 5))) {
-                    document.getElementById(`${i},${y}`).style.backgroundColor = "orange"
+            for (let i = 0; i < 6; i++) {
+                if (this.props.board.emptyAt(i, y)) {
+                    if (!this.props.board.emptyAt(i + 1, y) || (i == 5)) {
+                        document.getElementById(`${i},${y}`).style.backgroundColor = color
+                    } else {
+                        document.getElementById(`${i},${y}`).style.backgroundColor = "#ffffff8c"
+
+                    }
                 }
             }
         }
     }
 
+
     unHoverColumn(x,y){
         if (this.props.gameOver) return;
         return e => {
-            for (let i = x; i < 6; i++) {
-                if (this.props.board.emptyAt(i, y) && (!this.props.board.emptyAt(i + 1, y) || (i == 5))) {
+            for (let i = 0; i < 6; i++) {
+                if (this.props.board.emptyAt(i, y)) {
                     document.getElementById(`${i},${y}`).style.backgroundColor = "white"
+                    document.getElementById(`${i},${y}`).style.opacity = 1
                 }
+                // if (this.props.board.emptyAt(i, y) && (!this.props.board.emptyAt(i + 1, y) || (i == 5))) {
+                //     document.getElementById(`${i},${y}`).style.backgroundColor = "white"
+                // }
             }
         }
     }
