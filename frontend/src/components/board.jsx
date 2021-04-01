@@ -29,9 +29,9 @@ class Board extends React.Component {
         return e => {
             e.preventDefault();
             for (let i = x; i < 6; i++) {
-                // define Connect4.Board.emptyAt
                 if (this.props.board.emptyAt(i, y) && (!this.props.board.emptyAt(i + 1, y) || (i == 5) )) {
                     // define Connect4.Board.fillPos: fillpos, switch turns 
+
                     
                     // this.props.board.fillPos(i, y, "red")
                     this.props.board.fillPos(i, y, this.props.currentColor)
@@ -49,14 +49,19 @@ class Board extends React.Component {
                       
                     }
                     // document.getElementById(`${i},${y}`).style.backgroundColor = "red"
+
+                    this.props.board.fillPos(i, y, this.props.currentColor)
+                    // this.props.currentPlayer.color instead
+                    this.props.board.win(i,y)
+
                     document.getElementById(`${i},${y}`).style.backgroundColor = this.props.currentColor
                     this.props.updateGame();
                     
                     
                     if (this.props.type === "/cpu") {
                         setTimeout(()=>{
-                            // let aiPos = computer.bestMove(this.props.board, "black");
                             let aiPos = computer.bestMove(this.props.board, this.props.currentColor);
+
                             
                             // this.props.board.fillPos(aiPos[0],aiPos[1], "black");
                             this.props.board.fillPos(aiPos[0],aiPos[1], this.props.currentColor);
@@ -69,6 +74,10 @@ class Board extends React.Component {
                             }
 
                             // document.getElementById(`${aiPos[0]},${aiPos[1]}`).style.backgroundColor = "black";
+
+                            this.props.board.fillPos(aiPos[0],aiPos[1], this.props.currentColor);
+                            this.props.board.win(aiPos[0],aiPos[1]);
+
                             document.getElementById(`${aiPos[0]},${aiPos[1]}`).style.backgroundColor = this.props.currentColor;
                             this.props.updateGame();
                         }, 0)
