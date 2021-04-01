@@ -20,8 +20,10 @@ class Game extends React.Component {
             type: this.props.location.pathname
         }
         this.updateGame = this.updateGame.bind(this)
-        this.socket = io.connect("https://connectfriends.herokuapp.com/", { secure: true });
-        // this.socket = io.connect("http://localhost:5000/", { secure: true });
+        // this.socket = io.connect("https://connectfriends.herokuapp.com/", { secure: true });
+        this.socket = io.connect("http://localhost:5000/", { secure: true });
+
+        this.winMsg = ""
     }
 
     componentDidMount(){
@@ -37,12 +39,12 @@ class Game extends React.Component {
         
         if (this.state.board.gameOver) {
             this.setState({gameOver: true})
-            alert(`Game Over. ${this.state.currentColor} wins!`)
+            this.winMsg = <div id="winMsg">{this.state.currentColor} wins!</div>
         }
         
         if (this.state.board.full() && !this.state.board.gameOver) {
             this.setState({gameOver: true, tie: true})
-            alert("It's a tie!")
+            this.winMsg = <div id="winMsg">It's a tie!</div>
         }
         
         this.setState({board: this.state.board})
@@ -55,6 +57,7 @@ class Game extends React.Component {
     }
 
     render() {
+
         return(
             <div>
                 <h1>this is the game component</h1>
@@ -65,7 +68,7 @@ class Game extends React.Component {
                     gameOver={this.state.gameOver}
                     type={this.state.type}
                 />
-
+                 {this.winMsg}
                 <Chatbox/>
             </div>
         )

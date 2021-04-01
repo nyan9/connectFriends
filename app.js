@@ -7,7 +7,6 @@ const db = require("./config/keys").mongoURI;
 const passport = require("passport");
 const users = require("./routes/api/users");
 const chat = require("./routes/api/chat");
-
 const server = require("http").createServer(app)
 const io = require("socket.io")(server, {
     cors: {
@@ -40,14 +39,13 @@ app.use(bodyParser.json());
   
 
 io.on("connection", socket => {
+  // chatbox sockets
   socket.on("Input Chat Message", msg => { 
     connect.then(db => {
       try {
         let chat = new Chat({ message: msg.chatMessage, sender: msg.userId, type: msg.type})
-
         chat.save((err, doc) =>{
           if (err) return res.json({success: false, err})
-          
           Chat.find({"_id": doc._id})
           .populate("sender")
           .exec((err,doc) => {
@@ -59,7 +57,6 @@ io.on("connection", socket => {
       }
     })
   })
-
 
   // testing socket in game component
   socket.on("current color", color => {
