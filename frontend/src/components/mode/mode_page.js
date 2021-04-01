@@ -12,12 +12,16 @@ class ModePage extends React.Component {
     return (
       <>
         <div>
-          <Link to="/play"> Single Player(AI) </Link>
+          <Link to="/cpu"> Single Player(AI) </Link>
         </div>
         <br />
-        <div>Single Player(2P)</div>
+        <div>
+          <Link to="/local"> Local 2 Player (Local)</Link>
+        </div>
         <br />
-        <div>Online Multiplayer</div>
+        <div>
+          <Link to="/online">Online Multiplayer</Link>
+        </div>
       </>
     );
   }
