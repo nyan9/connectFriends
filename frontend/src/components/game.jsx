@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import Chatbox from './chatbox/chatbox'
 import { io } from "socket.io-client";
 
-export default class Game extends React.Component {
+class Game extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -71,3 +71,7 @@ export default class Game extends React.Component {
     }
 }
 
+const mstp = state => state; 
+const mdtp = dispatch => ({})
+
+export default connect(mstp, null)(Game);
