@@ -30,7 +30,7 @@ let scores = {
 
 export function minimax(board, isMaximizing, color, pos, depth) {
     //need to check each winning position
-    // debugger;
+    // ;
     let result = board.aiWin(pos[0],pos[1]); //, but need to return the color that wins or tie
     // let wincolor;
     // wincolor = result ? "black" : "red" : "tie"

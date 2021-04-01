@@ -41,7 +41,7 @@ class Leaderboard extends React.Component {
 }
 
 const mSTP = state => {
-    debugger
+    
     return{
         users: Object.values(state.users)
     }

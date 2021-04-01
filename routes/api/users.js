@@ -29,7 +29,7 @@ router.get("/getUser/:username", (req, res)=>{
 })
 
 router.post("/update", (req,res)=>{
-  debugger
+  
   console.log('username: ', req.body.username)
   console.log('elo: ', req.body.elo)
   

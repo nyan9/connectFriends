@@ -26,7 +26,7 @@ class Chatbox extends React.Component {
         this.socket = io.connect("https://connectfriends.herokuapp.com/", {secure:true});
 
         this.socket.on("Output Chat Message", messageFromBackEnd => {
-            debugger
+            
             if (this.state.chatMessage === ''){
                 this.setState({ chatMessage: ' '})
                 this.props.afterPostMessage(messageFromBackEnd)}
@@ -45,7 +45,7 @@ class Chatbox extends React.Component {
         })
     } 
     handleSubmit = (e) =>{
-        debugger
+        
         e.preventDefault();
         let chatMessage = this.state.chatMessage
         let userId = this.props.user.id 
