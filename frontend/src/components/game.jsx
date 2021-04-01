@@ -87,14 +87,20 @@ class Game extends React.Component {
         if (this.state.gameOver){
             rematch = <button onClick={this.rematch}>Rematch</button>
         }
+
+        let winloss = (
+            <div>
+                win:{this.state.win}
+                    loss:{this.state.loss}
+                    tie:{this.state.tieCount}
+            </div>
+        )
+
         return(
             <div>
                 <h1>this is the game component</h1>
-                <div>
-                    win:{this.state.win}
-                    loss:{this.state.loss}
-                    tie:{this.state.tieCount}
-                </div>
+                {(this.state.type === "/local") ? "" : winloss}
+                 
                 <Board
                     key={this.state.key} 
                     board={this.state.board}
