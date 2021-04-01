@@ -17,13 +17,23 @@ class Game extends React.Component {
             // currentPlayer: [this.props.players.first],
             gameOver: false,
             tie: false,
-            type: this.props.location.pathname
+            type: this.props.location.pathname,
+            key: 1, 
+            win: 0,
+            loss: 0,
+            tieCount: 0,
         }
         this.updateGame = this.updateGame.bind(this)
-        // this.socket = io.connect("https://connectfriends.herokuapp.com/", { secure: true });
-        this.socket = io.connect("http://localhost:5000/", { secure: true });
 
         this.winMsg = ""
+
+        this.rematch = this.rematch.bind(this)
+        this.handlewin =this.handlewin.bind(this)
+        this.handleloss = this.handleloss.bind(this)
+  
+        this.socket = io.connect("https://connectfriends.herokuapp.com/", { secure: true });
+        // this.socket = io.connect("http://localhost:5000/", { secure: true });
+
     }
 
     componentDidMount(){
@@ -43,8 +53,10 @@ class Game extends React.Component {
         }
         
         if (this.state.board.full() && !this.state.board.gameOver) {
-            this.setState({gameOver: true, tie: true})
+
+            this.setState({gameOver: true, tie: true, tieCount: this.state.tieCount + 1})
             this.winMsg = <div id="winMsg">It's a tie!</div>
+
         }
         
         this.setState({board: this.state.board})
@@ -56,20 +68,52 @@ class Game extends React.Component {
         }
     }
 
-    render() {
+    rematch(){
+        let newBoard = new Connect4.Board(6,7)
+        this.setState({board: newBoard, gameOver:false, key: this.state.key + 1})
+    }
+    handlewin(){
+        this.setState({win: this.state.win + 1})
+    }
+    handleloss(){
+        this.setState({loss: this.state.loss + 1})
+    }
 
+
+    render() {
+        let rematch = ""
+
+        if (this.state.gameOver){
+            rematch = <button onClick={this.rematch}>Rematch</button>
+        }
         return(
             <div>
                 <h1>this is the game component</h1>
-        
-                <Board board={this.state.board}
+                <div>
+                    win:{this.state.win}
+                    loss:{this.state.loss}
+                    tie:{this.state.tieCount}
+                </div>
+                <Board
+                    key={this.state.key} 
+                    board={this.state.board}
                     updateGame={this.updateGame}
                     currentColor={this.state.currentColor}
                     gameOver={this.state.gameOver}
                     type={this.state.type}
+                    rematch={this.rematch}
+                    handlewin={this.handlewin}
+                    handleloss={this.handleloss}
+                    handletie={this.handletie}
+                    tie={this.state.tie}
                 />
+
                  {this.winMsg}
+
+                {rematch}
+
                 <Chatbox/>
+                
             </div>
         )
     }
