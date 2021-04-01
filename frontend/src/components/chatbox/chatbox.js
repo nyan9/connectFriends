@@ -34,7 +34,7 @@ class Chatbox extends React.Component {
                 
             }
 
-            )
+        )
     } 
     componentDidUpdate(){
         this.messagesEnd.scrollIntoView({behavior: 'smooth'})
