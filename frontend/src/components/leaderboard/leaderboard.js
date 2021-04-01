@@ -12,7 +12,8 @@ class Leaderboard extends React.Component {
         let leaderboard = ""; 
         let n = 0
        if (this.props.users){
-        leaderboard=<div>{this.props.users.map((user,idx) => {
+        leaderboard=
+        <div>{this.props.users.map((user,idx) => {
                     {n += 1}
                     return <div style={{display:'flex', justifyContent:'space-between', marginTop: '5px'}}>
                                 <div>{n}.</div> 

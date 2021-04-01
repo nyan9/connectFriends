@@ -17,20 +17,20 @@ const UserSchema = new Schema(
         friendName: { type: String, default: "" },
       },
     ],
-    // stats: {
-    //   wins: {
-    //     type: Number,
-    //     required: true,
-    //   },
-    //   losses: {
-    //     type: Number,
-    //     required: true,
-    //   },
-    //   ties: {
-    //     type: Number,
-    //     required: true,
-    //   },
-    // },
+    stats: {
+      wins: {
+        type: Number,
+        default: 0,
+      },
+      losses: {
+        type: Number,
+        default: 0,
+      },
+      ties: {
+        type: Number,
+        default: 0,
+      },
+    },
     elo: {
       type: Number,
       default: 1200,
