@@ -9,14 +9,19 @@ class OnlineGame extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            board: [],
+            board: [[null, null, null, null, null, null, null],
+                    [null, null, null, null, null, null, null],
+                    [null, null, null, null, null, null, null],
+                    [null, null, null, null, null, null, null],
+                    [null, null, null, null, null, null, null],
+                    [null, null, null, null, null, null, null]],
             players: [],
             currentPlayer: {},
-            currentColor: "",
+            currentColor: "red",
             gameOver: false
         }
 
-        this.getServerState = this.getServerState.bind(this)
+        // this.getServerState = this.getServerState.bind(this) // too laggy
 
         // this.socket = io.connect("https://connectfriends.herokuapp.com/", {secure: true});
         this.socket = io.connect("http://localhost:5000/", {secure: true});
@@ -27,21 +32,31 @@ class OnlineGame extends React.Component {
             alert("Opponent has disconnected")
             this.props.history.push("/")}
             )
+
     }
 
     componentWillUnmount(){
         this.socket.disconnect()
     }
 
-    getServerState() {
-        this.socket.emit("get game")
-        this.socket.on("send game", gameState => this.setState(gameState))
-    }
-    
+    // getServerState() {
+    //     this.socket.emit("get game")
+    //     // this.socket.on("send game", gameState => this.setState(gameState))
+    //     this.socket.on("send game", gameState => console.log("gameState:", gameState))
+    // }
+    // // this works but it's very very laggy
+
+
     render() {
-        this.getServerState()
+        // this.getServerState() // too laggy
         return ( 
                 <OnlineBoard 
+                    board={this.state.board}
+                    players={this.state.players}
+                    currentPlayer={this.state.currentPlayer}
+                    currentColor={this.state.currentColor}
+                    gameOver={this.state.gameOver}
+                    currentUser={this.props.currentUser}
                 />
             )
     }

@@ -15,6 +15,7 @@ const io = require("socket.io")(server, {
     }
 })
 const {Chat} = require("./models/Chat")
+const Online = require("./frontend/src/components/online/online_logic");
 
 const connect = mongoose
 .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -43,9 +44,34 @@ app.use("/api/users", users);
 app.use("/api/chat", chat)
 //
  
-let gameState = {board: [], players: [] , currentPlayer: {}, currentColor: "", gameOver: false}
+let gameState = {
+          board: [[null, null, null, null, null, null, null],
+                  [null, null, null, null, null, null, null],
+                  [null, null, null, null, null, null, null],
+                  [null, null, null, null, null, null, null],
+                  [null, null, null, null, null, null, null],
+                  [null, null, null, null, null, null, null]],
+          // board: [],
+          players: [],
+          currentPlayer: {}, 
+          currentColor: "", 
+          gameOver: false}
+// try saving gameState as JSON
+
 io.on("connection", socket => {
-  let defaultState = { board: [], players: [], currentPlayer: {}, currentColor: "", gameOver: false}
+  let defaultState = {
+          board: [[null, null, null, null, null, null, null],
+                  [null, null, null, null, null, null, null],
+                  [null, null, null, null, null, null, null],
+                  [null, null, null, null, null, null, null],
+                  [null, null, null, null, null, null, null],
+                  [null, null, null, null, null, null, null]],
+          // board: [],
+          players: [],
+          currentPlayer: {},
+          currentColor: "",
+          gameOver: false
+  }
   // chatbox sockets
   socket.on("Input Chat Message", msg => { 
     connect.then(db => {
@@ -70,6 +96,9 @@ io.on("connection", socket => {
   // add players to game
   socket.on("join game", player => {
       if (gameState.players.length < 2) {
+        if (gameState.players.length == 0) {
+          gameState.currentPlayer = player
+        }
         gameState.players.push(player)
         io.emit("joined game", "player joined the game")
       } 
@@ -80,7 +109,11 @@ io.on("connection", socket => {
   socket.on("disconnect", () => {
     gameState = Object.assign({}, defaultState)
     socket.broadcast.emit("end game")
-    })
+  })
 
-  socket.on("get game", () => io.emit("send game", gameState))
+  // socket.on("get game", () => io.emit("send game", gameState))
+  // // very laggy
+
+  
+
 })
