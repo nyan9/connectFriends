@@ -167,7 +167,7 @@ class Board extends React.Component {
 
         return(
             <div>
-                <h2>this is the board component</h2>
+                {/* <h2>this is the board component</h2> */}
                 <div className="board">
                     {grid}
                 
