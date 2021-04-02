@@ -117,12 +117,12 @@ class Game extends React.Component {
                     handletie={this.handletie}
                     tie={this.state.tie}
                 />
+                <Chatbox/>
 
                  {this.winMsg}
 
                 {rematch}
 
-                <Chatbox/>
                 
             </div>
         )

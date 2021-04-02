@@ -46,11 +46,11 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
-  left: 79%;
+  left: 75%;
   top: -545px;
   border: 1px solid lightgray;
   border-radius: 5px;
-  width: 300px;
+  width: 360px;
   opacity: 0.5;
   background: black;
   color: white;
