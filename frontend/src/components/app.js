@@ -21,7 +21,9 @@ const App = () => (
       <ProtectedRoute exact path="/cpu" component={Game} />
       <ProtectedRoute exact path="/local" component={Game} />
       <ProtectedRoute exact path="/online" component={Game} />
-      <ProtectedRoute exact path="/leaderboard" component={Leaderboard}/>
+      <div className="leaderboardContainerdiv">
+        <Route exact path="/leaderboard" component={Leaderboard}/>
+      </div>
     </Switch>
   </div>
 );

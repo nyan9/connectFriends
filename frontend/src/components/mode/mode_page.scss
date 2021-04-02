@@ -81,7 +81,7 @@ a {
   cursor: pointer;
 }
 
-.card-header h2:hover {
+.card:hover .card-header h2 {
   background: linear-gradient(90deg, #ff8a00, #e52e71);
   text-shadow: none;
   -webkit-text-fill-color: transparent;
