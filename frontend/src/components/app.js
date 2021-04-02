@@ -2,6 +2,7 @@ import React from "react";
 import { AuthRoute, ProtectedRoute } from "../util/route_util";
 
 import Game from '../components/game';
+import OnlineGame from '../components/online/online';
 import Chatbox from '../components/chatbox/chatbox'
 import ModePage from './mode/mode_page'
 import Leaderboard from './leaderboard/leaderboard'
@@ -20,7 +21,7 @@ const App = () => (
       <Route exact path="/" component={ModePage} />
       <ProtectedRoute exact path="/cpu" component={Game} />
       <ProtectedRoute exact path="/local" component={Game} />
-      <ProtectedRoute exact path="/online" component={Game} />
+      <ProtectedRoute exact path="/online" component={OnlineGame} />
       <ProtectedRoute exact path="/leaderboard" component={Leaderboard}/>
     </Switch>
   </div>

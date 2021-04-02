@@ -36,9 +36,16 @@ app.use(require('cors')())
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-  
-
+// this was inside socket.io 
+app.use(passport.initialize());
+require("./config/passport")(passport);
+app.use("/api/users", users);
+app.use("/api/chat", chat)
+//
+ 
+let gameState = {board: [], players: [] , currentPlayer: {}, currentColor: "", gameOver: false}
 io.on("connection", socket => {
+  let defaultState = { board: [], players: [], currentPlayer: {}, currentColor: "", gameOver: false}
   // chatbox sockets
   socket.on("Input Chat Message", msg => { 
     connect.then(db => {
@@ -59,16 +66,19 @@ io.on("connection", socket => {
   })
 
   // testing socket in game component
-  socket.on("current color", color => {
-    return(socket.emit("test", color))
+
+  // add players to game
+  socket.on("join game", player => {
+      if (gameState.players.length < 2) {
+        gameState.players.push(player)
+        io.emit("joined game", "player joined the game")
+      } 
+      io.emit("send msg", `${player.username} connected`)    
+      io.emit("send msg", `${gameState.players.length} is gameState.players`)
   })
 
-  
+  socket.on("disconnect", () => {
+    gameState = Object.assign({}, defaultState)
+    socket.broadcast.emit("end game")
+    })
 })
-  
-  
-  app.use(passport.initialize());
-  require("./config/passport")(passport);
-  
-  app.use("/api/users", users);
-  app.use("/api/chat", chat)
