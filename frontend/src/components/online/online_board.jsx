@@ -33,12 +33,15 @@ export default class OnlineBoard extends React.Component {
     placePiece(e){
         e.preventDefault();
         this.props.socket.emit("play turn", this.props.currentUser)
+        let lastPos = null;
         this.props.socket.on("allow turn", () => {
-            let lastPos = this.board.lastPiecePos(parseInt(e.target.className))
+            lastPos = this.board.lastPiecePos(parseInt(e.target.className))
             // fills last position of column with a piece object
-            debugger
-            this.props.socket.emit("send pos", lastPos)
         })
+        // the following code needs to be asynchronous bc the above code is as well
+        setTimeout(() => {
+            if (lastPos) this.props.socket.emit("send pos", lastPos)
+        }, 0)
     }
 
     updateBoard(lastPos_and_color){

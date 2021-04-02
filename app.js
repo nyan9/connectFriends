@@ -130,10 +130,8 @@ io.on("connection", socket => {
   })
 
   socket.on("send pos", lastPos => {
-    debugger
     game.fillPos(lastPos[0], lastPos[1], gameState.currentColor)
     io.emit("update board", [lastPos, gameState.currentColor])
-    debugger
     if (gameState.currentPlayer.id === gameState.players[0].id) { // switch turn logic //
       gameState.currentPlayer = gameState.players[1]
       gameState.currentColor = "yellow"
@@ -141,8 +139,5 @@ io.on("connection", socket => {
       gameState.currentPlayer = gameState.players[0]
       gameState.currentColor = "red"
     }
-    debugger
   })
-  
-
 })
