@@ -20,6 +20,26 @@ router.get("/getUsers", (req, res) => {
         })
 })
 
+router.get("/getUser/:username", (req, res)=>{
+  User.findOne({username: req.params.username})
+    .exec((err,users)=>{
+      if (err) return res.status(400).send(err)
+      res.status(200).send(users)
+    })
+})
+
+router.post("/update", (req,res)=>{
+  
+  console.log('username: ', req.body.username)
+  console.log('elo: ', req.body.elo)
+  
+  const result = User.findOneAndUpdate({username: req.body.username}, {elo: req.body.elo},{new: true})
+      .exec((err, user) => {
+        if (err) return res.status(400).send(err)
+        res.status(200).send(user)
+      })
+})
+
 
 router.get(
   "/current",
@@ -27,7 +47,7 @@ router.get(
   (req, res) => {
     res.json({
       id: req.user.id,
-      username: req.user.username,
+      username: req.user.username
     });
   }
 );
@@ -49,6 +69,7 @@ router.post("/register", (req, res) => {
       const newUser = new User({
         username: req.body.username,
         password: req.body.password,
+        // elo: 1200,
       });
 
       bcrypt.genSalt(10, (err, salt) => {
@@ -98,7 +119,7 @@ router.post("/login", (req, res) => {
 
     bcrypt.compare(password, user.password).then((isMatch) => {
       if (isMatch) {
-        const payload = { id: user.id, username: user.username };
+        const payload = { id: user.id, username: user.username , elo: user.elo};
 
         jwt.sign(
           payload,

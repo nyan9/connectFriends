@@ -9,7 +9,7 @@ export function bestMove(board, color) {
             if((board.emptyAt(i,j))&&(!board.emptyAt(i+1,j) || i === 5)) { //make sure it's the bottom most empty in col
                 board.grid[i][j] = new Piece(color); //place the piece
                 let pos = [i,j]
-                let score= minimax(board, false, color, pos, 6); //run algo, search 7 moves ahead
+                let score= minimax(board, false, color, pos, 5); //run algo, search 7 moves ahead
                 board.grid[i][j] = null; // remove that piece
                 if(score > bestScore) {
                     bestScore = score;
@@ -30,7 +30,7 @@ let scores = {
 
 export function minimax(board, isMaximizing, color, pos, depth) {
     //need to check each winning position
-    // debugger;
+    // ;
     let result = board.aiWin(pos[0],pos[1]); //, but need to return the color that wins or tie
     // let wincolor;
     // wincolor = result ? "black" : "red" : "tie"
