@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-const Online = require("./online_logic");
+import { Board } from "./online_logic";
 
 export default class OnlineBoard extends React.Component {
   constructor(props) {
     super(props);
-    this.board = new Online.Board(this.props.board);
+    this.board = new Board(this.props.board);
 
     this.toggleHover = this.toggleHover.bind(this);
     this.placePiece = this.placePiece.bind(this);

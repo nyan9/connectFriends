@@ -16,7 +16,7 @@ const io = require("socket.io")(server, {
 });
 
 const { Chat } = require("./models/Chat");
-const Online = require("./frontend/src/components/online/online_logic");
+import * as Online from "./frontend/src/components/online/online_logic";
 
 const connect = mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
