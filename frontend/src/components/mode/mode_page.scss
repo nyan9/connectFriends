@@ -13,7 +13,7 @@
   // background: #17141d;
   // box-shadow: -1rem 0 3rem #17141d;
   background: var(--clr-dark-green);
-  box-shadow: -1rem 0 3rem #000;
+  box-shadow: -1rem 0 3rem rgba(0, 0, 0, 0.973);
   display: flex;
   flex-direction: column;
   transition: 0.2s;
@@ -29,7 +29,7 @@
 
 .card:hover {
   transform: translateY(-1rem);
-  box-shadow: -1rem 2rem 3rem var(--clr-light-green);
+  box-shadow: -1rem 2rem 10rem var(--clr-light-green);
 }
 
 .card:focus-within ~ .card,

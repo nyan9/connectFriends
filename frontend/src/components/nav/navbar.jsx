@@ -1,54 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Modal } from "../modal/modal";
 import { FaPlay, FaGlobeAmericas, FaBackspace } from "react-icons/fa";
 import "./navbar.scss";
 
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      showModal: false,
-    };
 
-    this.logoutUser = this.logoutUser.bind(this);
     this.getLinks = this.getLinks.bind(this);
-    this.toggleModal = this.toggleModal.bind(this);
-  }
-
-  toggleModal(e) {
-    e.preventDefault();
-    this.setState({
-      showModal: !this.state.showModal,
-    });
-  }
-
-  logoutUser(e) {
-    e.preventDefault();
-    this.props.logout();
   }
 
   // Selectively render links dependent on whether the user is logged in
   getLinks() {
     if (this.props.loggedIn) {
       return (
-        <div className="nav__btn nav__btn-logout" onClick={this.logoutUser}>
+        <div className="nav__btn nav__btn-logout" onClick={this.props.logout}>
           <FaBackspace />
           <span>Logout</span>
+          <button onClick={this.props.logout}>LOGOUT</button>
         </div>
       );
     } else {
       return (
-        <>
-          <Modal
-            showModal={this.state.showModal}
-            toggleModal={this.toggleModal}
-          />
-          <div className="nav__btn nav__btn-login" onClick={this.toggleModal}>
-            <FaGlobeAmericas />
-            <span>Login</span>
-          </div>
-        </>
+        <div
+          className="nav__btn nav__btn-login"
+          onClick={() => this.props.openModal("login")}
+        >
+          <FaGlobeAmericas />
+          <span>Login</span>
+        </div>
       );
     }
   }
