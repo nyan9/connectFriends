@@ -107,6 +107,7 @@ class Game extends React.Component {
         )
 
         return(
+
             <div className="gameDivContainer">
                 {/* <h1>this is the game component</h1> */}
                 <div className="daddyContainerDiv">
@@ -132,6 +133,7 @@ class Game extends React.Component {
                     {this.winMsg}
                     {rematch}
                 </div>
+
                 
             </div>
         )
