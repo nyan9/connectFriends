@@ -46,10 +46,14 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
-  left: 75%;
-  top: -537px;
+  left: 79%;
+  top: -545px;
   border: 1px solid lightgray;
+  border-radius: 5px;
   width: 300px;
+  opacity: 0.5;
+  background: black;
+  color: white;
 }
 
 .outer-leaderboard{
@@ -58,4 +62,38 @@ body {
   width: 50%;
   margin-left: 25%;
   margin-right: 25%;
+}
+
+.chat-input{
+  outline:none;
+  height:28px;
+  width: 90%;
+  background:black; 
+  color:white;
+  padding-left: 13px;
+  border:0px solid black;
+}
+
+.chat-content{
+      display: flex;
+    margin-top: 0px;
+    font-size: 15px;
+    margin-left: 4px;
+    margin-bottom: 5px;
+      font-family: fantasy;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.chat-emoji{
+  position:relative;
+  top:6px;
+  left:5px;
+}
+.chat-emoji:hover{
+  cursor:pointer;
+}
+
+.chat-form:focus-within{
+  box-shadow: 0px 0px 3px 3px lightblue;
 }
