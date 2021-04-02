@@ -19,6 +19,10 @@
   scroll-snap-align: start;
   clear: both;
   position: relative;
+
+  &-logo {
+    margin-bottom: 2em;
+  }
 }
 
 .card:hover {
@@ -68,7 +72,7 @@
     display: inline-flex;
     color: white;
     position: absolute;
-    left: 14px;
+    left: 38px;
     top: -48px;
 
     &:hover {
@@ -76,12 +80,12 @@
       height: 3em;
       background: linear-gradient(90deg, var(--clr-pink), var(--clr-yellow));
       background-size: cover;
-      animation: animate 5s infinite;
+      animation: animateBlob 3s infinite;
     }
   }
 }
 
-@keyframes animate {
+@keyframes animateBlob {
   0%,
   100% {
     border-radius: 64% 36% 27% 73% / 55% 58% 42% 45%;

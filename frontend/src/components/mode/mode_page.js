@@ -14,11 +14,11 @@ class ModePage extends React.Component {
       <section class="card-list">
         <article class="card">
           <header class="card-header">
-            <h2>2 Player</h2>
+            <h2>You vs you</h2>
           </header>
 
           <div class="card-logo">
-            <img src="%PUBLIC_URL%/../single2.svg" width="300" height="300" />
+            <img src="%PUBLIC_URL%/../single2.svg" width="250" height="250" />
           </div>
 
           <div class="card-button">
@@ -30,11 +30,11 @@ class ModePage extends React.Component {
 
         <article class="card">
           <header class="card-header">
-            <h2>1 Player vs AI</h2>
+            <h2>You vs AI</h2>
           </header>
 
           <div class="card-logo">
-            <img src="%PUBLIC_URL%/../alien.svg" width="300" height="300" />
+            <img src="%PUBLIC_URL%/../alien.svg" width="250" height="250" />
           </div>
 
           <div class="card-button">
@@ -50,7 +50,7 @@ class ModePage extends React.Component {
           </header>
 
           <div class="card-logo">
-            <img src="%PUBLIC_URL%/../online1.svg" width="300" height="300" />
+            <img src="%PUBLIC_URL%/../online1.svg" width="250" height="250" />
           </div>
 
           <div class="card-button">
