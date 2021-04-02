@@ -22,6 +22,7 @@
     "url": "https://github.com/nyan9/connectFriends/issues"
   },
   "homepage": "https://github.com/nyan9/connectFriends#readme",
+  "type": "module",
   "dependencies": {
     "antd": "^4.15.0",
     "bcryptjs": "^2.4.3",

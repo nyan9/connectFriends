@@ -1,6 +1,6 @@
 import React from "react";
 import OnlineBoard from "./online_board";
-import * as Online from "./online_logic";
+// import * as Online from "./online_logic";
 import { connect } from "react-redux";
 import Chatbox from "../chatbox/chatbox";
 import { io } from "socket.io-client";
@@ -28,6 +28,7 @@ class OnlineGame extends React.Component {
     this.winGame = this.winGame.bind(this);
     this.tieGame = this.tieGame.bind(this);
 
+
     this.socket = io.connect("https://connectfriends.herokuapp.com/", {secure: true});
     // this.socket = io.connect("http://localhost:5000/", {secure: true});
 
@@ -38,12 +39,7 @@ class OnlineGame extends React.Component {
         this.props.history.push("/")
         alert("Opponent has disconnected")
     })
-}
-
-    componentWillUnmount(){
-        this.socket.disconnect()
-    }
-
+  }
 
   componentWillUnmount() {
     this.socket.disconnect();
@@ -82,6 +78,7 @@ class OnlineGame extends React.Component {
           winGame={this.winGame}
           tieGame={this.tieGame}
         />
+        <Chatbox />
         {winMsg}
       </div>
     );
