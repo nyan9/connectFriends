@@ -42,16 +42,16 @@ class Board extends React.Component {
                     // this.props.board.fillPos(i, y, "red")
                     this.props.board.fillPos(i, y, this.props.currentColor)
                     // this.props.currentPlayer.color instead
-                    // if (this.props.gameOver){
-                    //     this.setState({gameOver:true})
-                    // } 
-                    // if (this.props.tie) {
-                    //     this.setState({gameOver:true})
-                    // }
+                    if (this.props.gameOver){
+                        this.setState({gameOver:true})
+                    } 
+                    if (this.props.tie) {
+                        this.setState({gameOver:true})
+                    }
                     
                     if (this.props.board.win(i,y)){
                         this.props.handlewin()
-                        // this.setState({gameOver:true})
+                        this.setState({gameOver:true})
                         if(this.props.user){
                             this.props.updateRating(this.props.user.username, (this.props.user.elo + 10))
                             setTimeout(()=>{
@@ -80,7 +80,7 @@ class Board extends React.Component {
                             
                             if (this.props.board.win(aiPos[0],aiPos[1])){
                                 this.props.handleloss()
-                                // this.setState({gameOver:true})
+                                this.setState({gameOver:true})
                                 
                                 if(this.props.user){
                                     this.props.updateRating(this.props.user.username, (this.props.user.elo - 10))
