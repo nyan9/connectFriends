@@ -5,16 +5,18 @@ import {connect} from "react-redux";
 import moment from "moment";
 import {getChat, afterPostMessage, resetChat} from "../../actions/chat_actions"
 import ChatCard from "./chatcard"
-
+import {HiOutlineEmojiHappy} from 'react-icons/hi'
 
 class Chatbox extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            chatMessage: " ",
+            chatMessage: "",
+            chat:' '
         }
         this.handleInput = this.handleInput.bind(this)
        this.handleSubmit = this.handleSubmit.bind(this)
+       this.handleEmoji = this.handleEmoji.bind(this)
     }
 
     componentDidMount(){
@@ -27,8 +29,8 @@ class Chatbox extends React.Component {
 
         this.socket.on("Output Chat Message", messageFromBackEnd => {
             
-            if (this.state.chatMessage === ''){
-                this.setState({ chatMessage: ' '})
+            if (this.state.chat === ''){
+                this.setState({ chat: ' '})
                 this.props.afterPostMessage(messageFromBackEnd)}
                 this.props.getChats()
                 
@@ -37,8 +39,10 @@ class Chatbox extends React.Component {
         )
     } 
     componentDidUpdate(){
-        this.messagesEnd.scrollIntoView({behavior: 'smooth'})
+        this.messagesEnd.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'start'})
     }
+    
+  
     handleInput(e) {
         this.setState({
             chatMessage: e.target.value
@@ -62,6 +66,13 @@ class Chatbox extends React.Component {
         this.setState({ chatMessage:''})
     }
 
+    handleEmoji(e){
+        e.preventDefault()
+        this.setState({
+            chatMessage: this.state.chatMessage + '🥸'
+        })
+    }
+
     renderCards = () => (
         
         this.props.chats && 
@@ -75,7 +86,7 @@ class Chatbox extends React.Component {
         return (
             <div className="outer-chatbox">
                 <div>
-                    <p style={{borderBottom: '1px solid black', marginBottom: '1px', paddingBottom: '10px'}}>Chat with opponent</p>
+                    <p style={{borderBottom: '1px solid black', marginBottom: '1px', paddingBottom: '10px', fontWeight:'bold', fontSize:'20px'}}>Chat</p>
                 </div>
                 <div>
                     
@@ -92,9 +103,9 @@ class Chatbox extends React.Component {
                  
                 </div>
                 
-                <form onSubmit={(e) => this.handleSubmit(e)}>
-                    <input type='text' placeholder="Start chatting" value={this.state.chatMessage} onChange={this.handleInput} style={{width: '88%'}}/>
-                    <button>Send</button>
+                <form onSubmit={(e) => this.handleSubmit(e)} className='chat-form'style={{display:'flex', border:'1px solid lightgray'}}>
+                    <p onClick={this.handleEmoji} className='chat-emoji'><HiOutlineEmojiHappy/></p><input type='text' placeholder="Start chatting" value={this.state.chatMessage} onChange={this.handleInput} className="chat-input" />
+                    {/* <button>Send</button> */}
                 </form>
             </div>
         )
