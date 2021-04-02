@@ -68,11 +68,11 @@ class NavBar extends React.Component {
 
   render() {
     return (
-      <>
-        {this.getLinks()}
+      <section>
         <div>LOGO HERE</div>
         <Link to={"/"}>Play Mode</Link>
-      </>
+        {this.getLinks()}
+      </section>
     );
   }
 }

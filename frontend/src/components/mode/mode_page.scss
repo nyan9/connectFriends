@@ -80,12 +80,12 @@
       height: 3em;
       background: linear-gradient(90deg, var(--clr-pink), var(--clr-yellow));
       background-size: cover;
-      animation: animateBlob 3s infinite;
+      animation: blob-btn 3s infinite;
     }
   }
 }
 
-@keyframes animateBlob {
+@keyframes blob-btn {
   0%,
   100% {
     border-radius: 64% 36% 27% 73% / 55% 58% 42% 45%;
