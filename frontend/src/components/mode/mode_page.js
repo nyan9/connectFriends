@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { resetChat } from "../../actions/chat_actions";
 import "./mode_page.scss";
+import { FaPlay } from "react-icons/fa";
 
 class ModePage extends React.Component {
   componentDidMount() {
@@ -11,32 +12,35 @@ class ModePage extends React.Component {
   render() {
     return (
       <section class="card-list">
-        <h1 class="hello">HELLO FRIENDS</h1>
         <article class="card">
           <header class="card-header">
-            <h2>Single Player(AI)</h2>
+            <h2>You vs you</h2>
           </header>
 
           <div class="card-logo">
-            <h2>LOGO HERE</h2>
+            <img src="%PUBLIC_URL%/../single2.svg" width="250" height="250" />
           </div>
 
           <div class="card-button">
-            <Link to="/cpu"> Play </Link>
+            <Link to="/local">
+              <FaPlay />
+            </Link>
           </div>
         </article>
 
         <article class="card">
           <header class="card-header">
-            <h2>Local 2 Player (Local)</h2>
+            <h2>You vs AI</h2>
           </header>
 
           <div class="card-logo">
-            <h2>LOGO HERE</h2>
+            <img src="%PUBLIC_URL%/../alien.svg" width="250" height="250" />
           </div>
 
           <div class="card-button">
-            <Link to="/local"> Play </Link>
+            <Link to="/cpu">
+              <FaPlay />
+            </Link>
           </div>
         </article>
 
@@ -46,11 +50,13 @@ class ModePage extends React.Component {
           </header>
 
           <div class="card-logo">
-            <h2>LOGO HERE</h2>
+            <img src="%PUBLIC_URL%/../online1.svg" width="250" height="250" />
           </div>
 
           <div class="card-button">
-            <Link to="/online"> Play </Link>
+            <Link to="/online">
+              <FaPlay />
+            </Link>
           </div>
         </article>
       </section>
