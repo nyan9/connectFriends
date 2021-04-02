@@ -32,9 +32,9 @@ class OnlineGame extends React.Component {
         this.socket.on("joined game", msg => console.log(msg))
         this.socket.on("send msg", msg => console.log("msg:", msg))
         this.socket.on("end game", () => {
+            this.props.history.push("/")
             alert("Opponent has disconnected")
-            this.props.history.push("/")}
-            )
+        })
     }
 
     componentWillUnmount(){
