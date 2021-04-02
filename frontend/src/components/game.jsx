@@ -4,6 +4,7 @@ import * as Connect4 from '../connect4/connect4';
 import {connect} from 'react-redux'
 import Chatbox from './chatbox/chatbox'
 import { io } from "socket.io-client";
+import './stylesheets/game.scss';
 
 class Game extends React.Component {
     constructor(props) {
@@ -84,41 +85,51 @@ class Game extends React.Component {
         let rematch = ""
 
         if (this.state.gameOver){
-            rematch = <button onClick={this.rematch}>Rematch</button>
+            rematch = <button className="rematchbtn" onClick={this.rematch}>Rematch?</button>
         }
 
         let winloss = (
-            <div>
-                win:{this.state.win}
+            <div className="winlosstiecontainer">
+                <div className="winnered">
+                    win:{this.state.win}
+                </div>
+                <div className="losered">
                     loss:{this.state.loss}
+                </div>
+                <div className="tiered">
                     tie:{this.state.tieCount}
+                </div>
             </div>
         )
 
         return(
-            <div>
-                <h1>this is the game component</h1>
-                {(this.state.type === "/local") ? "" : winloss}
-                 
-                <Board
-                    key={this.state.key} 
-                    board={this.state.board}
-                    updateGame={this.updateGame}
-                    currentColor={this.state.currentColor}
-                    gameOver={this.state.gameOver}
-                    type={this.state.type}
-                    rematch={this.rematch}
-                    handlewin={this.handlewin}
-                    handleloss={this.handleloss}
-                    handletie={this.handletie}
-                    tie={this.state.tie}
-                />
 
-                 {this.winMsg}
-
-                {rematch}
-
+            <div className="gameDivContainer">
+                {/* <h1>this is the game component</h1> */}
+                <div className="daddyContainerDiv">
+                    <div className="containerDiv">
+                        {(this.state.type === "/local") ? "" : winloss} 
+                        <Board
+                            key={this.state.key} 
+                            board={this.state.board}
+                            updateGame={this.updateGame}
+                            currentColor={this.state.currentColor}
+                            gameOver={this.state.gameOver}
+                            type={this.state.type}
+                            rematch={this.rematch}
+                            handlewin={this.handlewin}
+                            handleloss={this.handleloss}
+                            handletie={this.handletie}
+                            tie={this.state.tie}
+                        />
+                    </div>
+                </div>
                 <Chatbox/>
+                <div className="endGameMess">
+                    {this.winMsg}
+                    {rematch}
+                </div>
+
                 
             </div>
         )

@@ -1,28 +1,31 @@
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Arial", sans-serif;
+}
+
+html {
+  --clr-dark-green: #073b4c;
+  --clr-blue: #118ab2;
+  --clr-light-green: #06d6a0;
+  --clr-yellow: #ffd166;
+  --clr-pink: #ef476f;
+  --font-family: "DM Mono", monospace;
 }
 
 body {
   height: 100vh;
   width: 100vw;
+  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  background-color: #073b4c;
+  font-family: "DM Mono", monospace;
+  text-align: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-body {
-  text-align: center;
+  overflow-x: hidden;
 }
 
 .board {
@@ -40,16 +43,19 @@ body {
   margin: 10px;
 }
 
-.outer-chatbox{
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    left: 75%;
-    top: -537px;
-    border: 1px solid lightgray;
-    width: 300px;
+.outer-chatbox {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  left: 75%;
+  top: -545px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  width: 360px;
+  opacity: 0.5;
+  background: black;
+  color: white;
 }
-
 
 .outer-leaderboard{
   display: flex;
@@ -59,3 +65,40 @@ body {
   margin-right: 25%;
 }
 
+.chat-input{
+  outline:none;
+  height:28px;
+  width: 90%;
+  background:black; 
+  color:white;
+  padding-left: 13px;
+  border:0px solid black;
+}
+
+.chat-content{
+      display: flex;
+    margin-top: 0px;
+    font-size: 15px;
+    margin-left: 4px;
+    margin-bottom: 5px;
+      font-family: fantasy;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.chat-emoji{
+  position:relative;
+  top:6px;
+  left:5px;
+}
+.chat-emoji:hover{
+  cursor:pointer;
+}
+
+.chat-form:focus-within{
+  box-shadow: 0px 0px 3px 3px lightblue;
+}
+
+.board{
+  box-shadow: 0px 0px 8px 8px #39e4ff73;
+}
