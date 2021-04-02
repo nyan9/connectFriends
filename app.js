@@ -141,6 +141,6 @@ io.on("connection", socket => {
     }
   })
 
-  socket.on("win game", () => gameState.gameOver = true)
+  socket.on("finish game", () => gameState.gameOver = true)
 
 })

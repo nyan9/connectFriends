@@ -5,20 +5,12 @@ import * as Online from "./online_logic";
 export default class OnlineBoard extends React.Component {
     constructor(props) {
         super(props)
-        // board = { this.state.board } // this is actually just a 2d array instance
-        // players = { this.state.players }
-        // currentPlayer = { this.state.currentPlayer }
-        // currentColor = { this.state.currentColor }
-        // gameOver = { this.state.gameOver }
-        // currentUser = { this.props.currentUser }
-        // socket = { this.socket }
-       this.board = new Online.Board(this.props.board)
+        this.board = new Online.Board(this.props.board)
 
-       // bound callbacks
-       this.toggleHover = this.toggleHover.bind(this)
-       this.placePiece = this.placePiece.bind(this)
-       this.updateBoard = this.updateBoard.bind(this)
-       this.checkWin = this.checkWin.bind(this)
+        this.toggleHover = this.toggleHover.bind(this)
+        this.placePiece = this.placePiece.bind(this)
+        this.updateBoard = this.updateBoard.bind(this)
+        this.checkWin = this.checkWin.bind(this)
     }
 
     componentDidMount() {
@@ -29,9 +21,15 @@ export default class OnlineBoard extends React.Component {
         })
 
         // shitty solution but it works, asynchronously checks to see if game is over
+        // limited because we don't know who the winner is
         setInterval(() => {
             if (lastPos) {
-                if (this.checkWin(lastPos)) this.props.winGame();
+                if (this.checkWin(lastPos)) {
+                    let color = this.board.grid[lastPos[0]][lastPos[1]].color
+                    this.props.winGame(color);
+                } else if (!this.checkWin(lastPos) && this.board.full()) {
+                    this.props.tieGame();
+                }
             } 
         },0) 
     }

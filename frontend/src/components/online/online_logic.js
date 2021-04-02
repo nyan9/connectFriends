@@ -165,6 +165,12 @@ class Board {
         }
         if (up + 1 >= 4) return true;
     }
+    
+    full() {
+        return (
+            this.grid.flat().every(ele => ele instanceof Piece)
+        )
+    }
 }
 
 class Piece {

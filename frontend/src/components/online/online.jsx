@@ -19,12 +19,12 @@ class OnlineGame extends React.Component {
             currentPlayer: {},
             currentColor: "red",
             gameOver: false,
-            winner: ""
+            tie: false,
+            winColor: ""
         }
 
-        // this.getServerState = this.getServerState.bind(this) // too laggy
         this.winGame = this.winGame.bind(this);
-
+        this.tieGame = this.tieGame.bind(this);
 
         // this.socket = io.connect("https://connectfriends.herokuapp.com/", {secure: true});
         this.socket = io.connect("http://localhost:5000/", {secure: true});
@@ -35,32 +35,30 @@ class OnlineGame extends React.Component {
             alert("Opponent has disconnected")
             this.props.history.push("/")}
             )
-
     }
 
     componentWillUnmount(){
         this.socket.disconnect()
     }
 
-    // getServerState() {
-    //     this.socket.emit("get game")
-    //     // this.socket.on("send game", gameState => this.setState(gameState))
-    //     this.socket.on("send game", gameState => console.log("gameState:", gameState))
-    // }
-    // // this works but it's very very laggy
+    winGame(color) {
+        this.setState({gameOver: true, winColor: color})
+        this.socket.emit("finish game")
+    }
 
-
-    winGame() {
-        this.setState({gameOver: true})
-        this.socket.emit("win game")
+    tieGame(){
+        this.setState({gameOver: true, tie: true})
+        this.socket.emit("finish game")
     }
 
     render() {
-        // this.getServerState() // too laggy
         let winMsg = "" 
-        if (this.state.gameOver) {
-            winMsg = <div>GAME OVER</div>
+        if (this.state.gameOver && !this.state.tie) {
+            winMsg = <div>GAME OVER! {this.state.winColor.toUpperCase()} Wins!!!</div>
+        } else if (this.state.gameOver && this.state.tie) {
+            winMsg = <div>It's a tie!</div>
         }
+
         return ( 
                 <div>
                     <OnlineBoard 
@@ -72,6 +70,7 @@ class OnlineGame extends React.Component {
                         currentUser={this.props.currentUser}
                         socket={this.socket}
                         winGame={this.winGame}
+                        tieGame={this.tieGame}
                     />
                     {winMsg}
                 </div>
