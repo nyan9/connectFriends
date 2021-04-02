@@ -94,8 +94,8 @@ class Game extends React.Component {
         let winloss = (
             <div>
                 win:{this.state.win}
-                    loss:{this.state.loss}
-                    tie:{this.state.tieCount}
+                loss:{this.state.loss}
+                tie:{this.state.tieCount}
             </div>
         )
 
