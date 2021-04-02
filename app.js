@@ -81,4 +81,6 @@ io.on("connection", socket => {
     gameState = Object.assign({}, defaultState)
     socket.broadcast.emit("end game")
     })
+
+  socket.on("get game", () => io.emit("send game", gameState))
 })

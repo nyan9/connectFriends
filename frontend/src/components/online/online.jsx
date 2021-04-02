@@ -16,6 +16,7 @@ class OnlineGame extends React.Component {
             gameOver: false
         }
 
+        this.getServerState = this.getServerState.bind(this)
 
         // this.socket = io.connect("https://connectfriends.herokuapp.com/", {secure: true});
         this.socket = io.connect("http://localhost:5000/", {secure: true});
@@ -31,8 +32,14 @@ class OnlineGame extends React.Component {
     componentWillUnmount(){
         this.socket.disconnect()
     }
+
+    getServerState() {
+        this.socket.emit("get game")
+        this.socket.on("send game", gameState => this.setState(gameState))
+    }
     
     render() {
+        this.getServerState()
         return ( 
                 <OnlineBoard 
                 />
