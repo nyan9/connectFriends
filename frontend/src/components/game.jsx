@@ -50,16 +50,18 @@ class Game extends React.Component {
         if (this.state.board.gameOver) {
             this.setState({gameOver: true})
             this.winMsg = <div id="winMsg">{this.state.currentColor} wins!</div>
+            this.setState({board:this.state.board})
+            return;
         }
         
         if (this.state.board.full() && !this.state.board.gameOver) {
 
             this.setState({gameOver: true, tie: true, tieCount: this.state.tieCount + 1})
             this.winMsg = <div id="winMsg">It's a tie!</div>
-
+            this.setState({ board: this.state.board })
+            return;
         }
         
-        this.setState({board: this.state.board})
         if (this.state.currentColor == "red") {
             // setState({currentPlayer})
             this.setState({currentColor: "yellow"})
@@ -71,7 +73,7 @@ class Game extends React.Component {
     rematch(){
         let newBoard = new Connect4.Board(6,7)
         this.winMsg = ""
-        this.setState({board: newBoard, gameOver:false, key: this.state.key + 1})
+        this.setState({board: newBoard, gameOver:false, currentColor: "red", key: this.state.key + 1})
     }
     handlewin(){
         this.setState({win: this.state.win + 1})
