@@ -31,7 +31,8 @@ class NavBar extends React.Component {
     this.toggleModal = this.toggleModal.bind(this);
   }
   componentDidMount(){
-    if(this.props.currentUser){
+    debugger
+    if(this.props.loggedIn){
             this.props.getUser(this.props.currentUser.username)
       }
   }
@@ -51,9 +52,12 @@ class NavBar extends React.Component {
   // Selectively render links dependent on whether the user is logged in
   getLinks() {
     if (this.props.loggedIn) {
+      debugger
       return (
         <div>
           <button onClick={this.logoutUser}>Logout</button>
+          <div key={this.props.user.elo}>{this.props.user.elo}</div>
+          <div>{this.props.user.username}</div>
         </div>
       );
     } else {
@@ -72,19 +76,12 @@ class NavBar extends React.Component {
   }
 
   render() {
-    let rating = ""
-    if (this.props.user){
-      rating = <div>
-                <div>{this.props.user.elo}</div>
-                <div>{this.props.user.username}</div>
-              </div>
-    }
     return (
       <>
         {this.getLinks()}
         <div>LOGO HERE</div>
         <Link to={"/"}>Play Mode</Link>
-        {rating}
+        
       </>
     );
   }

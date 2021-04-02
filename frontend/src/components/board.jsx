@@ -54,6 +54,9 @@ class Board extends React.Component {
                         this.setState({gameOver:true})
                         if(this.props.user){
                             this.props.updateRating(this.props.user.username, (this.props.user.elo + 10))
+                            setTimeout(()=>{
+                                this.props.getUser(this.props.currentUser.username)
+                            }, 10)
                         }
                     }
                     // document.getElementById(`${i},${y}`).style.backgroundColor = "red"
@@ -80,9 +83,10 @@ class Board extends React.Component {
                                 this.setState({gameOver:true})
                                 
                                 if(this.props.user){
-                                    
                                     this.props.updateRating(this.props.user.username, (this.props.user.elo - 10))
-                                    this.props.getUser(this.props.currentUser.username)
+                                    setTimeout(()=>{
+                                        this.props.getUser(this.props.currentUser.username)
+                                    }, 10)
                                 }
                             }
 
