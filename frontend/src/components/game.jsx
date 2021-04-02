@@ -50,15 +50,19 @@ class Game extends React.Component {
         if (this.state.board.gameOver) {
             this.setState({gameOver: true})
             this.winMsg = <div id="winMsg">{this.state.currentColor} wins!</div>
+            this.setState({ board: this.state.board })
+            return;
         }
         
         if (this.state.board.full() && !this.state.board.gameOver) {
 
             this.setState({gameOver: true, tie: true, tieCount: this.state.tieCount + 1})
             this.winMsg = <div id="winMsg">It's a tie!</div>
+            this.setState({ board: this.state.board })
+            return;
         }
         
-        this.setState({board: this.state.board})
+        // this.setState({board: this.state.board})
         if (this.state.currentColor == "red") {
             // setState({currentPlayer})
             this.setState({currentColor: "yellow"})
