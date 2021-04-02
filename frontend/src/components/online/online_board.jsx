@@ -11,20 +11,77 @@ export default class OnlineBoard extends React.Component {
         // currentColor = { this.state.currentColor }
         // gameOver = { this.state.gameOver }
         // currentUser = { this.props.currentUser }
+        // socket = { this.socket }
        this.board = new Online.Board(this.props.board)
+
+       // bound callbacks
+       this.toggleHover = this.toggleHover.bind(this)
+       this.placePiece = this.placePiece.bind(this)
+       this.updateBoard = this.updateBoard.bind(this)
+    
+    //    this.props.socket.on("update board", lastPos_and_color => this.updateBoard(lastPos_and_color))
     }
 
-    // playTurn() {
-    //     // playTurn only if you are the current player
-    //     if (this.props.currentPlayer.id == this.props.currentUser.id) {
-            
-    //     }
-    // }
+    componentDidMount() {
+        this.props.socket.on("update board", lastPos_and_color => this.updateBoard(lastPos_and_color)) //testing
+    }
+
+    toggleHover(){
+
+    }
+
+    placePiece(e){
+        e.preventDefault();
+        this.props.socket.emit("play turn", this.props.currentUser)
+        this.props.socket.on("allow turn", () => {
+            let lastPos = this.board.lastPiecePos(parseInt(e.target.className))
+            // fills last position of column with a piece object
+            debugger
+            this.props.socket.emit("send pos", lastPos)
+        })
+    }
+
+    updateBoard(lastPos_and_color){
+        let pos = lastPos_and_color[0]
+        let color = lastPos_and_color[1]
+        debugger
+        this.board.fillPos(pos[0], pos[1], color)
+        document.getElementById(`${pos[0]},${pos[1]}`).style.backgroundColor = color;
+
+        // fills position with the gameState's currentColor
+    }
+
+    
 
 
     render() {
+        const grid = this.board.grid.map((row, y) => {
+            const elements = row.map((ele, x) => {
+                return (
+                    <div key={x} 
+                        onMouseEnter={this.toggleHover}
+                        onMouseLeave={this.toggleHover}
+                        onClick={this.placePiece}
+                        className={`${x} col`}
+                        id={`${y},${x}`}>
+                        &nbsp;
+                    </div>
+                )
+            })
+            return (
+                <div key={y} className={`row ${y}`}>
+                    {elements}
+                </div>
+            )
+        })
+        
+
         return(
-            <div>this is board</div>
+            <div className="board-container">
+                <div className="board">
+                    {grid}
+                </div>
+            </div>
         )
     }
 }

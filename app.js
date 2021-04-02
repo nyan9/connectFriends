@@ -54,9 +54,11 @@ let gameState = {
           // board: [],
           players: [],
           currentPlayer: {}, 
-          currentColor: "", 
+          currentColor: "red", 
           gameOver: false}
 // try saving gameState as JSON
+
+let game = new Online.Board(gameState.board); // try ln: 78 if not this
 
 io.on("connection", socket => {
   let defaultState = {
@@ -69,9 +71,12 @@ io.on("connection", socket => {
           // board: [],
           players: [],
           currentPlayer: {},
-          currentColor: "",
+          currentColor: "red",
           gameOver: false
   }
+
+  // let game = new Online.Board(gameState.board); // try ln: 61 if not this
+
   // chatbox sockets
   socket.on("Input Chat Message", msg => { 
     connect.then(db => {
@@ -108,12 +113,36 @@ io.on("connection", socket => {
 
   socket.on("disconnect", () => {
     gameState = Object.assign({}, defaultState)
+    game = new Online.Board(defaultState.board)
     socket.broadcast.emit("end game")
   })
 
   // socket.on("get game", () => io.emit("send game", gameState))
   // // very laggy
 
+  socket.on("play turn", currentUser => {
+    debugger
+    if (currentUser.id === gameState.currentPlayer.id) {
+      socket.emit("allow turn")
+    } else {
+      return
+    }
+  })
+
+  socket.on("send pos", lastPos => {
+    debugger
+    game.fillPos(lastPos[0], lastPos[1], gameState.currentColor)
+    io.emit("update board", [lastPos, gameState.currentColor])
+    debugger
+    if (gameState.currentPlayer.id === gameState.players[0].id) { // switch turn logic //
+      gameState.currentPlayer = gameState.players[1]
+      gameState.currentColor = "yellow"
+    } else {
+      gameState.currentPlayer = gameState.players[0]
+      gameState.currentColor = "red"
+    }
+    debugger
+  })
   
 
 })

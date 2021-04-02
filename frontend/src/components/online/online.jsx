@@ -57,6 +57,7 @@ class OnlineGame extends React.Component {
                     currentColor={this.state.currentColor}
                     gameOver={this.state.gameOver}
                     currentUser={this.props.currentUser}
+                    socket={this.socket}
                 />
             )
     }
