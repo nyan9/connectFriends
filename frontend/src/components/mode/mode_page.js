@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { resetChat } from "../../actions/chat_actions";
 import "./mode_page.scss";
+import { FaPlay } from "react-icons/fa";
 
 class ModePage extends React.Component {
   componentDidMount() {
@@ -21,7 +22,9 @@ class ModePage extends React.Component {
           </div>
 
           <div class="card-button">
-            <Link to="/local">Play</Link>
+            <Link to="/local">
+              <FaPlay />
+            </Link>
           </div>
         </article>
 
@@ -35,7 +38,9 @@ class ModePage extends React.Component {
           </div>
 
           <div class="card-button">
-            <Link to="/cpu">Play</Link>
+            <Link to="/cpu">
+              <FaPlay />
+            </Link>
           </div>
         </article>
 
@@ -49,7 +54,9 @@ class ModePage extends React.Component {
           </div>
 
           <div class="card-button">
-            <Link to="/online">Play</Link>
+            <Link to="/online">
+              <FaPlay />
+            </Link>
           </div>
         </article>
       </section>
