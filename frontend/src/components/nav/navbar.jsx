@@ -53,6 +53,9 @@ class NavBar extends React.Component {
   getLinks() {
     if (this.props.loggedIn) {
       debugger
+      if (!this.props.user){
+        {this.props.getUser(this.props.currentUser.username)}
+      }
       return (
         <div>
           <button onClick={this.logoutUser}>Logout</button>
