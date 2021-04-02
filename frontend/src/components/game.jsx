@@ -32,17 +32,13 @@ class Game extends React.Component {
         this.handlewin =this.handlewin.bind(this)
         this.handleloss = this.handleloss.bind(this)
   
-        this.socket = io.connect("https://connectfriends.herokuapp.com/", { secure: true });
-        // this.socket = io.connect("http://localhost:5000/", { secure: true });
+        // this.socket = io.connect("https://connectfriends.herokuapp.com/", { secure: true });
+        this.socket = io.connect("http://localhost:5000/", { secure: true });
 
     }
 
     componentDidMount(){
         //testing socket
-        this.socket.emit("current color", this.state.currentColor)
-        this.socket.on("test", msg => console.log(msg))
-        console.log(this.state.type)
-        console.log(this.props.currentUser)
     }
 
     updateGame() {
