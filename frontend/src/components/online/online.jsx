@@ -18,10 +18,13 @@ class OnlineGame extends React.Component {
             players: [],
             currentPlayer: {},
             currentColor: "red",
-            gameOver: false
+            gameOver: false,
+            winner: ""
         }
 
         // this.getServerState = this.getServerState.bind(this) // too laggy
+        this.winGame = this.winGame.bind(this);
+
 
         // this.socket = io.connect("https://connectfriends.herokuapp.com/", {secure: true});
         this.socket = io.connect("http://localhost:5000/", {secure: true});
@@ -47,18 +50,31 @@ class OnlineGame extends React.Component {
     // // this works but it's very very laggy
 
 
+    winGame() {
+        this.setState({gameOver: true})
+        this.socket.emit("win game")
+    }
+
     render() {
         // this.getServerState() // too laggy
+        let winMsg = "" 
+        if (this.state.gameOver) {
+            winMsg = <div>GAME OVER</div>
+        }
         return ( 
-                <OnlineBoard 
-                    board={this.state.board}
-                    players={this.state.players}
-                    currentPlayer={this.state.currentPlayer}
-                    currentColor={this.state.currentColor}
-                    gameOver={this.state.gameOver}
-                    currentUser={this.props.currentUser}
-                    socket={this.socket}
-                />
+                <div>
+                    <OnlineBoard 
+                        board={this.state.board}
+                        players={this.state.players}
+                        currentPlayer={this.state.currentPlayer}
+                        currentColor={this.state.currentColor}
+                        gameOver={this.state.gameOver}
+                        currentUser={this.props.currentUser}
+                        socket={this.socket}
+                        winGame={this.winGame}
+                    />
+                    {winMsg}
+                </div>
             )
     }
 }

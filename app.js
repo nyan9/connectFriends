@@ -122,7 +122,7 @@ io.on("connection", socket => {
 
   socket.on("play turn", currentUser => {
     debugger
-    if (currentUser.id === gameState.currentPlayer.id) {
+    if ((currentUser.id === gameState.currentPlayer.id) && (!gameState.gameOver)){
       socket.emit("allow turn")
     } else {
       return
@@ -140,4 +140,7 @@ io.on("connection", socket => {
       gameState.currentColor = "red"
     }
   })
+
+  socket.on("win game", () => gameState.gameOver = true)
+
 })

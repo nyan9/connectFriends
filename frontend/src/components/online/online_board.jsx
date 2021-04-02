@@ -18,12 +18,22 @@ export default class OnlineBoard extends React.Component {
        this.toggleHover = this.toggleHover.bind(this)
        this.placePiece = this.placePiece.bind(this)
        this.updateBoard = this.updateBoard.bind(this)
-    
-    //    this.props.socket.on("update board", lastPos_and_color => this.updateBoard(lastPos_and_color))
+       this.checkWin = this.checkWin.bind(this)
     }
 
     componentDidMount() {
-        this.props.socket.on("update board", lastPos_and_color => this.updateBoard(lastPos_and_color)) //testing
+        let lastPos = null; 
+        this.props.socket.on("update board", lastPos_and_color => {
+            this.updateBoard(lastPos_and_color)
+            lastPos = lastPos_and_color[0]
+        })
+
+        // shitty solution but it works, asynchronously checks to see if game is over
+        setInterval(() => {
+            if (lastPos) {
+                if (this.checkWin(lastPos)) this.props.winGame();
+            } 
+        },0) 
     }
 
     toggleHover(){
@@ -36,7 +46,6 @@ export default class OnlineBoard extends React.Component {
         let lastPos = null;
         this.props.socket.on("allow turn", () => {
             lastPos = this.board.lastPiecePos(parseInt(e.target.className))
-            // fills last position of column with a piece object
         })
         // the following code needs to be asynchronous bc the above code is as well
         setTimeout(() => {
@@ -49,13 +58,14 @@ export default class OnlineBoard extends React.Component {
         let color = lastPos_and_color[1]
         debugger
         this.board.fillPos(pos[0], pos[1], color)
-        document.getElementById(`${pos[0]},${pos[1]}`).style.backgroundColor = color;
-
-        // fills position with the gameState's currentColor
+        document.getElementById(`${pos[0]},${pos[1]}`).style.backgroundColor = color;   
     }
 
-    
-
+    checkWin(pos){
+        let x = pos[0]
+        let y = pos[1]
+        return this.board.win(x,y)
+    }
 
     render() {
         const grid = this.board.grid.map((row, y) => {
