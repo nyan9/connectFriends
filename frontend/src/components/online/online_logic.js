@@ -1,4 +1,4 @@
-export class Board {
+class Board {
   constructor(grid) {
     this.grid = grid;
   }
@@ -177,13 +177,13 @@ export class Board {
   }
 }
 
-export class Piece {
+class Piece {
   constructor(color) {
     this.color = color;
   }
 }
 
-// module.exports = {
-//   Board,
-//   Piece,
-// };
+module.exports = {
+  Board,
+  Piece,
+};
