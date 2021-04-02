@@ -80,6 +80,7 @@ class OnlineGame extends React.Component {
           winGame={this.winGame}
           tieGame={this.tieGame}
         />
+        <Chatbox />
         {winMsg}
       </div>
     );
