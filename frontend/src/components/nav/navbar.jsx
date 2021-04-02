@@ -1,23 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import { Modal } from "../modal/modal";
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Button = styled.button`
-  min-width: 100px;
-  padding: 16px 32px;
-  border-radius: 4px;
-  background: #141414;
-  color: #fff;
-  font-size: 1em;
-  cursor: pointer;
-`;
+import { FaPlay, FaGlobeAmericas, FaBackspace } from "react-icons/fa";
+import "./navbar.scss";
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -47,8 +32,9 @@ class NavBar extends React.Component {
   getLinks() {
     if (this.props.loggedIn) {
       return (
-        <div>
-          <button onClick={this.logoutUser}>Logout</button>
+        <div className="nav__btn nav__btn-logout" onClick={this.logoutUser}>
+          <FaBackspace />
+          <span>Logout</span>
         </div>
       );
     } else {
@@ -58,9 +44,10 @@ class NavBar extends React.Component {
             showModal={this.state.showModal}
             toggleModal={this.toggleModal}
           />
-          <Container>
-            <Button onClick={this.toggleModal}>Login</Button>
-          </Container>
+          <div className="nav__btn nav__btn-login" onClick={this.toggleModal}>
+            <FaGlobeAmericas />
+            <span>Login</span>
+          </div>
         </>
       );
     }
@@ -68,9 +55,14 @@ class NavBar extends React.Component {
 
   render() {
     return (
-      <section>
-        <div>LOGO HERE</div>
-        <Link to={"/"}>Play Mode</Link>
+      <section className="nav">
+        <div className="nav__logo">LOGO HERE</div>
+        <div className="nav__play">
+          <Link to="/">
+            <span>Play</span>
+            <FaPlay className="nav__play__btn" />
+          </Link>
+        </div>
         {this.getLinks()}
       </section>
     );
