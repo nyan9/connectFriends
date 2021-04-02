@@ -15,14 +15,18 @@ import LoginFormContainer from "./session/login_form_container";
 import SignupFormContainer from "./session/signup_form_container";
 
 const App = () => (
-  <div>
+  <div className="bigDaddyDiv">
     <NavBarContainer />
     <Switch>
       <Route exact path="/" component={ModePage} />
       <ProtectedRoute exact path="/cpu" component={Game} />
       <ProtectedRoute exact path="/local" component={Game} />
+
       <ProtectedRoute exact path="/online" component={OnlineGame} />
-      <ProtectedRoute exact path="/leaderboard" component={Leaderboard}/>
+      <div className="leaderboardContainerdiv">
+        <Route exact path="/leaderboard" component={Leaderboard}/>
+      </div>
+
     </Switch>
   </div>
 );

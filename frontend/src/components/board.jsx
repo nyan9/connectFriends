@@ -53,10 +53,10 @@ class Board extends React.Component {
                         this.props.handlewin()
                         this.setState({gameOver:true})
                         if(this.props.user){
-                            this.props.updateRating(this.props.user.username, (this.props.user.elo + 10))
                             setTimeout(()=>{
                                 this.props.getUser(this.props.currentUser.username)
-                            }, 10)
+                            }, 100)
+                            this.props.updateRating(this.props.user.username, (this.props.user.elo + 10))
                         }
                     }
                     // document.getElementById(`${i},${y}`).style.backgroundColor = "red"
@@ -83,10 +83,10 @@ class Board extends React.Component {
                                 this.setState({gameOver:true})
                                 
                                 if(this.props.user){
-                                    this.props.updateRating(this.props.user.username, (this.props.user.elo - 10))
                                     setTimeout(()=>{
                                         this.props.getUser(this.props.currentUser.username)
-                                    }, 10)
+                                    }, 100)
+                                    this.props.updateRating(this.props.user.username, (this.props.user.elo - 10))
                                 }
                             }
 
@@ -167,7 +167,7 @@ class Board extends React.Component {
 
         return(
             <div>
-                <h2>this is the board component</h2>
+                {/* <h2>this is the board component</h2> */}
                 <div className="board">
                     {grid}
                 
