@@ -52,7 +52,7 @@ body {
   width: 300px;
 }
 
-.outer-leaderboard {
+.outer-leaderboard{
   display: flex;
   flex-direction: column;
   width: 50%;

@@ -24,13 +24,16 @@ class Game extends React.Component {
             tieCount: 0,
         }
         this.updateGame = this.updateGame.bind(this)
+
+        this.winMsg = ""
+
         this.rematch = this.rematch.bind(this)
         this.handlewin =this.handlewin.bind(this)
         this.handleloss = this.handleloss.bind(this)
   
         this.socket = io.connect("https://connectfriends.herokuapp.com/", { secure: true });
         // this.socket = io.connect("http://localhost:5000/", { secure: true });
-        
+
     }
 
     componentDidMount(){
@@ -46,15 +49,20 @@ class Game extends React.Component {
         
         if (this.state.board.gameOver) {
             this.setState({gameOver: true})
-            alert(`Game Over. ${this.state.currentColor} wins!`)
+            this.winMsg = <div id="winMsg">{this.state.currentColor} wins!</div>
+            this.setState({ board: this.state.board })
+            return;
         }
         
         if (this.state.board.full() && !this.state.board.gameOver) {
+
             this.setState({gameOver: true, tie: true, tieCount: this.state.tieCount + 1})
-            alert("It's a tie!")
+            this.winMsg = <div id="winMsg">It's a tie!</div>
+            this.setState({ board: this.state.board })
+            return;
         }
         
-        this.setState({board: this.state.board})
+        // this.setState({board: this.state.board})
         if (this.state.currentColor == "red") {
             // setState({currentPlayer})
             this.setState({currentColor: "yellow"})
@@ -65,7 +73,8 @@ class Game extends React.Component {
 
     rematch(){
         let newBoard = new Connect4.Board(6,7)
-        this.setState({board: newBoard, gameOver:false, key: this.state.key + 1})
+        this.winMsg = ""
+        this.setState({board: newBoard, gameOver:false, currentColor: "red", key: this.state.key + 1})
     }
     handlewin(){
         this.setState({win: this.state.win + 1})
@@ -81,14 +90,20 @@ class Game extends React.Component {
         if (this.state.gameOver){
             rematch = <button onClick={this.rematch}>Rematch</button>
         }
+
+        let winloss = (
+            <div>
+                win:{this.state.win}
+                loss:{this.state.loss}
+                tie:{this.state.tieCount}
+            </div>
+        )
+
         return(
             <div>
                 <h1>this is the game component</h1>
-                <div>
-                    win:{this.state.win}
-                    loss:{this.state.loss}
-                    tie:{this.state.tieCount}
-                </div>
+                {(this.state.type === "/local") ? "" : winloss}
+                 
                 <Board
                     key={this.state.key} 
                     board={this.state.board}
@@ -102,7 +117,11 @@ class Game extends React.Component {
                     handletie={this.handletie}
                     tie={this.state.tie}
                 />
+
+                 {this.winMsg}
+
                 {rematch}
+
                 <Chatbox/>
                 
             </div>

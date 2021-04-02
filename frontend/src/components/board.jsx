@@ -2,7 +2,7 @@ import React from 'react';
 import Piece from './piece';
 import * as computer from '../connect4/minimax';
 import {connect} from "react-redux"
-
+import {updateRating, getCurrUser} from "../actions/user_actions"
 
 class Board extends React.Component {
     constructor(props) {
@@ -23,8 +23,14 @@ class Board extends React.Component {
         this.unHoverColumn = this.unHoverColumn.bind(this)
     }
 
+    componentDidMount(){
+        if(this.props.currentUser && !this.props.user){
+            this.props.getUser(this.props.currentUser.username)
+        }
+    }
+
     placePiece(x, y) {
-        
+        if (this.props.gameOver) return;
         
         return e => {
             e.preventDefault();
@@ -46,7 +52,12 @@ class Board extends React.Component {
                     if (this.props.board.win(i,y)){
                         this.props.handlewin()
                         this.setState({gameOver:true})
-                      
+                        if(this.props.user){
+                            setTimeout(()=>{
+                                this.props.getUser(this.props.currentUser.username)
+                            }, 100)
+                            this.props.updateRating(this.props.user.username, (this.props.user.elo + 10))
+                        }
                     }
                     // document.getElementById(`${i},${y}`).style.backgroundColor = "red"
 
@@ -70,7 +81,13 @@ class Board extends React.Component {
                             if (this.props.board.win(aiPos[0],aiPos[1])){
                                 this.props.handleloss()
                                 this.setState({gameOver:true})
-                              
+                                
+                                if(this.props.user){
+                                    setTimeout(()=>{
+                                        this.props.getUser(this.props.currentUser.username)
+                                    }, 100)
+                                    this.props.updateRating(this.props.user.username, (this.props.user.elo - 10))
+                                }
                             }
 
                             // document.getElementById(`${aiPos[0]},${aiPos[1]}`).style.backgroundColor = "black";
@@ -88,23 +105,41 @@ class Board extends React.Component {
     }
 
     hoverColumn(x,y){
+        let color = ""
+        if (this.props.currentColor === "red") {
+            color = "#fe6599"
+        } else {
+            color = "#ffff99"
+        }
+
+
         if (this.props.gameOver) return;
         return e => {
-            for (let i = x; i < 6; i++) {
-                if (this.props.board.emptyAt(i, y) && (!this.props.board.emptyAt(i + 1, y) || (i == 5))) {
-                    document.getElementById(`${i},${y}`).style.backgroundColor = "orange"
+            for (let i = 0; i < 6; i++) {
+                if (this.props.board.emptyAt(i, y)) {
+                    if (!this.props.board.emptyAt(i + 1, y) || (i == 5)) {
+                        document.getElementById(`${i},${y}`).style.backgroundColor = color
+                    } else {
+                        document.getElementById(`${i},${y}`).style.backgroundColor = "#ffffff8c"
+
+                    }
                 }
             }
         }
     }
 
+
     unHoverColumn(x,y){
         if (this.props.gameOver) return;
         return e => {
-            for (let i = x; i < 6; i++) {
-                if (this.props.board.emptyAt(i, y) && (!this.props.board.emptyAt(i + 1, y) || (i == 5))) {
+            for (let i = 0; i < 6; i++) {
+                if (this.props.board.emptyAt(i, y)) {
                     document.getElementById(`${i},${y}`).style.backgroundColor = "white"
+                    document.getElementById(`${i},${y}`).style.opacity = 1
                 }
+                // if (this.props.board.emptyAt(i, y) && (!this.props.board.emptyAt(i + 1, y) || (i == 5))) {
+                //     document.getElementById(`${i},${y}`).style.backgroundColor = "white"
+                // }
             }
         }
     }
@@ -144,10 +179,19 @@ class Board extends React.Component {
 }
 
 const mSTP = (state) => {
+    
     return {
-        currentUser:state.session.user
+        currentUser:state.session.user,
+        user: state.rating
+    }
+}
+
+const mDTP = (dispatch) => {
+    return {
+        updateRating: (username, rating) => dispatch(updateRating(username, rating)),
+        getUser: (username) => dispatch(getCurrUser(username))
     }
 }
 
 
-export default connect(mSTP)(Board)
+export default connect(mSTP, mDTP)(Board)
