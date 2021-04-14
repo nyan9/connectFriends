@@ -53,7 +53,7 @@ export default class OnlineBoard extends React.Component {
         console.log("send pos: ", lastPos)
         this.props.socket.emit("send pos", lastPos)
       };
-    }, 0);
+    }, 1000);
   }
 
   updateBoard(lastPos_and_color) {
