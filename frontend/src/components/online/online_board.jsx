@@ -48,6 +48,7 @@ export default class OnlineBoard extends React.Component {
     });
     // the following code needs to be asynchronous bc the above code is as well
     setTimeout(() => {
+      console.log("lastPos in setTimeout before if statement: ", lastPos)
       if (lastPos) {
         console.log("send pos: ", lastPos)
         this.props.socket.emit("send pos", lastPos)
