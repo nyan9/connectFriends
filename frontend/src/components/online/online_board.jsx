@@ -42,6 +42,7 @@ export default class OnlineBoard extends React.Component {
     this.props.socket.emit("play turn", this.props.currentUser);
     let lastPos = null;
     this.props.socket.on("allow turn", () => {
+      console.log("allow turn: ", this.props.currentUser)
       lastPos = this.board.lastPiecePos(parseInt(e.target.className));
     });
     // the following code needs to be asynchronous bc the above code is as well
@@ -89,6 +90,7 @@ export default class OnlineBoard extends React.Component {
       );
     });
 
+    console.log(this.props.currentUser)
     return (
       <div className="board-container">
         <div className="board">{grid}</div>
