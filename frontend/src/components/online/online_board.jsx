@@ -17,6 +17,7 @@ export default class OnlineBoard extends React.Component {
   componentDidMount() {
     let lastPos = null;
     this.props.socket.on("update board", (lastPos_and_color) => {
+      console.log("update board: ", lastPos_and_color)
       this.updateBoard(lastPos_and_color);
       lastPos = lastPos_and_color[0];
     });
@@ -47,7 +48,10 @@ export default class OnlineBoard extends React.Component {
     });
     // the following code needs to be asynchronous bc the above code is as well
     setTimeout(() => {
-      if (lastPos) this.props.socket.emit("send pos", lastPos);
+      if (lastPos) {
+        console.log("send pos: ", lastPos)
+        this.props.socket.emit("send pos", lastPos)
+      };
     }, 0);
   }
 
