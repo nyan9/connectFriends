@@ -13,7 +13,7 @@ const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
   cors: {
     // origin: "http://localhost:3000",
-    origin: "https://connect4riends.herokapp.com/",
+    origin: "http://connect4riends.herokuapp.com",
     methods: ["GET", "POST"],
   },
 });
