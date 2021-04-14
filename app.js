@@ -17,7 +17,7 @@ const io = require("socket.io")(server, {
   },
 });
 const { Chat } = require("./models/Chat");
-const Online = require("./frontend/online_logic");
+const Online = require("./online_logic");
 
 const connect = mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
