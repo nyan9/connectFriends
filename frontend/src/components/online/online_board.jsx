@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import * as Online from "./online_logic";
 
+
 export default class OnlineBoard extends React.Component {
   constructor(props) {
     super(props);

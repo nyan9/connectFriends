@@ -1,3 +1,5 @@
+import {createRequire} from "module"
+const require = createRequire(import.meta.url);
 const express = require("express");
 const path = require("path");
 const app = express();
@@ -14,7 +16,6 @@ const io = require("socket.io")(server, {
     methods: ["GET", "POST"],
   },
 });
-
 const { Chat } = require("./models/Chat");
 const Online = require("./frontend/src/components/online/online_logic");
 
@@ -132,6 +133,7 @@ io.on("connection", (socket) => {
 
   socket.on("play turn", (currentUser) => {
     debugger;
+    // add 
     if (currentUser.id === gameState.currentPlayer.id && !gameState.gameOver) {
       socket.emit("allow turn");
     } else {
