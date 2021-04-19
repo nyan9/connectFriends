@@ -20,13 +20,16 @@ class NavBar extends React.Component {
       }
 
       return (
-        <div className="nav__btn nav__btn-logout" onClick={this.props.logout}>
-          <div key={this.props.user.elo}>{this.props.user.elo}</div>
-          <div>{this.props.user.username}</div>
-          <FaBackspace />
-          <span>Logout</span>
-          {/* <button onClick={this.props.logout}>LOGOUT</button> */}
-        </div>
+        <>
+          <div key={this.props.currentUser.elo}>
+            {this.props.currentUser.username}
+            {this.props.currentUser.elo}
+          </div>
+          <div className="nav__btn nav__btn-logout" onClick={this.props.logout}>
+            <FaBackspace />
+            <span>Logout</span>
+          </div>
+        </>
       );
     } else {
       return (
