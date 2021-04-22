@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import Chatbox from "../chatbox/chatbox";
 import { io } from "socket.io-client";
 import {updateRating,  getCurrUser} from "../../actions/user_actions"
+import { Button } from "antd";
 
 class OnlineGame extends React.Component {
   constructor(props) {
@@ -33,12 +34,16 @@ class OnlineGame extends React.Component {
     this.socket = io.connect("http://localhost:5000/", {secure: true});
 
     this.socket.on("connect", () => this.socket.emit("join game", this.props.currentUser))
-    this.socket.on("joined game", msg => console.log(msg))
+    this.socket.on("joined game", (currentPlayer, players) => this.setState({currentPlayer, players}))
     this.socket.on("send msg", msg => console.log("msg:", msg))
     this.socket.on("end game", () => {
         this.props.history.push("/")
         alert("Opponent has disconnected")
     })
+  }
+
+  componentDidMount() {
+    this.socket.on("update player", currentPlayer => this.setState({currentPlayer: currentPlayer}))
   }
 
   componentWillUnmount() {
@@ -65,14 +70,18 @@ class OnlineGame extends React.Component {
     if (this.state.gameOver && !this.state.tie) {
       // this.props.updateRating(this.props.user.username, (this.props.user.elo + 10))
       winMsg = (
-        <div>GAME OVER! {this.state.winColor.toUpperCase()} Wins!!!</div>
+        <div className="winMsg">GAME OVER! {this.state.currentPlayer.username} Wins!!!</div>
       );
     } else if (this.state.gameOver && this.state.tie) {
       winMsg = <div>It's a tie!</div>;
     }
 
+    console.log("this.state.currentPlayer:" ,this.state.currentPlayer)
+    console.log("this.state.players:" ,this.state.players)
+
     return (
       <div>
+        <div className="currentPlayer">The current player is {this.state.currentPlayer.username}</div>
         <OnlineBoard
           board={this.state.board}
           players={this.state.players}
@@ -86,6 +95,7 @@ class OnlineGame extends React.Component {
         />
         <Chatbox />
         {winMsg}
+        {this.state.gameOver ? <button className="rematch">Rematch</button> : ''}
       </div>
     );
   }
