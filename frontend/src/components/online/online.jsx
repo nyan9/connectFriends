@@ -4,6 +4,7 @@ import OnlineBoard from "./online_board";
 import { connect } from "react-redux";
 import Chatbox from "../chatbox/chatbox";
 import { io } from "socket.io-client";
+import {updateRating,  getCurrUser} from "../../actions/user_actions"
 
 class OnlineGame extends React.Component {
   constructor(props) {
@@ -28,8 +29,8 @@ class OnlineGame extends React.Component {
     this.winGame = this.winGame.bind(this);
     this.tieGame = this.tieGame.bind(this);
 
-    this.socket = io.connect("https://connect4riends.herokuapp.com/", {secure: true});
-    // this.socket = io.connect("http://localhost:5000/", {secure: true});
+    // this.socket = io.connect("https://connect4riends.herokuapp.com/", {secure: true});
+    this.socket = io.connect("http://localhost:5000/", {secure: true});
 
     this.socket.on("connect", () => this.socket.emit("join game", this.props.currentUser))
     this.socket.on("joined game", msg => console.log(msg))
@@ -43,6 +44,11 @@ class OnlineGame extends React.Component {
   componentWillUnmount() {
     this.socket.disconnect();
   }
+  componentDidMount(){
+        if(this.props.currentUser && !this.props.user){
+            this.props.getUser(this.props.currentUser.username)
+        }
+    }
 
   winGame(color) {
     this.setState({ gameOver: true, winColor: color });
@@ -57,6 +63,7 @@ class OnlineGame extends React.Component {
   render() {
     let winMsg = "";
     if (this.state.gameOver && !this.state.tie) {
+      // this.props.updateRating(this.props.user.username, (this.props.user.elo + 10))
       winMsg = (
         <div>GAME OVER! {this.state.winColor.toUpperCase()} Wins!!!</div>
       );
@@ -86,7 +93,11 @@ class OnlineGame extends React.Component {
 
 const mstp = (state) => ({
   currentUser: state.session.user,
+  user: state.rating
 });
-const mdtp = (dispatch) => ({});
+const mdtp = (dispatch) => ({
+   updateRating: (username, rating) => dispatch(updateRating(username, rating)),
+   getUser: (username) => dispatch(getCurrUser(username))
+});
 
-export default connect(mstp, null)(OnlineGame);
+export default connect(mstp, mdtp)(OnlineGame);

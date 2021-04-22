@@ -12,8 +12,8 @@ const chat = require("./routes/api/chat");
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    // origin: "http://localhost:3000",
-    origin: "http://connect4riends.herokuapp.com",
+    origin: "http://localhost:3000",
+    // origin: "http://connect4riends.herokuapp.com",
     methods: ["GET", "POST"],
   },
 });
