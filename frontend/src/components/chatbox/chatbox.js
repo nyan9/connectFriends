@@ -25,8 +25,8 @@ class Chatbox extends React.Component {
 
         this.props.getChats()
 
-        this.socket = io.connect("https://connect4riends.herokuapp.com/", {secure:true});
-        // this.socket = io.connect("http://localhost:5000/", {secure:true});
+        // this.socket = io.connect("https://connect4riends.herokuapp.com/", {secure:true});
+        this.socket = io.connect("http://localhost:5000/", {secure:true});
 
         this.socket.on("Output Chat Message", messageFromBackEnd => {
             
