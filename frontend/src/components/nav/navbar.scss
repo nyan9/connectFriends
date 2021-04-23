@@ -6,6 +6,8 @@
   background-color: var(--clr-light-green);
   align-items: center;
   justify-content: space-between;
+  padding-bottom: 0px;
+  padding-top: 10px;
 }
 
 .nav__play {
@@ -53,7 +55,7 @@
     top: -4px;
   }
 
-  &:hover {
+  span:hover {
     cursor: pointer;
     color: var(--clr-yellow);
     animation: rainbow-play 2s;
@@ -69,6 +71,13 @@
   animation: rainbow-play 10s;
       animation-iteration-count: infinite;
       animation-direction: alternate;
+}
+
+.user-rating{
+      display: flex;
+    flex-direction: column;
+    align-items: end;
+    color: black;
 }
 
 @keyframes rainbow-play {

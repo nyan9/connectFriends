@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaPlay, FaGlobeAmericas, FaBackspace } from "react-icons/fa";
+import { FaPlay, FaGlobeAmericas, FaBackspace, FaCrown} from "react-icons/fa";
 import "./navbar.scss";
 
 class NavBar extends React.Component {
@@ -26,14 +26,14 @@ class NavBar extends React.Component {
       }
       return (
         <div className="nav__btn nav__btn-logout" onClick={this.props.logout}>
-          <div style={{display: "flex", gap: "5px", color:"black"}}>
+          <div className="user-rating">
             <div>{username}</div>
-            <div key={this.props.user.elo}>{this.props.user.elo}</div>
+            <div key={this.props.user.elo}>Rating:{this.props.user.elo}</div>
           </div>
-          <div style={{marginTop: "5px", marginLeft:"-25px"}}>
+          <span style={{marginTop: "5px", marginLeft:"-25px"}}>
             <FaBackspace />
             <span>Logout</span>
-          </div>
+          </span>
           {/* <button onClick={this.props.logout}>LOGOUT</button> */}
         </div>
       );
