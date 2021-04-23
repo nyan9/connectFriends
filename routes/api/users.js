@@ -30,9 +30,6 @@ router.get("/getUser/:username", (req, res)=>{
 
 router.post("/update", (req,res)=>{
   
-  console.log('username: ', req.body.username)
-  console.log('elo: ', req.body.elo)
-  
   const result = User.findOneAndUpdate({username: req.body.username}, {elo: req.body.elo},{new: true})
       .exec((err, user) => {
         if (err) return res.status(400).send(err)

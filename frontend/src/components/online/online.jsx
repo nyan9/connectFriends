@@ -43,17 +43,19 @@ class OnlineGame extends React.Component {
   }
 
   componentDidMount() {
-    this.socket.on("update player", currentPlayer => this.setState({currentPlayer: currentPlayer}))
+    this.socket.on("update player", currentPlayer => 
+    {
+      console.log("updateplayer was called")
+      this.setState({currentPlayer: currentPlayer})
+    })
+        if(this.props.currentUser && !this.props.user){
+        this.props.getUser(this.props.currentUser.username)
+    }
   }
 
   componentWillUnmount() {
     this.socket.disconnect();
   }
-  componentDidMount(){
-        if(this.props.currentUser && !this.props.user){
-            this.props.getUser(this.props.currentUser.username)
-        }
-    }
 
   winGame(color) {
     this.setState({ gameOver: true, winColor: color });
@@ -76,8 +78,6 @@ class OnlineGame extends React.Component {
       winMsg = <div>It's a tie!</div>;
     }
 
-    console.log("this.state.currentPlayer:" ,this.state.currentPlayer)
-    console.log("this.state.players:" ,this.state.players)
 
     return (
       <div>

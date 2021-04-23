@@ -52,7 +52,6 @@ class Board extends React.Component {
                     if (this.props.board.win(i,y)){
                         this.props.handlewin()
                         this.setState({gameOver:true})
-                        debugger
                         if(this.props.user && this.props.type !== "/local"){
                             setTimeout(()=>{
                                 this.props.getUser(this.props.currentUser.username)
