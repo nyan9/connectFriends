@@ -52,7 +52,7 @@ class Board extends React.Component {
                     if (this.props.board.win(i,y)){
                         this.props.handlewin()
                         this.setState({gameOver:true})
-                        if(this.props.user){
+                        if(this.props.user && this.props.type !== "/local"){
                             setTimeout(()=>{
                                 this.props.getUser(this.props.currentUser.username)
                             }, 100)
@@ -60,12 +60,19 @@ class Board extends React.Component {
                         }
                     }
                     // document.getElementById(`${i},${y}`).style.backgroundColor = "red"
+                    
 
                     this.props.board.fillPos(i, y, this.props.currentColor)
+                    //this.props.board.fillPos(i, y, <Piece color={this.props.currentColor} className="fall"/>)
+                    //remove fall className after if it bugs
+
                     // this.props.currentPlayer.color instead
                     this.props.board.win(i,y)
 
-                    document.getElementById(`${i},${y}`).style.backgroundColor = this.props.currentColor
+                    // document.getElementById(`${i},${y}`).style.backgroundColor = this.props.currentColor
+                    document.getElementById(`${i},${y}`).classList.remove("hoveredred","hoveredyellow","hovered");
+                    document.getElementById(`${i},${y}`).classList.add("fall",`${this.props.currentColor}`);
+
                     this.props.updateGame();
                     
                     
@@ -76,8 +83,8 @@ class Board extends React.Component {
                             
                             // this.props.board.fillPos(aiPos[0],aiPos[1], "black");
                             this.props.board.fillPos(aiPos[0],aiPos[1], this.props.currentColor);
-                            
-                            
+                            //this.props.board.fillPos(aiPos[0],aiPos[1], <Piece color={this.props.currentColor} className="fall" />);
+                            //remove fall className after if it bugs
                             if (this.props.board.win(aiPos[0],aiPos[1])){
                                 this.props.handleloss()
                                 this.setState({gameOver:true})
@@ -95,9 +102,11 @@ class Board extends React.Component {
                             this.props.board.fillPos(aiPos[0],aiPos[1], this.props.currentColor);
                             this.props.board.win(aiPos[0],aiPos[1]);
 
-                            document.getElementById(`${aiPos[0]},${aiPos[1]}`).style.backgroundColor = this.props.currentColor;
+                            // document.getElementById(`${aiPos[0]},${aiPos[1]}`).style.backgroundColor = this.props.currentColor;
+                            document.getElementById(`${aiPos[0]},${aiPos[1]}`).classList.remove("hoveredred","hoveredyellow","hovered");
+                            document.getElementById(`${aiPos[0]},${aiPos[1]}`).classList.add("fall",`${this.props.currentColor}`);
                             this.props.updateGame();
-                        }, 0)
+                        }, 500)
                     }
                 }
             }
@@ -118,10 +127,11 @@ class Board extends React.Component {
             for (let i = 0; i < 6; i++) {
                 if (this.props.board.emptyAt(i, y)) {
                     if (!this.props.board.emptyAt(i + 1, y) || (i == 5)) {
-                        document.getElementById(`${i},${y}`).style.backgroundColor = color
+                        // document.getElementById(`${i},${y}`).style.backgroundColor = color
+                        document.getElementById(`${i},${y}`).classList.add(`hovered${this.props.currentColor}`);
                     } else {
-                        document.getElementById(`${i},${y}`).style.backgroundColor = "#ffffff8c"
-
+                        // document.getElementById(`${i},${y}`).style.backgroundColor = "#ffffff8c"
+                        document.getElementById(`${i},${y}`).classList.add("hovered");
                     }
                 }
             }
@@ -134,7 +144,8 @@ class Board extends React.Component {
         return e => {
             for (let i = 0; i < 6; i++) {
                 if (this.props.board.emptyAt(i, y)) {
-                    document.getElementById(`${i},${y}`).style.backgroundColor = "white"
+                    // document.getElementById(`${i},${y}`).style.backgroundColor = "white"
+                    document.getElementById(`${i},${y}`).classList.remove("hovered","hoveredred","hoveredyellow");
                     document.getElementById(`${i},${y}`).style.opacity = 1
                 }
                 // if (this.props.board.emptyAt(i, y) && (!this.props.board.emptyAt(i + 1, y) || (i == 5))) {

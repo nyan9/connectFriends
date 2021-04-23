@@ -64,6 +64,7 @@ export default class OnlineBoard extends React.Component {
     document.getElementById(
       `${pos[0]},${pos[1]}`
     ).style.backgroundColor = color;
+    console.log("updateBoard was called")
   }
 
   checkWin(pos) {
