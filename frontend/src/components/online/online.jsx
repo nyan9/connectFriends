@@ -69,19 +69,27 @@ class OnlineGame extends React.Component {
 
   render() {
     let winMsg = "";
+    let username = "" 
     if (this.state.gameOver && !this.state.tie) {
       // this.props.updateRating(this.props.user.username, (this.props.user.elo + 10))
+      username = this.state.currentPlayer.username[0].toUpperCase() + this.state.currentPlayer.username.slice(1)
       winMsg = (
-        <div className="winMsg">GAME OVER! {this.state.currentPlayer.username} Wins!!!</div>
+        // <div className="winMsg">GAME OVER! {this.state.currentPlayer.username} Wins!!!</div>
+        <div className="winMsg">GAME OVER! {username} Wins!!!</div>
       );
     } else if (this.state.gameOver && this.state.tie) {
       winMsg = <div>It's a tie!</div>;
     }
 
+    let currUser = this.state.currentPlayer
+    let currUsername = '' 
+    if (currUser.username) {
+      currUsername = this.state.currentPlayer.username[0].toUpperCase() + this.state.currentPlayer.username.slice(1)
+    }
 
     return (
       <div>
-        <div className="currentPlayer">The current player is {this.state.currentPlayer.username}</div>
+        <div className="currentPlayer">The current player is {currUsername}</div>
         <OnlineBoard
           board={this.state.board}
           players={this.state.players}
