@@ -66,3 +66,30 @@
 .rematchbtn:focus{
     outline: none;
 }
+.fall {
+    animation-name: fall-animation;
+    animation-duration: 500ms;
+}
+@keyframes fall-animation {
+    from {
+        transform: translateY(-1000%);
+    }
+    to {
+        transform: translateY(0%);
+    }
+}
+.red{
+    background-color: red;
+}
+.yellow{
+    background-color: yellow;
+}
+.hoveredred{
+    background-color:#fe6599;
+}
+.hoveredyellow{
+    background-color: #ffff99;
+}
+.hovered{
+    background-color: #ffffff8c;
+}
