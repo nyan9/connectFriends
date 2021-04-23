@@ -60,7 +60,7 @@ class Game extends React.Component {
     }
 
     // this.setState({board: this.state.board})
-    if (this.state.currentColor == "red") {
+    if (this.state.currentColor === "red") {
       // setState({currentPlayer})
       this.setState({ currentColor: "yellow" });
     } else {
