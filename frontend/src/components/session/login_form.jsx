@@ -60,6 +60,11 @@ class LoginForm extends React.Component {
   render() {
     return (
       <form className="login" onSubmit={this.handleSubmit}>
+        <input
+          className="login__btn login__btn--signup"
+          type="button"
+          value="Login As Demo User"
+        />
         <div className="login__input login__input--username">
           <input
             type="text"
@@ -85,8 +90,18 @@ class LoginForm extends React.Component {
             Password
           </label>
         </div>
-        <div className="login__btn">
-          <input type="submit" value="Login" />
+        <div className="login__btns">
+          <input
+            className="login__btn login__btn--signup"
+            type="button"
+            onClick={() => this.props.openModal("signup")}
+            value="Create an account"
+          />
+          <input
+            className="login__btn login__btn--login"
+            type="submit"
+            value="Login"
+          />
         </div>
         {this.renderErrors()}
       </form>

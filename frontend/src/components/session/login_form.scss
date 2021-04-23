@@ -46,6 +46,10 @@
       color: var(--clr-dark-green);
     }
   }
+
+  &__btns {
+    margin-top: 2em;
+  }
 }
 
 .input {
@@ -63,5 +67,17 @@
   padding-left: 0.5em;
   &:invalid {
     color: var(--clr-pink);
+  }
+}
+
+.login__btn {
+  font-size: 1rem;
+  background: transparent;
+  padding: 1em 1.75em;
+  border: 1px solid var(--clr-dark-green);
+  border-radius: 50px;
+
+  &:hover {
+    cursor: pointer;
   }
 }

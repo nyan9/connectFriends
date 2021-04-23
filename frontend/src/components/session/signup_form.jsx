@@ -20,7 +20,6 @@ class SignupForm extends React.Component {
       this.props.history.push("/game");
     }
     this.setState({ errors: nextProps.errors });
-
   }
 
   update(field) {
@@ -53,36 +52,61 @@ class SignupForm extends React.Component {
 
   render() {
     return (
-      <div className="signup-form-container">
-        <form onSubmit={this.handleSubmit}>
-          <div className="signup-form">
-            <br />
-            <input
-              type="text"
-              value={this.state.username}
-              onChange={this.update("username")}
-              placeholder="Username"
-            />
-            <br />
-            <input
-              type="password"
-              value={this.state.password}
-              onChange={this.update("password")}
-              placeholder="Password"
-            />
-            <br />
-            <input
-              type="password"
-              value={this.state.password2}
-              onChange={this.update("password2")}
-              placeholder="Confirm Password"
-            />
-            <br />
-            <input type="submit" value="Submit" />
-            {this.renderErrors()}
-          </div>
-        </form>
-      </div>
+      <form className="login" onSubmit={this.handleSubmit}>
+        <input
+          className="login__btn login__btn--signup"
+          type="button"
+          value="Login As Demo User"
+        />
+        <div className="login__input login__input--username">
+          <input
+            type="text"
+            className="input"
+            value={this.state.username}
+            onChange={this.update("username")}
+            placeholder=""
+          />
+          <label for="username" className="login__input__label">
+            Username
+          </label>
+        </div>
+        <div className="login__input login__input--password">
+          <input
+            type="password"
+            className="input"
+            value={this.state.password}
+            onChange={this.update("password")}
+            placeholder=""
+          />
+          <label for="password" className="login__input__label">
+            Password
+          </label>
+        </div>
+        <div className="login__input login__input--password">
+          <input
+            type="password"
+            className="input"
+            value={this.state.password2}
+            onChange={this.update("password2")}
+            placeholder=""
+          />
+          <label for="password" className="login__input__label">
+            Confirm Password
+          </label>
+        </div>
+        <input
+          className="login__btn login__btn--signup"
+          type="button"
+          onClick={() => this.props.openModal("login")}
+          value="Login Instead"
+        />
+        <input
+          className="login__btn login__btn--login"
+          type="submit"
+          value="Signup"
+        />
+        {this.renderErrors()}
+      </form>
     );
   }
 }
