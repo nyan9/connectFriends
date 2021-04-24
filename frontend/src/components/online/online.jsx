@@ -6,6 +6,7 @@ import Chatbox from "../chatbox/chatbox";
 import { io } from "socket.io-client";
 import {updateRating,  getCurrUser} from "../../actions/user_actions"
 import { Button } from "antd";
+import { to } from "@react-spring/core";
 
 class OnlineGame extends React.Component {
   constructor(props) {
@@ -25,10 +26,29 @@ class OnlineGame extends React.Component {
       gameOver: false,
       tie: false,
       winColor: "",
+      key: 0
+    };
+
+    this.defaultState = {
+      board: [
+        [null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null],
+      ],
+      players: [],
+      currentPlayer: {},
+      currentColor: "red",
+      gameOver: false,
+      tie: false,
+      winColor: "",
     };
 
     this.winGame = this.winGame.bind(this);
     this.tieGame = this.tieGame.bind(this);
+    this.rematch = this.rematch.bind(this);
 
     // this.socket = io.connect("https://connect4riends.herokuapp.com/", {secure: true});
     this.socket = io.connect("http://localhost:5000/", {secure: true});
@@ -39,6 +59,29 @@ class OnlineGame extends React.Component {
     this.socket.on("end game", () => {
         this.props.history.push("/")
         alert("Opponent has disconnected")
+    })
+
+    this.socket.on("new game", () => {
+      let z;
+      this.state.currentPlayer.username === this.state.players[0].username ? z = this.state.players[1] : z = this.state.players[0]
+      console.log("before setstate", this.state)
+      this.setState({
+        board: [
+          [null, null, null, null, null, null, null],
+          [null, null, null, null, null, null, null],
+          [null, null, null, null, null, null, null],
+          [null, null, null, null, null, null, null],
+          [null, null, null, null, null, null, null],
+          [null, null, null, null, null, null, null],
+        ],
+        currentPlayer: z,
+        gameOver: false,
+        tie: false,
+        winColor: "",
+        key: this.state.key + 1
+      })
+      console.log("after setstate", this.state)
+      this.socket.emit("join game", this.props.currentUser)
     })
   }
 
@@ -67,15 +110,20 @@ class OnlineGame extends React.Component {
     this.socket.emit("finish game");
   }
 
+  rematch() {
+    this.socket.emit("rematch", this.state.currentUser);
+    // this.setState(this.defaultState)
+  }
+
   render() {
     let winMsg = "";
     let username = "" 
+    
     if (this.state.gameOver && !this.state.tie) {
-      // this.props.updateRating(this.props.user.username, (this.props.user.elo + 10))
-      username = this.state.currentPlayer.username[0].toUpperCase() + this.state.currentPlayer.username.slice(1)
+      // username = this.state.currentPlayer.username[0].toUpperCase() + this.state.currentPlayer.username.slice(1)
       winMsg = (
-        // <div className="winMsg">GAME OVER! {this.state.currentPlayer.username} Wins!!!</div>
-        <div className="winMsg">GAME OVER! {username} Wins!!!</div>
+        <div className="winMsg">GAME OVER! {this.state.currentPlayer.username} Wins!!!</div>
+        // <div className="winMsg">GAME OVER! {username} Wins!!!</div>
       );
     } else if (this.state.gameOver && this.state.tie) {
       winMsg = <div>It's a tie!</div>;
@@ -86,11 +134,13 @@ class OnlineGame extends React.Component {
     if (currUser.username) {
       currUsername = this.state.currentPlayer.username[0].toUpperCase() + this.state.currentPlayer.username.slice(1)
     }
+    
 
     return (
       <div>
         <div className="currentPlayer">The current player is {currUsername}</div>
         <OnlineBoard
+          key={this.state.key}
           board={this.state.board}
           players={this.state.players}
           currentPlayer={this.state.currentPlayer}
@@ -103,7 +153,7 @@ class OnlineGame extends React.Component {
         />
         <Chatbox />
         {winMsg}
-        {this.state.gameOver ? <button className="rematch">Rematch</button> : ''}
+        {this.state.gameOver ? <button onClick={this.rematch} className="rematch">Rematch</button> : ''}
       </div>
     );
   }
