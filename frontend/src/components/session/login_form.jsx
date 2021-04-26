@@ -60,11 +60,6 @@ class LoginForm extends React.Component {
   render() {
     return (
       <form className="login" onSubmit={this.handleSubmit}>
-        <input
-          className="login__btn login__btn--signup"
-          type="button"
-          value="Login As Demo User"
-        />
         <div className="login__input login__input--username">
           <input
             type="text"
@@ -72,7 +67,7 @@ class LoginForm extends React.Component {
             className="input"
             value={this.state.username}
             onChange={this.update("username")}
-            placeholder=""
+            placeholder=" "
           />
           <label for="username" className="login__input__label">
             Username
@@ -84,23 +79,28 @@ class LoginForm extends React.Component {
             className="input"
             value={this.state.password}
             onChange={this.update("password")}
-            placeholder=""
+            placeholder=" "
           />
           <label for="password" className="login__input__label">
             Password
           </label>
         </div>
+        <input
+          className="login__btn login__btn--login"
+          type="submit"
+          value="Login"
+        />
         <div className="login__btns">
           <input
-            className="login__btn login__btn--signup"
+            className="login__btn login__btn--other"
             type="button"
             onClick={() => this.props.openModal("signup")}
             value="Create an account"
           />
           <input
-            className="login__btn login__btn--login"
-            type="submit"
-            value="Login"
+            className="login__btn login__btn--demo"
+            type="button"
+            value="Login as demo user"
           />
         </div>
         {this.renderErrors()}
