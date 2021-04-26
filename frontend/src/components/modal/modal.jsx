@@ -7,13 +7,13 @@ import SignUpFromContainer from "../session/signup_form_container";
 import "./modal.scss";
 
 function Modal({ modal, closeModal }) {
-  // const animation = useSpring({
-  //   config: {
-  //     duration: 250,
-  //   },
-  //   opacity: modal ? 1 : 0,
-  //   transform: modal ? `translateY(0%)` : `translateY(-100%)`,
-  // });
+  const animation = useSpring({
+    config: {
+      duration: 250,
+    },
+    opacity: modal ? 1 : 0,
+    transform: modal ? `translateY(0%)` : `translateY(-100%)`,
+  });
 
   const escKeyPress = useCallback(
     (e) => {
@@ -47,9 +47,11 @@ function Modal({ modal, closeModal }) {
 
   return (
     <div className="modal-background" onClick={closeModal}>
-      <div className="modal-child" onClick={(e) => e.stopPropagation()}>
-        {component}
-      </div>
+      <animated.div style={animation}>
+        <div className="modal-child" onClick={(e) => e.stopPropagation()}>
+          {component}
+        </div>
+      </animated.div>
     </div>
   );
 }
