@@ -59,11 +59,10 @@ export default class OnlineBoard extends React.Component {
   updateBoard(lastPos_and_color) {
     let pos = lastPos_and_color[0];
     let color = lastPos_and_color[1];
-    debugger;
     this.board.fillPos(pos[0], pos[1], color);
     document.getElementById(
       `${pos[0]},${pos[1]}`
-    ).style.backgroundColor = color;
+    ).classList.add("fall",`${color}`);
     console.log("updateBoard was called")
   }
 
