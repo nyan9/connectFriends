@@ -14,6 +14,7 @@ class NavBar extends React.Component {
   getLinks() {  
     if (this.props.loggedIn) {
       debugger
+      console.log(this.props.user)
       let username=""
       if (Object.keys(this.props.user).length === 0) {
         {
@@ -27,7 +28,7 @@ class NavBar extends React.Component {
       return (
         <div className="nav__btn nav__btn-logout" onClick={this.props.logout}>
           <div className="user-rating">
-            <div>{username}</div>
+            <div>User:{username}</div>
             <div key={this.props.user.elo}>Rating:{this.props.user.elo}</div>
           </div>
           <span style={{marginTop: "5px", marginLeft:"-25px"}}>
