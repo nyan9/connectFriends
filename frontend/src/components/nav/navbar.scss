@@ -93,13 +93,21 @@
   align-items: end;
   color: black;
 }
+
+.user-rating .leaderboard-link:hover{
+  color: var(--clr-yellow);
+  animation: rainbow-play 3s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
 .user-icon {
   font-size: 30px;
 }
 .user-dropdown {
   position: absolute;
   display: none;
-  top: 65px;
+  top: 60px;
 
   right: 32px;
   background-color: #fff;
