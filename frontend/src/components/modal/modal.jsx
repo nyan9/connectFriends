@@ -9,7 +9,7 @@ import "./modal.scss";
 function Modal({ modal, closeModal }) {
   const animation = useSpring({
     config: {
-      duration: 60,
+      duration: 300,
     },
     opacity: modal ? 1 : 0,
     transform: modal ? `translateY(0%)` : `translateY(-100%)`,
