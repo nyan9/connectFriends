@@ -74,56 +74,58 @@ class SignupForm extends React.Component {
   }
 
   render() {
-    console.log(this.state.errors);
+    let errors = this.state.errors;
     return (
       <div className="session">
         {this.renderErrors()}
         <form className="login" onSubmit={this.handleSubmit}>
-          <div className="login__input login__input--signup login__input--username">
-            <input
-              type="text"
-              className="input"
-              autocomplete="off"
-              value={this.state.username}
-              onChange={this.update("username")}
-              placeholder=" "
-            />
-            <label for="username" className="login__input__label">
-              Username
-            </label>
-          </div>
-          <div className="login__errors__item">
-            {this.state.errors.username}
-          </div>
-          <div className="login__input login__input--signup login__input--password">
-            <input
-              type="password"
-              className="input"
-              value={this.state.password}
-              onChange={this.update("password")}
-              placeholder=" "
-            />
-            <label for="password" className="login__input__label">
-              Password
-            </label>
-          </div>
-          <div className="login__errors__item">
-            {this.state.errors.password}
-          </div>
-          <div className="login__input login__input--signup login__input--password">
-            <input
-              type="password"
-              className="input"
-              value={this.state.password2}
-              onChange={this.update("password2")}
-              placeholder=" "
-            />
-            <label for="password" className="login__input__label">
-              Confirm Password
-            </label>
-          </div>
-          <div className="login__errors__item">
-            {this.state.errors.password2}
+          <div className="login__inputs">
+            <div className="login__input login__input--signup login__input--username">
+              <input
+                type="text"
+                className="input"
+                autocomplete="off"
+                value={this.state.username}
+                onChange={this.update("username")}
+                placeholder=" "
+              />
+              <label for="username" className="login__input__label">
+                Username
+              </label>
+              <div className="login__errors__item">
+                {errors.username ? errors.username.slice(9) : ""}
+              </div>
+            </div>
+            <div className="login__input login__input--signup login__input--password">
+              <input
+                type="password"
+                className="input"
+                value={this.state.password}
+                onChange={this.update("password")}
+                placeholder=" "
+              />
+              <label for="password" className="login__input__label">
+                Password
+              </label>
+              <div className="login__errors__item  login__errors__item--password">
+                {errors.password ? errors.password.slice(9) : ""}
+              </div>
+            </div>
+            <div className="login__input login__input--signup login__input--password">
+              <input
+                type="password"
+                className="input"
+                value={this.state.password2}
+                onChange={this.update("password2")}
+                placeholder=" "
+              />
+              <label for="password" className="login__input__label">
+                Confirm Password
+              </label>
+              <div className="login__errors__item">
+                {errors.password2 ? errors.password2.slice(17) : ""}
+              </div>
+            </div>
           </div>
           <input
             className="login__btn login__btn--signup login__btn--login"
