@@ -27,16 +27,16 @@ class NavBar extends React.Component {
           this.props.user.username.slice(1);
       }
       return (
-        <div className="nav__btn nav__btn-logout" onClick={this.props.logout}>
+        <>
           <div className="user-rating">
             <div>User:{username}</div>
             <div key={this.props.user.elo}>Rating:{this.props.user.elo}</div>
           </div>
-          <span style={{ marginTop: "5px", marginLeft: "-25px" }}>
+          <div className="nav__btn nav__btn-logout" onClick={this.props.logout}>
             <FaBackspace />
             <span>Logout</span>
-          </span>
-        </div>
+          </div>
+        </>
       );
     } else {
       return (
