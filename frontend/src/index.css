@@ -26,11 +26,15 @@ body {
   text-align: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 a {
   text-decoration: none;
+}
+
+.bigDaddyDiv {
+  height: 100vh;
 }
 
 .board {
