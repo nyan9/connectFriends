@@ -1,5 +1,7 @@
 .nav {
   display: flex;
+  position: fixed;
+  width: 100%;
   padding: 2em;
   border-bottom-left-radius: 3em;
   border-bottom-right-radius: 3em;
