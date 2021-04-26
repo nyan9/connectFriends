@@ -58,7 +58,7 @@
     animation: rainbow-play 2s infinite;
     animation-direction: alternate;
   }
-
+  
   &:hover .user-icon {
     cursor: pointer;
     color: var(--clr-yellow);
@@ -66,6 +66,8 @@
     animation-direction: alternate;
   }
 }
+
+
 .nav__btn-login:hover {
   cursor: pointer;
   color: var(--clr-yellow);
@@ -92,6 +94,8 @@
   flex-direction: column;
   align-items: end;
   color: black;
+  padding-bottom: 5px;
+  border-bottom: 1px solid black;
 }
 
 .user-rating .leaderboard-link:hover{

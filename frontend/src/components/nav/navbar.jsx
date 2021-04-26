@@ -53,7 +53,7 @@ class NavBar extends React.Component {
               </div>
             </div>
             <span className="logout-button" onClick={this.handleLogout}>
-              <FaBackspace style={{ marginTop: "10px" }} />
+              <FaBackspace style={{ marginTop: "7px" }} />
               <span className="logout-text">Logout</span>
             </span>
           </div>
