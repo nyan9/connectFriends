@@ -1,6 +1,8 @@
 .gameDivContainer {
-  padding-top: 30px;
-  padding-right: 6em;
+  display: grid;
+  height: 100%;
+  align-content: center;
+  grid-template-columns: 2fr 1fr;
   background: linear-gradient(60deg, #ee7752, #e73c7e, #23a6d5, #134dd4);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
@@ -26,16 +28,16 @@
   align-items: baseline;
   margin-right: 20px;
 }
+
 .daddyContainerDiv {
-  display: flex;
-  justify-content: center;
+  place-self: end;
 }
+
 .containerDiv {
   display: flex;
   align-items: flex-end;
-  position: relative;
-  right: 40px;
 }
+
 .endGameMess {
   position: relative;
   bottom: 520px;

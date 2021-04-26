@@ -63,9 +63,7 @@ a {
 .outer-chatbox {
   display: flex;
   flex-direction: column;
-  position: relative;
-  left: 75%;
-  top: -545px;
+  place-self: center;
   border: 1px solid lightgray;
   border-radius: 5px;
   width: 360px;
