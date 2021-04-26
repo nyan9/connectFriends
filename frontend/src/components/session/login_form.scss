@@ -13,7 +13,6 @@
     width: 30%;
     position: relative;
     border-bottom: 3px dashed var(--clr-dark-green);
-    margin: 4rem auto 0;
     &:after {
       content: "";
       position: relative;
@@ -56,6 +55,8 @@
   &__inputs {
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 6em;
   }
 
   &__btns {
