@@ -40,7 +40,7 @@ a {
   background-color: var(--clr-dark-green);
   display: inline-block;
   min-width: 560px;
-  box-shadow: 0px 0px 8px 8px var(--clr-light-green);
+  box-shadow: 0px 0px 8px 8px #ffffffc2;
 }
 
 .col {
@@ -62,6 +62,7 @@ a {
   opacity: 0.5;
   background: black;
   color: white;
+  box-shadow: 0px 0px 8px 8px #ffffff;
 }
 
 .outer-leaderboard {
