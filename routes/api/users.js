@@ -8,35 +8,32 @@ const passport = require("passport");
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
-
 // router.get("/test", (req, res) => res.json({ msg: "This is the users route" }));
 
-
 router.get("/getUsers", (req, res) => {
-    User.find({})
-        .exec((err, users) =>{
-            if (err) return res.status(400).send(err)
-            res.status(200).send(users)
-        })
-})
+  User.find({}).exec((err, users) => {
+    if (err) return res.status(400).send(err);
+    res.status(200).send(users);
+  });
+});
 
-router.get("/getUser/:username", (req, res)=>{
-  User.findOne({username: req.params.username})
-    .exec((err,users)=>{
-      if (err) return res.status(400).send(err)
-      res.status(200).send(users)
-    })
-})
+router.get("/getUser/:username", (req, res) => {
+  User.findOne({ username: req.params.username }).exec((err, users) => {
+    if (err) return res.status(400).send(err);
+    res.status(200).send(users);
+  });
+});
 
-router.post("/update", (req,res)=>{
-  
-  const result = User.findOneAndUpdate({username: req.body.username}, {elo: req.body.elo},{new: true})
-      .exec((err, user) => {
-        if (err) return res.status(400).send(err)
-        res.status(200).send(user)
-      })
-})
-
+router.post("/update", (req, res) => {
+  const result = User.findOneAndUpdate(
+    { username: req.body.username },
+    { elo: req.body.elo },
+    { new: true }
+  ).exec((err, user) => {
+    if (err) return res.status(400).send(err);
+    res.status(200).send(user);
+  });
+});
 
 router.get(
   "/current",
@@ -44,7 +41,7 @@ router.get(
   (req, res) => {
     res.json({
       id: req.user.id,
-      username: req.user.username
+      username: req.user.username,
     });
   }
 );
@@ -116,7 +113,7 @@ router.post("/login", (req, res) => {
 
     bcrypt.compare(password, user.password).then((isMatch) => {
       if (isMatch) {
-        const payload = { id: user.id, username: user.username , elo: user.elo};
+        const payload = { id: user.id, username: user.username, elo: user.elo };
 
         jwt.sign(
           payload,
@@ -134,6 +131,15 @@ router.post("/login", (req, res) => {
         return res.status(400).json({ password: "Incorrect password" });
       }
     });
+  });
+});
+
+router.delete("/deleteUser/:username", (req, res) => {
+  debugger;
+  User.findOneAndDelete({ username: req.params.username }).exec((err, user) => {
+    debugger;
+    if (err) return res.status(500).send(err);
+    res.redirect("/");
   });
 });
 

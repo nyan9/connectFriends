@@ -116,9 +116,9 @@ class Board extends React.Component {
     hoverColumn(x,y){
         let color = ""
         if (this.props.currentColor === "red") {
-            color = "#fe6599"
+            color = "#ff94b8"
         } else {
-            color = "#ffff99"
+            color = "#fcfc8d"
         }
 
 
