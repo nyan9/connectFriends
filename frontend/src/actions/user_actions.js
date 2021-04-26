@@ -28,19 +28,6 @@ export function deleteUser(){
 }
 
 
-export function receiveUser(payload) {
-  return {
-    type: GET_USER,
-    payload,
-  };
-}
-
-export function receiveUsers(payload) {
-  return {
-    type: GET_USERS,
-    payload: payload,
-  };
-}
 
 export function updateElo(payload) {
   return {

@@ -1,4 +1,4 @@
-import {GET_USERS, UPDATE_ELO, GET_USER, REMOVE_USER} from '../actions/user_actions'
+import {GET_USERS, UPDATE_ELO} from '../actions/user_actions'
 
 export default function(state = {}, action){
     
@@ -7,8 +7,6 @@ export default function(state = {}, action){
             return Object.assign({}, state, action.payload.data)
         case UPDATE_ELO:
             return Object.assign({}, state, action.payload)
-        case REMOVE_USER:
-            return {}
         default:
             return state;
     }

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaPlay, FaGlobeAmericas, FaBackspace, FaCrown } from "react-icons/fa";
+import { FaPlay, FaGlobeAmericas, FaBackspace, FaCrown, FaUserCircle } from "react-icons/fa";
 import "./navbar.scss";
 
 class NavBar extends React.Component {
@@ -27,15 +27,19 @@ class NavBar extends React.Component {
           this.props.user.username.slice(1);
       }
       return (
-        <div className="nav__btn nav__btn-logout" onClick={this.props.logout}>
-          <div className="user-rating">
-            <div>User:{username}</div>
-            <div key={this.props.user.elo}>Rating:{this.props.user.elo}</div>
+        <div className="nav__btn nav__btn-logout" >
+          <FaUserCircle className="user-icon"/>
+          <div className="user-dropdown">
+             <div className="user-rating">
+              <div>User:<span>{username}</span></div>
+              <div key={this.props.currentUser.elo}>Rating:<span>{this.props.user.elo}</span></div>
+            </div>
+            <span  className="logout-button"onClick={() => (this.props.logout(), this.props.deleteUser())}>
+              <FaBackspace style={{marginTop:"10px"}} />
+              <span className="logout-text">Logout</span>
+            </span>
           </div>
-          <span style={{ marginTop: "5px", marginLeft: "-25px" }}>
-            <FaBackspace />
-            <span>Logout</span>
-          </span>
+         
         </div>
       );
     } else {
@@ -52,13 +56,9 @@ class NavBar extends React.Component {
   }
 
   render() {
-    let navClass = "nav";
 
-    if (this.props.loggedIn) {
-      navClass = "nav-2";
-    }
     return (
-      <section className={navClass}>
+      <section className="nav">
         <div className="nav__logo">
           CONNECT
           <img
