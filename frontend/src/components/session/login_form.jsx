@@ -72,9 +72,11 @@ class LoginForm extends React.Component {
   // Render the session errors if there are any
   renderErrors() {
     return (
-      <ul>
+      <ul className="login__errors">
         {Object.keys(this.state.errors).map((error, i) => (
-          <li key={`error-${i}`}>{this.state.errors[error]}</li>
+          <li className="login__errors__item" key={`error-${i}`}>
+            {this.state.errors[error]}
+          </li>
         ))}
       </ul>
     );
@@ -82,53 +84,55 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <form className="login" onSubmit={this.handleSubmit}>
-        <div className="login__input login__input--username">
-          <input
-            type="text"
-            name="username"
-            className="input"
-            value={this.state.username}
-            onChange={this.update("username")}
-            placeholder=" "
-          />
-          <label for="username" className="login__input__label">
-            Username
-          </label>
-        </div>
-        <div className="login__input login__input--password">
-          <input
-            type="password"
-            className="input"
-            value={this.state.password}
-            onChange={this.update("password")}
-            placeholder=" "
-          />
-          <label for="password" className="login__input__label">
-            Password
-          </label>
-        </div>
-        <input
-          className="login__btn login__btn--login"
-          type="submit"
-          value="Login"
-        />
-        <div className="login__btns">
-          <input
-            className="login__btn login__btn--other"
-            type="button"
-            onClick={() => this.props.openModal("signup")}
-            value="Create an account"
-          />
-          <input
-            className="login__btn login__btn--demo"
-            type="button"
-            onClick={this.handleDemo}
-            value="Login as demo user"
-          />
-        </div>
+      <div className="session">
         {this.renderErrors()}
-      </form>
+        <form className="login" onSubmit={this.handleSubmit}>
+          <div className="login__input login__input--username">
+            <input
+              type="text"
+              name="username"
+              className="input"
+              value={this.state.username}
+              onChange={this.update("username")}
+              placeholder=" "
+            />
+            <label for="username" className="login__input__label">
+              Username
+            </label>
+          </div>
+          <div className="login__input login__input--password">
+            <input
+              type="password"
+              className="input"
+              value={this.state.password}
+              onChange={this.update("password")}
+              placeholder=" "
+            />
+            <label for="password" className="login__input__label">
+              Password
+            </label>
+          </div>
+          <input
+            className="login__btn login__btn--login"
+            type="submit"
+            value="Login"
+          />
+          <div className="login__btns">
+            <input
+              className="login__btn login__btn--other"
+              type="button"
+              onClick={() => this.props.openModal("signup")}
+              value="Create an account"
+            />
+            <input
+              className="login__btn login__btn--demo"
+              type="button"
+              onClick={this.handleDemo}
+              value="Login as demo user"
+            />
+          </div>
+        </form>
+      </div>
     );
   }
 }
