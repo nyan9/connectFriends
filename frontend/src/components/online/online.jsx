@@ -4,9 +4,11 @@ import OnlineBoard from "./online_board";
 import { connect } from "react-redux";
 import Chatbox from "../chatbox/chatbox";
 import { io } from "socket.io-client";
-import {updateRating,  getCurrUser} from "../../actions/user_actions"
+import { updateRating, getCurrUser } from "../../actions/user_actions";
 import { Button } from "antd";
 import { to } from "@react-spring/core";
+import "./online.scss";
+
 
 class OnlineGame extends React.Component {
   constructor(props) {
@@ -51,11 +53,15 @@ class OnlineGame extends React.Component {
     this.rematch = this.rematch.bind(this);
 
     // this.socket = io.connect("https://connect4riends.herokuapp.com/", {secure: true});
-    this.socket = io.connect("http://localhost:5000/", {secure: true});
+    this.socket = io.connect("http://localhost:5000/", { secure: true });
 
-    this.socket.on("connect", () => this.socket.emit("join game", this.props.currentUser))
-    this.socket.on("joined game", (currentPlayer, players) => this.setState({currentPlayer, players}))
-    this.socket.on("send msg", msg => console.log("msg:", msg))
+    this.socket.on("connect", () =>
+      this.socket.emit("join game", this.props.currentUser)
+    );
+    this.socket.on("joined game", (currentPlayer, players) =>
+      this.setState({ currentPlayer, players })
+    );
+    this.socket.on("send msg", (msg) => console.log("msg:", msg));
     this.socket.on("end game", () => {
         this.props.history.push("/")
         alert("Opponent has disconnected")
@@ -82,18 +88,14 @@ class OnlineGame extends React.Component {
       })
       console.log("after setstate", this.state)
       this.socket.emit("join game", this.props.currentUser)
-    })
+    });
   }
 
   componentDidMount() {
-    this.socket.on("update player", currentPlayer => 
-    {
-      console.log("updateplayer was called")
-      this.setState({currentPlayer: currentPlayer})
-    })
-        if(this.props.currentUser && !this.props.user){
-        this.props.getUser(this.props.currentUser.username)
-    }
+    this.socket.on("update player", (currentPlayer) => {
+      console.log("updateplayer was called");
+      this.setState({ currentPlayer: currentPlayer });
+    });
   }
 
   componentWillUnmount() {
@@ -103,6 +105,20 @@ class OnlineGame extends React.Component {
   winGame(color) {
     this.setState({ gameOver: true, winColor: color });
     this.socket.emit("finish game");
+    if (this.state.currentPlayer.username === this.props.user.username) {
+      this.props.updateRating(
+        this.props.user.username,
+        this.props.user.elo - 10
+      );
+    } else {
+      this.props.updateRating(
+        this.props.user.username,
+        this.props.user.elo + 10
+      );
+    }
+    setTimeout(() => {
+      this.props.getUser(this.props.currentUser.username);
+    }, 100);
   }
 
   tieGame() {
@@ -117,9 +133,14 @@ class OnlineGame extends React.Component {
 
   render() {
     let winMsg = "";
-    
+
+    let username = "";
     if (this.state.gameOver && !this.state.tie) {
-      // username = this.state.currentPlayer.username[0].toUpperCase() + this.state.currentPlayer.username.slice(1)
+      // this.props.updateRating(this.props.user.username, (this.props.user.elo + 10))
+      username =
+        this.state.currentPlayer.username[0].toUpperCase() +
+        this.state.currentPlayer.username.slice(1);
+
       winMsg = (
         <div className="winMsg">GAME OVER! {this.state.currentPlayer.username} Wins!!!</div>
         // <div className="winMsg">GAME OVER! {username} Wins!!!</div>
@@ -127,15 +148,15 @@ class OnlineGame extends React.Component {
     } else if (this.state.gameOver && this.state.tie) {
       winMsg = <div>It's a tie!</div>;
     }
+
     
     return (
-      <div>
+      <div className="gameDivContainer">
         {
         this.state.currentPlayer ? 
         <div className="currentPlayer">The current player is {this.state.currentPlayer.username}</div> :
         <div className="currentPlayer">Waiting for Player 2</div>
         }
-
         <OnlineBoard
           key={this.state.key}
           board={this.state.board}
@@ -147,6 +168,8 @@ class OnlineGame extends React.Component {
           socket={this.socket}
           winGame={this.winGame}
           tieGame={this.tieGame}
+          user={this.props.user}
+          updateRating={this.props.updateRating}
         />
         <Chatbox />
         {winMsg}
@@ -158,11 +181,11 @@ class OnlineGame extends React.Component {
 
 const mstp = (state) => ({
   currentUser: state.session.user,
-  user: state.rating
+  user: state.rating,
 });
 const mdtp = (dispatch) => ({
-   updateRating: (username, rating) => dispatch(updateRating(username, rating)),
-   getUser: (username) => dispatch(getCurrUser(username))
+  updateRating: (username, rating) => dispatch(updateRating(username, rating)),
+  getUser: (username) => dispatch(getCurrUser(username)),
 });
 
 export default connect(mstp, mdtp)(OnlineGame);

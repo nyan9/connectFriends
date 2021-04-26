@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as Online from "./online_logic";
-
+import "./online.scss";
 
 export default class OnlineBoard extends React.Component {
   constructor(props) {
@@ -17,7 +17,7 @@ export default class OnlineBoard extends React.Component {
   componentDidMount() {
     let lastPos = null;
     this.props.socket.on("update board", (lastPos_and_color) => {
-      console.log("update board: ", lastPos_and_color)
+      console.log("update board: ", lastPos_and_color);
       this.updateBoard(lastPos_and_color);
       lastPos = lastPos_and_color[0];
     });
@@ -30,9 +30,11 @@ export default class OnlineBoard extends React.Component {
           let color = this.board.grid[lastPos[0]][lastPos[1]].color;
           lastPos = null
           this.props.winGame(color);
+          lastPos = null;
         } else if (!this.checkWin(lastPos) && this.board.full()) {
           lastPos = null
           this.props.tieGame();
+          lastPos = null;
         }
       }
     }, 0);
@@ -44,17 +46,19 @@ export default class OnlineBoard extends React.Component {
     e.preventDefault();
     this.props.socket.emit("play turn", this.props.currentUser);
     let lastPos = null;
+
     this.props.socket.off("allow turn").on("allow turn", () => {
       console.log("allow turn: ", this.props.currentUser)
+
       lastPos = this.board.lastPiecePos(parseInt(e.target.className));
     });
     // the following code needs to be asynchronous bc the above code is as well
     setTimeout(() => {
-      console.log("lastPos in setTimeout before if statement: ", lastPos)
+      console.log("lastPos in setTimeout before if statement: ", lastPos);
       if (lastPos) {
-        console.log("send pos: ", lastPos)
-        this.props.socket.emit("send pos", lastPos)
-      };
+        console.log("send pos: ", lastPos);
+        this.props.socket.emit("send pos", lastPos);
+      }
     }, 100);
   }
 
@@ -65,7 +69,7 @@ export default class OnlineBoard extends React.Component {
     document.getElementById(
       `${pos[0]},${pos[1]}`
     ).style.backgroundColor = color;
-    console.log("updateBoard was called")
+    console.log("updateBoard was called");
   }
 
   checkWin(pos) {
@@ -97,7 +101,6 @@ export default class OnlineBoard extends React.Component {
       );
     });
 
-    console.log(this.props.currentUser)
     return (
       <div className="board-container">
         <div className="board">{grid}</div>
