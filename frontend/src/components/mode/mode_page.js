@@ -29,7 +29,7 @@ class ModePage extends React.Component {
         </article>
         <article class="card">
           <header class="card-header">
-            <h2>You vs you</h2>
+            <h2>You vs You</h2>
           </header>
 
           <div className="card-logo">
