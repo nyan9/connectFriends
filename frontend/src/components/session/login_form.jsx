@@ -82,41 +82,44 @@ class LoginForm extends React.Component {
   }
 
   render() {
+    let errors = this.state.errors;
     return (
       <div className="session">
         {this.renderErrors()}
         <form className="login" onSubmit={this.handleSubmit}>
-          <div className="login__input login__input--username">
-            <input
-              type="text"
-              name="username"
-              className="input"
-              autoComplete="nope"
-              value={this.state.username}
-              onChange={this.update("username")}
-              placeholder=" "
-            />
-            <label for="username" className="login__input__label">
-              Username
-            </label>
-          </div>
-          <div className="login__errors__item">
-            {this.state.errors.username}
-          </div>
-          <div className="login__input login__input--password">
-            <input
-              type="password"
-              className="input"
-              value={this.state.password}
-              onChange={this.update("password")}
-              placeholder=" "
-            />
-            <label for="password" className="login__input__label">
-              Password
-            </label>
-          </div>
-          <div className="login__errors__item">
-            {this.state.errors.password}
+          <div className="login__inputs">
+            <div className="login__input login__input--username">
+              <input
+                type="text"
+                name="username"
+                className="input"
+                autoComplete="nope"
+                value={this.state.username}
+                onChange={this.update("username")}
+                placeholder=" "
+              />
+              <label for="username" className="login__input__label">
+                Username
+              </label>
+              <div className="login__errors__item">
+                {this.state.errors.username}
+              </div>
+            </div>
+            <div className="login__input login__input--password">
+              <input
+                type="password"
+                className="input"
+                value={this.state.password}
+                onChange={this.update("password")}
+                placeholder=" "
+              />
+              <label for="password" className="login__input__label">
+                Password
+              </label>
+              <div className="login__errors__item">
+                {this.state.errors.password}
+              </div>
+            </div>
           </div>
           <input
             className="login__btn login__btn--login"
