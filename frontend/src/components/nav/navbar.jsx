@@ -70,7 +70,7 @@ class NavBar extends React.Component {
 
         <div className="nav__play">
           <Link to="/">
-            <span>Play</span>
+            <span>Mode</span>
             <FaPlay className="nav__play__btn" />
           </Link>
         </div>
