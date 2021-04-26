@@ -49,7 +49,11 @@ class NavBar extends React.Component {
             <div className="user-rating">
               <div>{username}</div>
               <div key={this.props.currentUser.elo}>
-              <Link to="/leaderboard" style={{color:"black"}}><div className="leaderboard-link">Rating:<span>{this.props.user.elo}</span></div></Link>
+                <Link to="/leaderboard" style={{ color: "black" }}>
+                  <div className="leaderboard-link">
+                    Rating:<span>{this.props.user.elo}</span>
+                  </div>
+                </Link>
               </div>
             </div>
             <span className="logout-button" onClick={this.handleLogout}>
@@ -87,7 +91,7 @@ class NavBar extends React.Component {
         </div>
 
         <div className="nav__play">
-          <Link to="/">
+          <Link to="/" onClick={this.props.closeModal}>
             <span>Mode</span>
             <FaPlay className="nav__play__btn" />
           </Link>
