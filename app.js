@@ -152,7 +152,7 @@ io.on("connection", (socket) => {
       gameState.currentPlayer = gameState.players[0];
       gameState.currentColor = "red";
     }
-    io.emit("update player", gameState.currentPlayer)
+    if (!game.win(lastPos[0], lastPos[1])) io.emit("update player", gameState.currentPlayer);
   });
 
   socket.on("finish game", () => (gameState.gameOver = true));
