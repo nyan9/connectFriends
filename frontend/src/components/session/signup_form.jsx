@@ -69,17 +69,12 @@ class SignupForm extends React.Component {
         className={`login__errors__${
           Object.keys(this.state.errors).length === 0 ? null : "visible"
         }`}
-      >
-        {Object.keys(this.state.errors).map((error, i) => (
-          <li className="login__errors__item" key={`error-${i}`}>
-            {this.state.errors[error]}
-          </li>
-        ))}
-      </ul>
+      ></ul>
     );
   }
 
   render() {
+    console.log(this.state.errors);
     return (
       <div className="session">
         {this.renderErrors()}
@@ -97,6 +92,9 @@ class SignupForm extends React.Component {
               Username
             </label>
           </div>
+          <div className="login__errors__item">
+            {this.state.errors.username}
+          </div>
           <div className="login__input login__input--signup login__input--password">
             <input
               type="password"
@@ -109,6 +107,9 @@ class SignupForm extends React.Component {
               Password
             </label>
           </div>
+          <div className="login__errors__item">
+            {this.state.errors.password}
+          </div>
           <div className="login__input login__input--signup login__input--password">
             <input
               type="password"
@@ -120,6 +121,9 @@ class SignupForm extends React.Component {
             <label for="password" className="login__input__label">
               Confirm Password
             </label>
+          </div>
+          <div className="login__errors__item">
+            {this.state.errors.password2}
           </div>
           <input
             className="login__btn login__btn--signup login__btn--login"
