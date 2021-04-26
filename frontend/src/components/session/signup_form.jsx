@@ -12,6 +12,7 @@ class SignupForm extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDemo = this.handleDemo.bind(this);
     this.clearedErrors = false;
   }
 
@@ -27,6 +28,28 @@ class SignupForm extends React.Component {
       this.setState({
         [field]: e.currentTarget.value,
       });
+  }
+
+  randomUsername() {
+    return `demo_user${Math.floor(Math.random() * 10000)}`;
+  }
+
+  handleDemo(e) {
+    e.preventDefault();
+
+    let randUsername = this.randomUsername();
+    let user;
+
+    if (this.props.checkUsername(randUsername)) {
+      user = {
+        username: randUsername,
+        password: randUsername,
+        password2: randUsername,
+      };
+      this.props.signup(user);
+    } else {
+      this.randomUsername();
+    }
   }
 
   handleSubmit(e) {
@@ -104,6 +127,7 @@ class SignupForm extends React.Component {
           <input
             className="login__btn login__btn--demo"
             type="button"
+            onClick={this.handleDemo}
             value="Login as demo user"
           />
         </div>
