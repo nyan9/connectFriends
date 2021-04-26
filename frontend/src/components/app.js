@@ -17,7 +17,7 @@ const App = () => (
     <Switch>
       <Route exact path="/" component={ModePage} />
       <Route exact path="/local" component={Game} />
-      <ProtectedRoute exact path="/cpu" component={Game} />
+      <Route exact path="/cpu" component={Game} />
       <ProtectedRoute exact path="/online" component={OnlineGame} />
       <div className="leaderboardContainerdiv">
         <Route exact path="/leaderboard" component={Leaderboard} />
