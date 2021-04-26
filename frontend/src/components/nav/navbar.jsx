@@ -1,19 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaPlay, FaGlobeAmericas, FaBackspace, FaCrown } from "react-icons/fa";
+import { FaPlay, FaGlobeAmericas, FaBackspace } from "react-icons/fa";
 import "./navbar.scss";
+import { deleteUser } from "../../util/user_api_util";
 
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
 
     this.getLinks = this.getLinks.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  handleLogout(e) {
+    e.preventDefault();
+    let currentUsername = this.props.user.username;
+    if (currentUsername.slice(0, 4) === "demo") {
+      deleteUser(currentUsername);
+    }
+    this.props.logout();
   }
 
   // Selectively render links dependent on whether the user is logged in
   getLinks() {
     if (this.props.loggedIn) {
-      console.log(this.props.user);
       let username = "";
       if (Object.keys(this.props.user).length === 0) {
         {
@@ -30,7 +40,7 @@ class NavBar extends React.Component {
             <div>User:{username}</div>
             <div key={this.props.user.elo}>Rating:{this.props.user.elo}</div>
           </div>
-          <div className="nav__btn nav__btn-logout" onClick={this.props.logout}>
+          <div className="nav__btn nav__btn-logout" onClick={this.handleLogout}>
             <FaBackspace />
             <span>Logout</span>
           </div>
