@@ -1,4 +1,4 @@
-import {GET_USERS, UPDATE_ELO, GET_USER} from '../actions/user_actions'
+import {GET_USERS, UPDATE_ELO} from '../actions/user_actions'
 
 export default function(state = {}, action){
     
