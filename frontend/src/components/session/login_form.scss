@@ -127,8 +127,7 @@
   height: 100%;
 }
 
-.login__errors {
-  background: var(--clr-pink);
+.login__errors__visible {
   padding: 1em 0;
   color: white;
   position: absolute;
@@ -139,4 +138,5 @@
   font-weight: 600;
   border-bottom-left-radius: 2em;
   border-bottom-right-radius: 2em;
+  background: var(--clr-pink);
 }
