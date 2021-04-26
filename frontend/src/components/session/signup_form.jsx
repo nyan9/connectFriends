@@ -53,7 +53,7 @@ class SignupForm extends React.Component {
   render() {
     return (
       <form className="login" onSubmit={this.handleSubmit}>
-        <div className="login__input login__input--username">
+        <div className="login__input login__input--signup login__input--username">
           <input
             type="text"
             className="input"
@@ -65,7 +65,7 @@ class SignupForm extends React.Component {
             Username
           </label>
         </div>
-        <div className="login__input login__input--password">
+        <div className="login__input login__input--signup login__input--password">
           <input
             type="password"
             className="input"
@@ -77,7 +77,7 @@ class SignupForm extends React.Component {
             Password
           </label>
         </div>
-        <div className="login__input login__input--password">
+        <div className="login__input login__input--signup login__input--password">
           <input
             type="password"
             className="input"
@@ -89,22 +89,22 @@ class SignupForm extends React.Component {
             Confirm Password
           </label>
         </div>
+        <input
+          className="login__btn login__btn--signup login__btn--login"
+          type="submit"
+          value="Signup"
+        />
         <div className="login__btns">
-          <input
-            className="login__btn login__btn--login"
-            type="submit"
-            value="Signup"
-          />
-          <input
-            className="login__btn login__btn--demo"
-            type="button"
-            value="Login as demo user"
-          />
           <input
             className="login__btn login__btn--other"
             type="button"
             onClick={() => this.props.openModal("login")}
             value="Login instead"
+          />
+          <input
+            className="login__btn login__btn--demo"
+            type="button"
+            value="Login as demo user"
           />
         </div>
         {this.renderErrors()}
