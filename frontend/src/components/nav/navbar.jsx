@@ -1,24 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 import { FaPlay, FaGlobeAmericas, FaBackspace, FaCrown, FaUserCircle } from "react-icons/fa";
+
 import "./navbar.scss";
+import { deleteUser } from "../../util/user_api_util";
 
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
 
     this.getLinks = this.getLinks.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  handleLogout(e) {
+    e.preventDefault();
+    let currentUsername = this.props.user.username;
+    if (currentUsername.slice(0, 4) === "demo") {
+      deleteUser(currentUsername);
+    }
+    this.props.logout();
   }
 
   // Selectively render links dependent on whether the user is logged in
   getLinks() {
     if (this.props.loggedIn) {
-      debugger;
-      console.log(this.props.user);
       let username = "";
       if (Object.keys(this.props.user).length === 0) {
         {
-          debugger;
           this.props.getUser(this.props.currentUser.username);
         }
       } else {
@@ -27,6 +37,7 @@ class NavBar extends React.Component {
           this.props.user.username.slice(1);
       }
       return (
+
         <div className="nav__btn nav__btn-logout" >
           <FaUserCircle className="user-icon"/>
           <div className="user-dropdown">
@@ -41,6 +52,7 @@ class NavBar extends React.Component {
           </div>
          
         </div>
+
       );
     } else {
       return (
@@ -72,7 +84,7 @@ class NavBar extends React.Component {
 
         <div className="nav__play">
           <Link to="/">
-            <span>Play</span>
+            <span>Mode</span>
             <FaPlay className="nav__play__btn" />
           </Link>
         </div>
