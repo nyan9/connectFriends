@@ -112,15 +112,17 @@ io.on("connection", (socket) => {
 
   // add players to game
   socket.on("join game", (player) => {
+    io.emit("send msg", `${player.username} requested join game`)
+    io.emit("send msg", `${gameState.players.length} current players before push`)
     if (gameState.players.length < 2) {
       if (gameState.players.length == 0) {
         gameState.currentPlayer = player;
       }
       gameState.players.push(player);
       io.emit("joined game", gameState.currentPlayer, gameState.players);
+      io.emit("send msg", `${player.username} successfully joined game`);
+      io.emit("send msg", `${gameState.players.length} current players`);
     }
-    io.emit("send msg", `${player.username} connected`);
-    io.emit("send msg", `${gameState.players.length} is gameState.players`);
   });
 
   socket.on("disconnect", () => {
@@ -155,5 +157,21 @@ io.on("connection", (socket) => {
     if (!game.win(lastPos[0], lastPos[1])) io.emit("update player", gameState.currentPlayer);
   });
 
-  socket.on("finish game", () => (gameState.gameOver = true));
+  socket.on("finish game", () => {
+    io.emit("send msg", `finished game: gameState is ${JSON.stringify(gameState)}`)
+  });
+
+  socket.on("rematch", () => {
+    gameState.board = [
+      [null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null],
+    ]
+    gameState.gameOver = false
+    game = new Online.Board(gameState.board)
+    io.emit("new game")
+  })
 });
