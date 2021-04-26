@@ -12,6 +12,7 @@ class SignupForm extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDemo = this.handleDemo.bind(this);
     this.clearedErrors = false;
   }
 
@@ -20,7 +21,6 @@ class SignupForm extends React.Component {
       this.props.history.push("/game");
     }
     this.setState({ errors: nextProps.errors });
-
   }
 
   update(field) {
@@ -28,6 +28,28 @@ class SignupForm extends React.Component {
       this.setState({
         [field]: e.currentTarget.value,
       });
+  }
+
+  randomUsername() {
+    return `demo_user${Math.floor(Math.random() * 10000)}`;
+  }
+
+  handleDemo(e) {
+    e.preventDefault();
+
+    let randUsername = this.randomUsername();
+    let user;
+
+    if (this.props.checkUsername(randUsername)) {
+      user = {
+        username: randUsername,
+        password: randUsername,
+        password2: randUsername,
+      };
+      this.props.signup(user);
+    } else {
+      this.randomUsername();
+    }
   }
 
   handleSubmit(e) {
@@ -43,9 +65,15 @@ class SignupForm extends React.Component {
 
   renderErrors() {
     return (
-      <ul>
+      <ul
+        className={`login__errors__${
+          Object.keys(this.state.errors).length === 0 ? null : "visible"
+        }`}
+      >
         {Object.keys(this.state.errors).map((error, i) => (
-          <li key={`error-${i}`}>{this.state.errors[error]}</li>
+          <li className="login__errors__item" key={`error-${i}`}>
+            {this.state.errors[error]}
+          </li>
         ))}
       </ul>
     );
@@ -53,33 +81,63 @@ class SignupForm extends React.Component {
 
   render() {
     return (
-      <div className="signup-form-container">
-        <form onSubmit={this.handleSubmit}>
-          <div className="signup-form">
-            <br />
+      <div className="session">
+        {this.renderErrors()}
+        <form className="login" onSubmit={this.handleSubmit}>
+          <div className="login__input login__input--signup login__input--username">
             <input
               type="text"
+              className="input"
               value={this.state.username}
               onChange={this.update("username")}
-              placeholder="Username"
+              placeholder=" "
             />
-            <br />
+            <label for="username" className="login__input__label">
+              Username
+            </label>
+          </div>
+          <div className="login__input login__input--signup login__input--password">
             <input
               type="password"
+              className="input"
               value={this.state.password}
               onChange={this.update("password")}
-              placeholder="Password"
+              placeholder=" "
             />
-            <br />
+            <label for="password" className="login__input__label">
+              Password
+            </label>
+          </div>
+          <div className="login__input login__input--signup login__input--password">
             <input
               type="password"
+              className="input"
               value={this.state.password2}
               onChange={this.update("password2")}
-              placeholder="Confirm Password"
+              placeholder=" "
             />
-            <br />
-            <input type="submit" value="Submit" />
-            {this.renderErrors()}
+            <label for="password" className="login__input__label">
+              Confirm Password
+            </label>
+          </div>
+          <input
+            className="login__btn login__btn--signup login__btn--login"
+            type="submit"
+            value="Signup"
+          />
+          <div className="login__btns">
+            <input
+              className="login__btn login__btn--other"
+              type="button"
+              onClick={() => this.props.openModal("login")}
+              value="Login instead"
+            />
+            <input
+              className="login__btn login__btn--demo"
+              type="button"
+              onClick={this.handleDemo}
+              value="Login as demo user"
+            />
           </div>
         </form>
       </div>

@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch) => ({
   getUser: (username) => dispatch(getCurrUser(username)),
   openModal: (type) => dispatch(openModal(type)),
   closeModal: () => dispatch(closeModal),
-  logout: () => dispatch(logout),
+  logout: () => dispatch(logout()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
