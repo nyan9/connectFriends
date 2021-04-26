@@ -135,7 +135,9 @@ router.post("/login", (req, res) => {
 });
 
 router.delete("/deleteUser/:username", (req, res) => {
+  debugger;
   User.findOneAndDelete({ username: req.params.username }).exec((err, user) => {
+    debugger;
     if (err) return res.status(500).send(err);
     res.redirect("/");
   });

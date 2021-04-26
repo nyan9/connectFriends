@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { FaPlay, FaGlobeAmericas, FaBackspace, FaCrown, FaUserCircle } from "react-icons/fa";
+import {
+  FaPlay,
+  FaGlobeAmericas,
+  FaBackspace,
+  FaUserCircle,
+} from "react-icons/fa";
 
 import "./navbar.scss";
 import { deleteUser } from "../../util/user_api_util";
@@ -16,10 +21,11 @@ class NavBar extends React.Component {
 
   handleLogout(e) {
     e.preventDefault();
-    let currentUsername = this.props.user.username;
+    let currentUsername = this.props.currentUser.username;
     if (currentUsername.slice(0, 4) === "demo") {
       deleteUser(currentUsername);
     }
+    this.props.resetRating();
     this.props.logout();
   }
 
@@ -37,22 +43,21 @@ class NavBar extends React.Component {
           this.props.user.username.slice(1);
       }
       return (
-
-        <div className="nav__btn nav__btn-logout" >
-          <FaUserCircle className="user-icon"/>
+        <div className="nav__btn nav__btn-logout">
+          <FaUserCircle className="user-icon" />
           <div className="user-dropdown">
-             <div className="user-rating">
-              <div>User:<span>{username}</span></div>
-              <div key={this.props.currentUser.elo}>Rating:<span>{this.props.user.elo}</span></div>
+            <div className="user-rating">
+              <div>{username}</div>
+              <div key={this.props.currentUser.elo}>
+                Rating:<span>{this.props.user.elo}</span>
+              </div>
             </div>
-            <span  className="logout-button"onClick={() => (this.props.logout(), this.props.deleteUser())}>
-              <FaBackspace style={{marginTop:"10px"}} />
+            <span className="logout-button" onClick={this.handleLogout}>
+              <FaBackspace style={{ marginTop: "10px" }} />
               <span className="logout-text">Logout</span>
             </span>
           </div>
-         
         </div>
-
       );
     } else {
       return (
@@ -68,7 +73,6 @@ class NavBar extends React.Component {
   }
 
   render() {
-
     return (
       <section className="nav">
         <div className="nav__logo">
