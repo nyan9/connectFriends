@@ -22,7 +22,7 @@ class NavBar extends React.Component {
           this.props.getUser(this.props.currentUser.username);
         }
       }else{
-
+        
         username = this.props.user.username[0].toUpperCase() + this.props.user.username.slice(1);
       }
       return (
