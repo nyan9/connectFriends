@@ -28,9 +28,11 @@ export default class OnlineBoard extends React.Component {
       if (lastPos) {
         if (this.checkWin(lastPos)) {
           let color = this.board.grid[lastPos[0]][lastPos[1]].color;
+          lastPos = null
           this.props.winGame(color);
           lastPos = null;
         } else if (!this.checkWin(lastPos) && this.board.full()) {
+          lastPos = null
           this.props.tieGame();
           lastPos = null;
         }
@@ -44,8 +46,10 @@ export default class OnlineBoard extends React.Component {
     e.preventDefault();
     this.props.socket.emit("play turn", this.props.currentUser);
     let lastPos = null;
-    this.props.socket.on("allow turn", () => {
-      console.log("allow turn: ", this.props.currentUser);
+
+    this.props.socket.off("allow turn").on("allow turn", () => {
+      console.log("allow turn: ", this.props.currentUser)
+
       lastPos = this.board.lastPiecePos(parseInt(e.target.className));
     });
     // the following code needs to be asynchronous bc the above code is as well
