@@ -88,6 +88,7 @@ class SignupForm extends React.Component {
             <input
               type="text"
               className="input"
+              autocomplete="off"
               value={this.state.username}
               onChange={this.update("username")}
               placeholder=" "

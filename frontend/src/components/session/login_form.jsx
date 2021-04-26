@@ -98,6 +98,7 @@ class LoginForm extends React.Component {
               name="username"
               className="input"
               value={this.state.username}
+              autocomplete="off"
               onChange={this.update("username")}
               placeholder=" "
             />
