@@ -82,16 +82,16 @@
   }
 }
 .red {
-  background-color: red;
+  background-color: var(--clr-pink);
 }
 .yellow {
-  background-color: yellow;
+  background-color: var(--clr-yellow);
 }
 .hoveredred {
-  background-color: #fe6599;
+  background-color: #fda3c1;
 }
 .hoveredyellow {
-  background-color: #ffff99;
+  background-color: #ffffae;
 }
 .hovered {
   background-color: #ffffff8c;

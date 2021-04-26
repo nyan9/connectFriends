@@ -46,7 +46,7 @@ a {
 }
 
 .board {
-  background-color: rgb(44, 44, 212);
+  background-color: var(--clr-dark-green);
   display: inline-block;
   min-width: 560px;
 }
