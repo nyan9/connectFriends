@@ -29,8 +29,10 @@ export default class OnlineBoard extends React.Component {
         if (this.checkWin(lastPos)) {
           let color = this.board.grid[lastPos[0]][lastPos[1]].color;
           this.props.winGame(color);
+          lastPos=null;
         } else if (!this.checkWin(lastPos) && this.board.full()) {
           this.props.tieGame();
+          lastPos=null;
         }
       }
     }, 0);
@@ -96,7 +98,7 @@ export default class OnlineBoard extends React.Component {
       );
     });
 
-    console.log(this.props.currentUser)
+ 
     return (
       <div className="board-container">
         <div className="board">{grid}</div>
