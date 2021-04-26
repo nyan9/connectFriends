@@ -21,22 +21,21 @@ body {
   max-width: 100vw;
   padding: 0;
   margin: 0;
-  background: linear-gradient(90deg, var(--clr-pink), var(--clr-yellow));
-  animation: rainbow-play-background 2s infinite;
+  background: var(--clr-dark-green);
   font-family: "DM Mono", monospace;
   text-align: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-@keyframes rainbow-play-background {
+/* @keyframes rainbow-play-background {
   from {
     backdrop-filter: hue-rotate(0deg);
   }
   to {
     backdrop-filter: hue-rotate(360deg);
   }
-}
+} */
 
 a {
   text-decoration: none;
