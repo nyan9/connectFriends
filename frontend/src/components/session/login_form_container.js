@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
-import { login } from "../../actions/session_actions";
+import { login, signup } from "../../actions/session_actions";
+import { checkUsername } from "../../actions/user_actions";
 import LoginForm from "./login_form";
 import { openModal } from "../../actions/modal_actions";
 
@@ -12,7 +13,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     login: (user) => dispatch(login(user)),
+    signup: (user) => dispatch(signup(user)),
     openModal: (type) => dispatch(openModal(type)),
+    checkUsername: (username) => dispatch(checkUsername(username)),
   };
 };
 
