@@ -68,8 +68,7 @@
   span:hover {
     cursor: pointer;
     color: var(--clr-yellow);
-    animation: rainbow-play 2s;
-    animation-iteration-count: infinite;
+    animation: rainbow-play 2s infinite;
     animation-direction: alternate;
   }
 }

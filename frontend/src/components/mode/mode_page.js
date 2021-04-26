@@ -11,9 +11,10 @@ class ModePage extends React.Component {
   }
   render() {
     return (
-      <section class="card-list">
-        <article class="card">
-          <header class="card-header">
+
+      <section className="card-list">
+        <article className="card">
+          <header className="card-header">
             <h2>Leaderboard</h2>
           </header>
 
@@ -32,43 +33,43 @@ class ModePage extends React.Component {
             <h2>You vs you</h2>
           </header>
 
-          <div class="card-logo">
+          <div className="card-logo">
             <img src="%PUBLIC_URL%/../single2.svg" width="250" height="250" />
           </div>
 
-          <div class="card-button">
+          <div className="card-button">
             <Link to="/local">
               <FaPlay />
             </Link>
           </div>
         </article>
 
-        <article class="card">
-          <header class="card-header">
+        <article className="card">
+          <header className="card-header">
             <h2>You vs AI</h2>
           </header>
 
-          <div class="card-logo">
+          <div className="card-logo">
             <img src="%PUBLIC_URL%/../alien.svg" width="250" height="250" />
           </div>
 
-          <div class="card-button">
+          <div className="card-button">
             <Link to="/cpu">
               <FaPlay />
             </Link>
           </div>
         </article>
 
-        <article class="card">
-          <header class="card-header">
+        <article className="card">
+          <header className="card-header">
             <h2>Online Multiplayer</h2>
           </header>
 
-          <div class="card-logo">
+          <div className="card-logo">
             <img src="%PUBLIC_URL%/../online1.svg" width="250" height="250" />
           </div>
 
-          <div class="card-button">
+          <div className="card-button">
             <Link to="/online">
               <FaPlay />
             </Link>
