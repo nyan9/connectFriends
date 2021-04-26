@@ -15,19 +15,19 @@ function Modal({ modal, closeModal }) {
   //   transform: modal ? `translateY(0%)` : `translateY(-100%)`,
   // });
 
-  // const escKeyPress = useCallback(
-  //   (e) => {
-  //     if (e.key === "Escape" && modal) {
-  //       closeModal();
-  //     }
-  //   },
-  //   [closeModal, modal]
-  // );
+  const escKeyPress = useCallback(
+    (e) => {
+      if (e.key === "Escape" && modal) {
+        closeModal();
+      }
+    },
+    [closeModal, modal]
+  );
 
-  // useEffect(() => {
-  //   document.addEventListener("keydown", escKeyPress);
-  //   return () => document.removeEventListener("keydown", escKeyPress);
-  // }, [escKeyPress]);
+  useEffect(() => {
+    document.addEventListener("keydown", escKeyPress);
+    return () => document.removeEventListener("keydown", escKeyPress);
+  }, [escKeyPress]);
 
   if (!modal) {
     return null;
