@@ -32,8 +32,8 @@ class Game extends React.Component {
     this.handlewin = this.handlewin.bind(this);
     this.handleloss = this.handleloss.bind(this);
 
-    this.socket = io.connect("https://connect4riends.herokuapp.com/", { secure: true });
-    // this.socket = io.connect("http://localhost:5000/", { secure: true });
+    // this.socket = io.connect("https://connect4riends.herokuapp.com/", { secure: true });
+    this.socket = io.connect("http://localhost:5000/", { secure: true });
   }
 
   componentDidMount() {
@@ -60,7 +60,7 @@ class Game extends React.Component {
     }
 
     // this.setState({board: this.state.board})
-    if (this.state.currentColor == "red") {
+    if (this.state.currentColor === "red") {
       // setState({currentPlayer})
       this.setState({ currentColor: "yellow" });
     } else {

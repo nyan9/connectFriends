@@ -11,9 +11,25 @@ class ModePage extends React.Component {
   }
   render() {
     return (
+
       <section className="card-list">
         <article className="card">
           <header className="card-header">
+            <h2>Leaderboard</h2>
+          </header>
+
+          <div class="card-logo">
+            <img src="%PUBLIC_URL%/../leader.svg" width="250" height="245" />
+          </div>
+
+          <div class="card-button">
+            <Link to="/leaderboard">
+              <FaPlay />
+            </Link>
+          </div>
+        </article>
+        <article class="card">
+          <header class="card-header">
             <h2>You vs you</h2>
           </header>
 

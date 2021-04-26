@@ -45,12 +45,56 @@
     color: white;
 }
 .rematchbtn{
-    background-color: transparent;
-    border: none;
-    color: white;
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 25px;
+    box-shadow: 0px 0px 8px 8px #ffffff25;
+    color: black;
+    padding: 10px;
+    padding-inline: 30px;
     font-size: 30px;
     cursor: pointer;
+    transform: scale(1.00);
+    transition-duration: .3s;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+.rematchbtn:hover{
+    transform: scale(1.06);
+    transition-duration: .3s;
 }
 .rematchbtn:focus{
     outline: none;
+}
+.fall {
+    animation-name: fall-animation;
+    animation-duration: 500ms;
+}
+@keyframes fall-animation {
+    from {
+        transform: translateY(-1000%);
+    }
+    to {
+        transform: translateY(0%);
+    }
+}
+.red{
+    background-color: red;
+}
+.yellow{
+    background-color: yellow;
+}
+.hoveredred{
+    background-color:#fe6599;
+}
+.hoveredyellow{
+    background-color: #ffff99;
+}
+.hovered{
+    background-color: #ffffff8c;
+}
+.currentPlayer, .winMsg {
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px;
 }

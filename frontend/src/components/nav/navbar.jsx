@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaPlay, FaGlobeAmericas, FaBackspace } from "react-icons/fa";
+import { FaPlay, FaGlobeAmericas, FaBackspace, FaCrown} from "react-icons/fa";
 import "./navbar.scss";
 
 class NavBar extends React.Component {
@@ -11,25 +11,32 @@ class NavBar extends React.Component {
   }
 
   // Selectively render links dependent on whether the user is logged in
-  getLinks() {
+  getLinks() {  
     if (this.props.loggedIn) {
-      if (!this.props.user) {
+      debugger
+      console.log(this.props.user)
+      let username=""
+      if (Object.keys(this.props.user).length === 0) {
         {
+          debugger
           this.props.getUser(this.props.currentUser.username);
         }
-      }
+      }else{
 
+        username = this.props.user.username[0].toUpperCase() + this.props.user.username.slice(1);
+      }
       return (
-        <>
-          <div key={this.props.currentUser.elo}>
-            {this.props.currentUser.username}
-            {this.props.currentUser.elo}
+        <div className="nav__btn nav__btn-logout" onClick={this.props.logout}>
+          <div className="user-rating">
+            <div>User:{username}</div>
+            <div key={this.props.user.elo}>Rating:{this.props.user.elo}</div>
           </div>
-          <div className="nav__btn nav__btn-logout" onClick={this.props.logout}>
+          <span style={{marginTop: "5px", marginLeft:"-25px"}}>
             <FaBackspace />
             <span>Logout</span>
-          </div>
-        </>
+          </span>
+          {/* <button onClick={this.props.logout}>LOGOUT</button> */}
+        </div>
       );
     } else {
       return (
@@ -37,17 +44,25 @@ class NavBar extends React.Component {
           className="nav__btn nav__btn-login"
           onClick={() => this.props.openModal("login")}
         >
+          <div style={{display: "flex", gap: "5px"}}>
           <FaGlobeAmericas />
           <span>Login</span>
+          </div>
         </div>
       );
     }
   }
 
   render() {
+    let navClass = "nav"
+
+    if (this.props.loggedIn){
+      navClass = "nav-2"
+    }
     return (
-      <section className="nav">
-        <div className="nav__logo">LOGO HERE</div>
+      <section className={navClass}>
+        <div className="nav__logo">CONNECT<img src="%PUBLIC_URL%/../4.svg" width="20" height="20" style={{marginBottom:"-1px", marginRight:"0px"}}/>RIENDS</div>
+        
         <div className="nav__play">
           <Link to="/">
             <span>Play</span>

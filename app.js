@@ -12,8 +12,8 @@ const chat = require("./routes/api/chat");
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    // origin: "http://localhost:3000",
-    origin: "http://connect4riends.herokuapp.com",
+    origin: "http://localhost:3000",
+    // origin: "http://connect4riends.herokuapp.com",
     methods: ["GET", "POST"],
   },
 });
@@ -117,7 +117,7 @@ io.on("connection", (socket) => {
         gameState.currentPlayer = player;
       }
       gameState.players.push(player);
-      io.emit("joined game", "player joined the game");
+      io.emit("joined game", gameState.currentPlayer, gameState.players);
     }
     io.emit("send msg", `${player.username} connected`);
     io.emit("send msg", `${gameState.players.length} is gameState.players`);
@@ -133,7 +133,6 @@ io.on("connection", (socket) => {
   // // very laggy
 
   socket.on("play turn", (currentUser) => {
-    debugger;
     // add 
     if (currentUser.id === gameState.currentPlayer.id && !gameState.gameOver) {
       socket.emit("allow turn");
@@ -153,6 +152,7 @@ io.on("connection", (socket) => {
       gameState.currentPlayer = gameState.players[0];
       gameState.currentColor = "red";
     }
+    if (!game.win(lastPos[0], lastPos[1])) io.emit("update player", gameState.currentPlayer);
   });
 
   socket.on("finish game", () => (gameState.gameOver = true));
