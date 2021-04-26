@@ -6,9 +6,8 @@
   background-color: var(--clr-light-green);
   align-items: center;
   justify-content: space-between;
-
 }
-.nav-2{
+.nav-2 {
   display: flex;
   padding: 2em;
   border-bottom-left-radius: 3em;
@@ -16,7 +15,7 @@
   background-color: var(--clr-light-green);
   align-items: center;
   justify-content: space-between;
-    padding-bottom: 0px;
+  padding-bottom: 0px;
   padding-top: 10px;
 }
 
@@ -54,18 +53,15 @@
 
 .nav__btn {
   display: flex;
-  flex-direction: column;
   align-items: center;
   font-size: 1.25rem;
   color: var(--clr-dark-green);
 
   span {
-    position: relative;
     margin-left: 5px;
-    top: -4px;
   }
 
-  span:hover {
+  &:hover {
     cursor: pointer;
     color: var(--clr-yellow);
     animation: rainbow-play 2s infinite;
@@ -73,20 +69,20 @@
   }
 }
 
-.nav__logo{
+.nav__logo {
   font-size: 20px;
-  font-weight:bolder;
+  font-weight: bolder;
   color: var(--clr-yellow);
   animation: rainbow-play 10s;
-      animation-iteration-count: infinite;
-      animation-direction: alternate;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
-.user-rating{
-      display: flex;
-    flex-direction: column;
-    align-items: end;
-    color: black;
+.user-rating {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  color: black;
 }
 
 @keyframes rainbow-play {

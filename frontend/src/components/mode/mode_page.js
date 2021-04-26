@@ -11,7 +11,6 @@ class ModePage extends React.Component {
   }
   render() {
     return (
-
       <section className="card-list">
         <article className="card">
           <header className="card-header">
