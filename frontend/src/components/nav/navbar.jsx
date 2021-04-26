@@ -54,8 +54,13 @@ class NavBar extends React.Component {
   }
 
   render() {
+    let navClass = "nav"
+
+    if (this.props.loggedIn){
+      navClass = "nav-2"
+    }
     return (
-      <section className="nav">
+      <section className={navClass}>
         <div className="nav__logo">CONNECT<img src="%PUBLIC_URL%/../4.svg" width="20" height="20" style={{marginBottom:"-1px", marginRight:"0px"}}/>RIENDS</div>
         
         <div className="nav__play">
