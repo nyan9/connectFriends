@@ -49,11 +49,11 @@ class NavBar extends React.Component {
             <div className="user-rating">
               <div>{username}</div>
               <div key={this.props.currentUser.elo}>
-                Rating:<span>{this.props.user.elo}</span>
+              <Link to="/leaderboard" style={{color:"black"}}><div className="leaderboard-link">Rating:<span>{this.props.user.elo}</span></div></Link>
               </div>
             </div>
             <span className="logout-button" onClick={this.handleLogout}>
-              <FaBackspace style={{ marginTop: "10px" }} />
+              <FaBackspace style={{ marginTop: "7px" }} />
               <span className="logout-text">Logout</span>
             </span>
           </div>
