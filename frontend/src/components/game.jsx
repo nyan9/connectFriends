@@ -26,7 +26,7 @@ class Game extends React.Component {
     };
     this.updateGame = this.updateGame.bind(this);
 
-    this.winMsg = "";
+    this.winMsg = <div className="endGameMess"></div>;
 
     this.rematch = this.rematch.bind(this);
     this.handlewin = this.handlewin.bind(this);
