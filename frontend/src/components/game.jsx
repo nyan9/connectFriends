@@ -91,7 +91,7 @@ class Game extends React.Component {
     if (this.state.gameOver) {
       rematch = (
         <button className="rematchbtn" onClick={this.rematch}>
-          Rematch?
+          Rematch
         </button>
       );
     }
@@ -124,12 +124,12 @@ class Game extends React.Component {
               tie={this.state.tie}
             />
           </div>
+          <div className="endGameMess">
+            {this.winMsg}
+            {rematch}
+          </div>
         </div>
         <Chatbox />
-        <div className="endGameMess">
-          {this.winMsg}
-          {rematch}
-        </div>
       </div>
     );
   }
