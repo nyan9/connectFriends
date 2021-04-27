@@ -52,8 +52,8 @@ class OnlineGame extends React.Component {
     this.tieGame = this.tieGame.bind(this);
     this.rematch = this.rematch.bind(this);
 
-    // this.socket = io.connect("https://connect4riends.herokuapp.com/", {secure: true});
-    this.socket = io.connect("http://localhost:5000/", { secure: true });
+    this.socket = io.connect("https://connect4riends.herokuapp.com/", {secure: true});
+    // this.socket = io.connect("http://localhost:5000/", { secure: true });
 
     this.socket.on("connect", () =>
       this.socket.emit("join game", this.props.currentUser)
