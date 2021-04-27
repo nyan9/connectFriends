@@ -32,8 +32,8 @@ class Game extends React.Component {
     this.handlewin = this.handlewin.bind(this);
     this.handleloss = this.handleloss.bind(this);
 
-    // this.socket = io.connect("https://connect4riends.herokuapp.com/", { secure: true });
-    this.socket = io.connect("http://localhost:5000/", { secure: true });
+    this.socket = io.connect("https://connect4riends.herokuapp.com/", { secure: true });
+    // this.socket = io.connect("http://localhost:5000/", { secure: true });
   }
 
   componentDidMount() {
@@ -91,7 +91,7 @@ class Game extends React.Component {
     if (this.state.gameOver) {
       rematch = (
         <button className="rematchbtn" onClick={this.rematch}>
-          Rematch?
+          Rematch
         </button>
       );
     }
@@ -124,12 +124,12 @@ class Game extends React.Component {
               tie={this.state.tie}
             />
           </div>
+          <div className="endGameMess">
+            {this.winMsg}
+            {rematch}
+          </div>
         </div>
         <Chatbox />
-        <div className="endGameMess">
-          {this.winMsg}
-          {rematch}
-        </div>
       </div>
     );
   }

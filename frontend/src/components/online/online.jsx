@@ -52,8 +52,8 @@ class OnlineGame extends React.Component {
     this.tieGame = this.tieGame.bind(this);
     this.rematch = this.rematch.bind(this);
 
-    // this.socket = io.connect("https://connect4riends.herokuapp.com/", {secure: true});
-    this.socket = io.connect("http://localhost:5000/", { secure: true });
+    this.socket = io.connect("https://connect4riends.herokuapp.com/", {secure: true});
+    // this.socket = io.connect("http://localhost:5000/", { secure: true });
 
     this.socket.on("connect", () =>
       this.socket.emit("join game", this.props.currentUser)
@@ -152,28 +152,34 @@ class OnlineGame extends React.Component {
     
     return (
       <div className="gameDivContainer">
+        <div className="daddyContainerDiv">
         {
         this.state.currentPlayer ? 
         <div className="currentPlayer">The current player is {this.state.currentPlayer.username}</div> :
         <div className="currentPlayer">Waiting for Player 2</div>
         }
-        <OnlineBoard
-          key={this.state.key}
-          board={this.state.board}
-          players={this.state.players}
-          currentPlayer={this.state.currentPlayer}
-          currentColor={this.state.currentColor}
-          gameOver={this.state.gameOver}
-          currentUser={this.props.currentUser}
-          socket={this.socket}
-          winGame={this.winGame}
-          tieGame={this.tieGame}
-          user={this.props.user}
-          updateRating={this.props.updateRating}
-        />
+          <div className="containerDiv">
+            <OnlineBoard
+              key={this.state.key}
+              board={this.state.board}
+              players={this.state.players}
+              currentPlayer={this.state.currentPlayer}
+              currentColor={this.state.currentColor}
+              gameOver={this.state.gameOver}
+              currentUser={this.props.currentUser}
+              socket={this.socket}
+              winGame={this.winGame}
+              tieGame={this.tieGame}
+              user={this.props.user}
+              updateRating={this.props.updateRating}
+            />
+          </div>
+          <div className="endGameMess">
+            {winMsg}
+            {this.state.gameOver ? <button onClick={this.rematch} className="rematchbtn">Rematch</button> : ''}
+          </div>
+        </div>
         <Chatbox />
-        {winMsg}
-        {this.state.gameOver ? <button onClick={this.rematch} className="rematch">Rematch</button> : ''}
       </div>
     );
   }

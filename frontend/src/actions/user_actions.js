@@ -1,4 +1,4 @@
-import e from "cors";
+// import e from "cors";
 import { getUsers, updateUser, getCurrentUser } from "../util/user_api_util";
 
 export const GET_USERS = "GET_USERS";

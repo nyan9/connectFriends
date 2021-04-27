@@ -175,10 +175,15 @@ class Board extends React.Component {
             )
         })
 
-
+        
+        let currPlayerMessage = "";
+        this.props.type === "/cpu"?  this.props.currentColor === "red"? currPlayerMessage = "It's your turn!" 
+            : currPlayerMessage = "The AI is thinking..."
+                : currPlayerMessage = `The current player is ${this.props.currentColor}`;
         return(
             <div>
                 {/* <h2>this is the board component</h2> */}
+                <div className="currentPlayer">{currPlayerMessage}</div>
                 <div className="board">
                     {grid}
                 
