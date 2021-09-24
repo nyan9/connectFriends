@@ -124,7 +124,7 @@ export const login = (user) => (dispatch) =>
 
 ## TODOs / Features to implement
 
-- [ ] List of features and bug fixes we plan to implement
+- [ ] Button to open an incognito instance of browser window to be able to test multiplayer mode without logging in
 
 [Back To The Top :arrow_up_small:](#table-of-contents)
 
