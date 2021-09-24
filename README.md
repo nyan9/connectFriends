@@ -18,7 +18,7 @@
 2. [Features](#features)
 3. [Technical Implementation Details](#technical-implementation-details)
     - [User Authentication](#user-authentication)
-    - [Socket.IO](#socket.io)
+    - [Socket.IO](#socket--io)
     - [Minmax Algorithm for the AI Player](#minmax-algorithm-for-the-ai-player)
 4. [Sources](#sources)
 5. [TODOs / Features to implement](#todos--features-to-implement)
@@ -42,9 +42,9 @@ Connect4riends is a full stack online implementation of the Connect Four game. F
 
 - [Axios-HTTP](https://github.com/axios/axios) for sending and requesting data asynchronously.
 - [Mongoose](https://github.com/Automattic/mongoose) for schema-based solution to model data.
-- [JWT Web Tokens](https://github.com/auth0/node-jsonwebtoken) for secure sign in and access protected routes.
+- [JWT Web Token](https://github.com/auth0/node-jsonwebtoken) for secure sign in and access protected routes.
+- [Passport JWT](https://github.com/mikenicholson/passport-jwt) for authenticating token and constructing private routes.
 - [BCrypt](https://github.com/dcodeIO/bcrypt.js) for storing salted and encrypted password hash.
-- [Passport](https://github.com/mikenicholson/passport-jwt) for authenticating token and constructing private routes.
 - [Validator.js](https://github.com/validatorjs/validator.js) for seamless user data validation.
 
 ## Features
