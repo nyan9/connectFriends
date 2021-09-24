@@ -26,7 +26,8 @@
 
 ## Overview
 
-Connect4riends is a full stack online implementation of the Connect Four game. Four talented engineers [(check authors' info :arrow_down_small:)](#authors-info) collaborated to build the components of the game, real time chat, and a live game room. Compete against players online to improve your ranking and move up on the global leaderboard.
+Connect4riends is a full stack online implementation of the Connect Four game. Four talented engineers [(check authors' info :arrow_down_small:)](#authors-info) collaborated to build the components of the game, real time chat, and a live game room. <br> 
+Compete against players online to improve your ranking and move up on the global leaderboard.
 
 ### Technologies
 
