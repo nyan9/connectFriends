@@ -69,7 +69,7 @@ Connect4riends is a full stack online implementation of the Connect Four game. F
 
 To allow users to stay logged in after closing the browser, the JWT token is saved on `localStorage` as `"jwtToken"`. <br>
 `setAuthToken()` function is used to set the header to pass along the JWT token to the backend for future AXIOS login requests. 
-Any request after we make the token will now automatically have the `"Authorization"` header with the token and it won't have to be declared everytime.
+Any request after we make the token will now automatically have the `"Authorization"` header with the token and it won't have to be declared every time.
 
 ```javascript
 // src/util/session_api_util.js
