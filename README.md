@@ -22,15 +22,16 @@
     - [Minmax Algorithm for the AI Player](#minmax-algorithm-for-the-ai-player)
 4. [Sources](#sources)
 5. [TODOs / Features to implement](#todos--features-to-implement)
-6. [Author Info](#author-info)
+6. [Authors Info](#authors-info)
 
 
 ## Overview
 
-Connect4riends is a full stack online implementation of the Connect Four game. Four talented engineers [(check authors' info :arrow_down_small:)](#author-info) collaborated to build the components of the game, real time chat, and a live game room. Compete against another player online to improve your ranking and move up on the global leaderboard.
+Connect4riends is a full stack online implementation of the Connect Four game. Four talented engineers [(check authors' info :arrow_down_small:)](#authors-info) collaborated to build the components of the game, real time chat, and a live game room. Compete against players online to improve your ranking and move up on the global leaderboard.
 
 ### Technologies
 
+- Socket.IO
 - React
 - Redux
 - Node.js
@@ -40,9 +41,11 @@ Connect4riends is a full stack online implementation of the Connect Four game. F
 ### Libraries & Methodologies
 
 - [Axios-HTTP](https://github.com/axios/axios) for sending and requesting data asynchronously.
-- [Mongoose](https://github.com/Automattic/mongoose) for a straight-forward, schema-based solution to model user data.
-- [JWT Web Tokens](https://jwt.io/) for secure user authentication.
-
+- [Mongoose](https://github.com/Automattic/mongoose) for schema-based solution to model data.
+- [JWT Web Tokens](https://github.com/auth0/node-jsonwebtoken) for secure sign in and access protected routes.
+- [BCrypt](https://github.com/dcodeIO/bcrypt.js) for storing salted and encrypted password hash.
+- [Passport](https://github.com/mikenicholson/passport-jwt) for authenticating token and constructing private routes.
+- [Validator.js](https://github.com/validatorjs/validator.js) for seamless user data validation.
 
 ## Features
 
@@ -229,7 +232,7 @@ The combination of `ref` `forwardRef` and `useImperativeHandle` allows the Root 
 
 ---
 
-## Author Info
+## Authors Info
 
 -  [Ryan Naing](www.ryannaing.com)
 -  [John Cheung]()
