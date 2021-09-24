@@ -39,6 +39,7 @@ Connect4riends is a full stack online implementation of the Connect Four game. F
 
 ### Libraries & Methodologies
 
+- [Axios-HTTP](https://github.com/axios/axios) for sending and requesting data asynchronously.
 - [Mongoose](https://github.com/Automattic/mongoose) for a straight-forward, schema-based solution to model user data.
 - [JWT Web Tokens](https://jwt.io/) for secure user authentication.
 
