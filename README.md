@@ -17,8 +17,8 @@
     - [Libraries & Methodologies](#libraries--methodologies)
 2. [Features](#features)
 3. [Technical Implementation Details](#technical-implementation-details)
-    - [User Authentication](#user-authentication)
-    - [Socket.IO](#socket--io)
+    - [Persist User Login](#persist-user-login)
+    - [Socket.IO](#socketio)
     - [Minmax Algorithm for the AI Player](#minmax-algorithm-for-the-ai-player)
 4. [Sources](#sources)
 5. [TODOs / Features to implement](#todos--features-to-implement)
@@ -66,167 +66,68 @@ Connect4riends is a full stack online implementation of the Connect Four game. F
 
 ## Technical Implementation Details
 
-### User Authentication
+### Persist User Login
 
-After I completed building the comments feature, I was going to create a seperate Like model for comments since I already had an existing Like model for videos. However, I knew this wasn't ***DRY***.<br> 
-Polymorphic associations became the perfect solution to my problem.
+To allow users to stay logged in after closing the browser, the JWT token is saved on `localStorage` as `"jwtToken"`. <br>
+`setAuthToken()` function is used to set the header to pass along the JWT token to the backend for future AXIOS login requests. 
+Any request after we make the token will now automatically have the `"Authorization"` header with the token and it won't have to be declared everytime.
 
-```RUBY
-# app/models/like.rb
-class Like < ApplicationRecord
-  validates :liker_id, uniqueness: { scope: [:likeable_id, :likeable_type] }
-  validates :version, inclusion: { in: %w(like dislike), 
-    message: "%{value} is not a valid version, must be like or dislike"}
+```javascript
+// src/util/session_api_util.js
+import axios from "axios";
 
-  belongs_to :likeable, polymorphic: true
-  
-  belongs_to :user,
-    foreign_key: :liker_id,
-    class_name: :User
-end
+export const setAuthToken = (token) => {
+  // if there's a token, set that token as default authorization header
+  if (token) {
+    axios.defaults.headers.common["Authorization"] = token;
+  } else {
+    delete axios.defaults.headers.common["Authorization"];
+  }
+};
 
-# app/models/user.rb
-class User < ApplicationRecord
-  has_many :likes,
-    foreign_key: :liker_id,
-    class_name: :Like,
-    dependent: :destroy
+// src/actions/session_actions.js
+import jwt_decode from "jwt-decode"
+import * as APIUtil from "../util/session_api_util";
 
-  has_many :liked_videos,
-    through: :likes,
-    source: :likeable,
-    source_type: :Video
-end
+export const login = (user) => (dispatch) =>
+  APIUtil.login(user)
+    .then((res) => {
+      const { token } = res.data;
+      localStorage.setItem("jwtToken", token);
+      APIUtil.setAuthToken(token);
+        // decoded token includes username, email, and id
+      const decoded = jwt_decode(token);
+        // sets currentUser as the decoded jwt token
+      dispatch(receiveCurrentUser(decoded));
+        // close the login/signup modal after the user is logged in
+      dispatch(closeModal());
+    })
+    .catch((err) => {
+      dispatch(receiveErrors(err.response.data));
+    });
 ```
-
-The Like model is associated not only with the Like button, but also with the Dislike button through the `version` column.
-User`liker_id` is limited to one like/dislike on the same comment or video by validating uniqueness of the `likeable_id` and `likeable_type` in Like.
-
-```RUBY
-# app/models/comment.rb
-class Comment < ApplicationRecord
-  has_many :likes, as: :likeable, dependent: :destroy
-end
-
-# app/models/video.rb
-class Video < ApplicationRecord
-  has_many :likes, as: :likeable, dependent: :destroy
-end
-```
-
-Instances of Like now belong to either Video or Comment on a single association as `likeable`.
 
 [Back To The Top :arrow_up_small:](#table-of-contents)
 
 
 ### Socket.IO
 
-In order for me to avoid `overflow: hidden` `z-index` issues, the Notification component has to sit on top of the entire application rather than inside of the application.
-
-```html
-<body>
-    <!-- Notifications need to go here --> 
-    <main id="root">
-        <!-- Application gets rendered here --> 
-    </main>
-</body>
-```
-
-`React.createPortal()` in conjunction with `document.createElement()` allow me to do just that.
-
 ```javascript
-// components/noti_portal/noti_portal.jsx
-const [loaded, setLoaded] = useState(false);
-const [portalId] = useState(`noti-portal-${uuid()}`);
-
-useEffect(() => {
-  const div = document.createElement("div");
-  div.id = portalId;
-  div.style = "position: fixed; bottom: 20px; left: 30px; z-index: 300";
-    
-  document.getElementsByTagName("body")[0].prepend(div);
-  setLoaded(true);
-
-  return () => document.getElementsByTagName("body")[0].removeChild(div);
-}, [portalId]);
-
-return (
-  loaded && createPortal(
-    <div className='noti'>
-      {notis.map((noti) => (
-        <Noti
-          key={noti.id}
-          mode={noti.mode}
-          message={noti.message}
-          onClose={() => removeNoti(noti.id)}
-        />
-      ))}
-    </div>,
-      
-  document.getElementById(portalId)
-)
+    //Socket.IO explaination will go here
 ```
-
-A new dom element is created with `document.createElement("div")`. It gets injected as a first child of `<body>` with an unique ID.
-The Notification component is then rendered inside the newly created `<div>` sitting on top of the application with the magic of `React Portals`. <br>
-
-Now I needed to call `addNotis()` function inside of the Notifications component from the Root component to be able to provide the function to other components in the App using `React Context`.
-This is when `React.forwardRef()` and `React.useImperativeHandle()` come in to make the functions inside the child component accessible from a parent component.
-
-```javascript
-// components/root.jsx
-import { NotiContext } from "../context/noti_context"
-
-const Root = ({ store }) => {
-  const notiRef = useRef(null);
-
-  const addNoti = ({ mode, message }) => {
-    notiRef.current.addMessage({ mode, message });
-  };
-  
-  return (
-    <>
-      <NotiContext.Provider value={{ addNoti }}>
-        <App />
-      </NotiContext.Provider>
-      <NotiPortal ref={notiRef} autoClose={true} />
-    </>
-  );
-}
-
-// components/noti_portal/noti_portal.jsx
-const NotiPortal = forwardRef((props, ref) => {
-  const [notis, setNotis] = useState([]); // contains message and color(mode)
-  
-  useImperativeHandle(ref, () => ({
-    addMessage(noti) {
-      setNotis([{ ...noti, id: uuid() }, ...notis]);  // takes in message and mode; generates unique id
-    },
-  }));
-    
-  return (
-    // create portal...
-    // render Notifications
-  )
-});
-```
-The combination of `ref` `forwardRef` and `useImperativeHandle` allows the Root component to get access to `addNotis()` function inside the Notifications components whenever it gets renderd.
 
 ### Minmax Algorithm for the AI Player
 
-[Back To The Top :arrow_up_small:](#table-of-contents)
-
-## Sources
-
-- https://stackoverflow.com/a/25821830
-  padStart fix for hex code length issue when generating random colors.
-
+```javascript
+    //Minmax Algorithm explaination will go here
+```
 
 [Back To The Top :arrow_up_small:](#table-of-contents)
+
 
 ## TODOs / Features to implement
 
-
+- [ ] List of features and bug fixes we plan to implement
 
 [Back To The Top :arrow_up_small:](#table-of-contents)
 
