@@ -62,7 +62,7 @@ Connect4riends is a full stack online implementation of the Connect Four game. F
 
 ## Technical Implementation Details
 
-### User Auth
+### User Authentication
 
 After I completed building the comments feature, I was going to create a seperate Like model for comments since I already had an existing Like model for videos. However, I knew this wasn't ***DRY***.<br> 
 Polymorphic associations became the perfect solution to my problem.
