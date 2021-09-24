@@ -20,9 +20,8 @@
     - [Persist User Login](#persist-user-login)
     - [Socket.IO](#socketio)
     - [Minmax Algorithm for the AI Player](#minmax-algorithm-for-the-ai-player)
-4. [Sources](#sources)
-5. [TODOs / Features to implement](#todos--features-to-implement)
-6. [Authors Info](#authors-info)
+4. [TODOs / Features to implement](#todos--features-to-implement)
+5. [Authors Info](#authors-info)
 
 
 ## Overview
@@ -106,9 +105,6 @@ export const login = (user) => (dispatch) =>
       dispatch(receiveErrors(err.response.data));
     });
 ```
-
-[Back To The Top :arrow_up_small:](#table-of-contents)
-
 
 ### Socket.IO
 
