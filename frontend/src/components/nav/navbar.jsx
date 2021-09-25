@@ -43,22 +43,22 @@ class NavBar extends React.Component {
           this.props.user.username.slice(1);
       }
       return (
-        <div className="nav__btn nav__btn-logout">
-          <FaUserCircle className="user-icon" />
-          <div className="user-dropdown">
-            <div className="user-rating">
+        <div className='nav__btn nav__btn-logout'>
+          <FaUserCircle className='user-icon' />
+          <div className='user-dropdown'>
+            <div className='user-rating'>
               <div>{username}</div>
               <div key={this.props.currentUser.elo}>
-                <Link to="/leaderboard" style={{ color: "black" }}>
-                  <div className="leaderboard-link">
+                <Link to='/leaderboard' style={{ color: "black" }}>
+                  <div className='leaderboard-link'>
                     Rating:<span>{this.props.user.elo}</span>
                   </div>
                 </Link>
               </div>
             </div>
-            <span className="logout-button" onClick={this.handleLogout}>
+            <span className='logout-button' onClick={this.handleLogout}>
               <FaBackspace style={{ marginTop: "7px" }} />
-              <span className="logout-text">Logout</span>
+              <span className='logout-text'>Logout</span>
             </span>
           </div>
         </div>
@@ -66,7 +66,7 @@ class NavBar extends React.Component {
     } else {
       return (
         <div
-          className="nav__btn nav__btn-login"
+          className='nav__btn nav__btn-login'
           onClick={() => this.props.openModal("login")}
         >
           <FaGlobeAmericas />
@@ -78,22 +78,22 @@ class NavBar extends React.Component {
 
   render() {
     return (
-      <section className="nav">
-        <div className="nav__logo">
+      <section className='nav'>
+        <div className='nav__logo'>
           CONNECT
           <img
-            src="%PUBLIC_URL%/../4.svg"
-            width="20"
-            height="20"
+            src='%PUBLIC_URL%/../4.svg'
+            width='20'
+            height='20'
             style={{ marginBottom: "-1px", marginRight: "0px" }}
           />
           RIENDS
         </div>
 
-        <div className="nav__play">
-          <Link to="/" onClick={this.props.closeModal}>
+        <div className='nav__play'>
+          <Link to='/' onClick={this.props.closeModal}>
             <span>Mode</span>
-            <FaPlay className="nav__play__btn" />
+            <FaPlay className='nav__play__btn' />
           </Link>
         </div>
         {this.getLinks()}
