@@ -3,7 +3,7 @@
 <h1 align="center"> Connect4riends </h1> <br>
 <p align="center">
     <a href="https://connect4riends.herokuapp.com/">
-        <img alt="Connect 4riends" title="Connect4riends" src="app/assets/images/logo.svg" width="200">
+        <img alt="Connect 4riends" title="Connect4riends" src="connect4.gif" width="500">
     </a>
 </p>
 
