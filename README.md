@@ -16,12 +16,8 @@
     - [Technologies](#technologies)
     - [Libraries & Methodologies](#libraries--methodologies)
 2. [Features](#features)
-3. [Technical Implementation Details](#technical-implementation-details)
-    - [Persist User Login](#persist-user-login)
-    - [Socket.IO](#socketio)
-    - [Minmax Algorithm for the AI Player](#minmax-algorithm-for-the-ai-player)
-4. [TODOs / Features to implement](#todos--features-to-implement)
-5. [Authors Info](#authors-info)
+3. [TODOs / Features to implement](#todos--features-to-implement)
+4. [Authors Info](#authors-info)
 
 
 ## Overview
@@ -61,63 +57,6 @@ Compete against players online to improve your ranking and move up on the global
 - *LEADERBOARD*
   - Global player rankings
 
-
-[Back To The Top :arrow_up_small:](#table-of-contents)
-
-## Technical Implementation Details
-
-### Persist User Login
-
-To allow users to stay logged in after closing the browser, the JWT token is saved on `localStorage` as `"jwtToken"`. <br>
-`setAuthToken()` function is used to set the header to pass along the JWT token to the backend for future AXIOS login requests. 
-Any request after we make the token will now automatically have the `"Authorization"` header with the token and it won't have to be declared every time.
-
-```javascript
-// src/util/session_api_util.js
-import axios from "axios";
-
-export const setAuthToken = (token) => {
-  // if there's a token, set that token as default authorization header
-  if (token) {
-    axios.defaults.headers.common["Authorization"] = token;
-  } else {
-    delete axios.defaults.headers.common["Authorization"];
-  }
-};
-
-// src/actions/session_actions.js
-import jwt_decode from "jwt-decode"
-import * as APIUtil from "../util/session_api_util";
-
-export const login = (user) => (dispatch) =>
-  APIUtil.login(user)
-    .then((res) => {
-      const { token } = res.data;
-      localStorage.setItem("jwtToken", token);
-      APIUtil.setAuthToken(token);
-        // decoded token includes username, email, and id
-      const decoded = jwt_decode(token);
-        // sets currentUser as the decoded jwt token
-      dispatch(receiveCurrentUser(decoded));
-        // close the login/signup modal after the user is logged in
-      dispatch(closeModal());
-    })
-    .catch((err) => {
-      dispatch(receiveErrors(err.response.data));
-    });
-```
-
-### Socket.IO
-
-```javascript
-    //Socket.IO explaination will go here
-```
-
-### Minmax Algorithm for the AI Player
-
-```javascript
-    //Minmax Algorithm explaination will go here
-```
 
 [Back To The Top :arrow_up_small:](#table-of-contents)
 
