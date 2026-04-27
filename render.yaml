@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: connect4riends
+    runtime: node
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: npm install && npm install --prefix frontend && npm run build --prefix frontend
+    startCommand: node app.js
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 20.18.0
+      # Required so `npm install` keeps build-time devDependencies during the build step.
+      - key: NPM_CONFIG_PRODUCTION
+        value: "false"
+      - key: MONGO_URI
+        sync: false
+      - key: SECRET_OR_KEY
+        generateValue: true
+      # Set this to the public URL Render assigns to the service after first deploy
+      # (e.g. https://connect4riends.onrender.com). Boot fails fast in production if unset.
+      - key: CORS_ORIGIN
+        sync: false

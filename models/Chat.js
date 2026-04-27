@@ -8,16 +8,16 @@ const ChatSchema = new Schema(
     },
     sender: {
       type: Schema.Types.ObjectId,
-      ref: 'User'
+      ref: "User",
     },
     type: {
-        type: String,
-    }
+      type: String,
+    },
   },
   {
     timestamps: true,
   }
 );
 
-const Chat = mongoose.model('Chat', ChatSchema)
-module.exports = {Chat}
+const Chat = mongoose.model("Chat", ChatSchema);
+module.exports = { Chat };
