@@ -9,7 +9,6 @@ import { Button } from "antd";
 import { to } from "@react-spring/core";
 import "./online.scss";
 
-
 class OnlineGame extends React.Component {
   constructor(props) {
     super(props);
@@ -28,7 +27,7 @@ class OnlineGame extends React.Component {
       gameOver: false,
       tie: false,
       winColor: "",
-      key: 0
+      key: 0,
     };
 
     this.defaultState = {
@@ -52,25 +51,24 @@ class OnlineGame extends React.Component {
     this.tieGame = this.tieGame.bind(this);
     this.rematch = this.rematch.bind(this);
 
-    this.socket = io.connect("https://connect4riends.herokuapp.com/", {secure: true});
-    // this.socket = io.connect("http://localhost:5000/", { secure: true });
+    this.socket = io.connect(process.env.REACT_APP_API_URL || "");
 
-    this.socket.on("connect", () =>
-      this.socket.emit("join game", this.props.currentUser)
-    );
+    this.socket.on("connect", () => this.socket.emit("join game", this.props.currentUser));
     this.socket.on("joined game", (currentPlayer, players) =>
       this.setState({ currentPlayer, players })
     );
     this.socket.on("send msg", (msg) => console.log("msg:", msg));
     this.socket.on("end game", () => {
-        this.props.history.push("/")
-        alert("Opponent has disconnected")
-    })
+      this.props.history.push("/");
+      alert("Opponent has disconnected");
+    });
 
     this.socket.on("new game", () => {
       let z;
-      this.state.currentPlayer.username === this.state.players[0].username ? z = this.state.players[1] : z = this.state.players[0]
-      console.log("before setstate", this.state)
+      this.state.currentPlayer.username === this.state.players[0].username
+        ? (z = this.state.players[1])
+        : (z = this.state.players[0]);
+      console.log("before setstate", this.state);
       this.setState({
         board: [
           [null, null, null, null, null, null, null],
@@ -84,10 +82,10 @@ class OnlineGame extends React.Component {
         gameOver: false,
         tie: false,
         winColor: "",
-        key: this.state.key + 1
-      })
-      console.log("after setstate", this.state)
-      this.socket.emit("join game", this.props.currentUser)
+        key: this.state.key + 1,
+      });
+      console.log("after setstate", this.state);
+      this.socket.emit("join game", this.props.currentUser);
     });
   }
 
@@ -106,15 +104,9 @@ class OnlineGame extends React.Component {
     this.setState({ gameOver: true, winColor: color });
     this.socket.emit("finish game");
     if (this.state.currentPlayer.username === this.props.user.username) {
-      this.props.updateRating(
-        this.props.user.username,
-        this.props.user.elo - 10
-      );
+      this.props.updateRating(this.props.user.username, this.props.user.elo - 10);
     } else {
-      this.props.updateRating(
-        this.props.user.username,
-        this.props.user.elo + 10
-      );
+      this.props.updateRating(this.props.user.username, this.props.user.elo + 10);
     }
     setTimeout(() => {
       this.props.getUser(this.props.currentUser.username);
@@ -149,15 +141,16 @@ class OnlineGame extends React.Component {
       winMsg = <div>It's a tie!</div>;
     }
 
-    
     return (
       <div className="gameDivContainer">
         <div className="daddyContainerDiv">
-        {
-        this.state.currentPlayer ? 
-        <div className="currentPlayer">The current player is {this.state.currentPlayer.username}</div> :
-        <div className="currentPlayer">Waiting for Player 2</div>
-        }
+          {this.state.currentPlayer ? (
+            <div className="currentPlayer">
+              The current player is {this.state.currentPlayer.username}
+            </div>
+          ) : (
+            <div className="currentPlayer">Waiting for Player 2</div>
+          )}
           <div className="containerDiv">
             <OnlineBoard
               key={this.state.key}
@@ -176,7 +169,13 @@ class OnlineGame extends React.Component {
           </div>
           <div className="endGameMess">
             {winMsg}
-            {this.state.gameOver ? <button onClick={this.rematch} className="rematchbtn">Rematch</button> : ''}
+            {this.state.gameOver ? (
+              <button onClick={this.rematch} className="rematchbtn">
+                Rematch
+              </button>
+            ) : (
+              ""
+            )}
           </div>
         </div>
         <Chatbox />

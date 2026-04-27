@@ -2,17 +2,16 @@
   "name": "frontend",
   "version": "0.1.0",
   "engines": {
-    "node": "10.x",
-    "npm": "6.x"
+    "node": "20.x"
   },
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.10",
-    "@testing-library/react": "^11.2.5",
-    "@testing-library/user-event": "^12.8.3",
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^13.5.0",
+    "ajv": "^8.17.1",
     "antd": "^4.15.0",
-    "axios": "^0.21.1",
-    "express": "^4.17.1",
+    "axios": "^1.7.7",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.1",
     "react": "^17.0.2",
@@ -21,11 +20,12 @@
     "react-native-leaderboard": "^1.0.6",
     "react-redux": "^7.2.3",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
+    "react-scripts": "^5.0.1",
     "react-spring": "^9.0.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "socket.io-client": "^4.0.1",
+    "sass": "^1.79.4",
+    "socket.io-client": "^4.7.5",
     "styled-components": "^5.2.3",
     "web-vitals": "^1.1.1"
   },
@@ -33,8 +33,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -55,8 +54,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "node-sass": "^5.0.0",
-    "sass": "^1.32.8"
-  }
+  "devDependencies": {}
 }

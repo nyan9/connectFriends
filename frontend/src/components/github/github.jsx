@@ -5,14 +5,11 @@ import { DiGithubFull } from "react-icons/di";
 
 const Github = () => {
   return (
-    <div className='github'>
-      <div className='github__bg'></div>
-      <div className='github__button'>
-        <a
-          href='https://github.com/nyan9/connectFriends#readme'
-          target='_blank'
-        >
-          <DiGithubFull className='github__icon' />
+    <div className="github">
+      <div className="github__bg"></div>
+      <div className="github__button">
+        <a href="https://github.com/nyan9/connectFriends#readme" target="_blank">
+          <DiGithubFull className="github__icon" />
         </a>
       </div>
     </div>
