@@ -10,41 +10,43 @@ const validateLoginInput = require("../../validation/login");
 
 // router.get("/test", (req, res) => res.json({ msg: "This is the users route" }));
 
-router.get("/getUsers", (req, res) => {
-  User.find({}).exec((err, users) => {
-    if (err) return res.status(400).send(err);
+router.get("/getUsers", async (req, res) => {
+  try {
+    const users = await User.find({});
     res.status(200).send(users);
-  });
-});
-
-router.get("/getUser/:username", (req, res) => {
-  User.findOne({ username: req.params.username }).exec((err, users) => {
-    if (err) return res.status(400).send(err);
-    res.status(200).send(users);
-  });
-});
-
-router.post("/update", (req, res) => {
-  const result = User.findOneAndUpdate(
-    { username: req.body.username },
-    { elo: req.body.elo },
-    { new: true }
-  ).exec((err, user) => {
-    if (err) return res.status(400).send(err);
-    res.status(200).send(user);
-  });
-});
-
-router.get(
-  "/current",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    res.json({
-      id: req.user.id,
-      username: req.user.username,
-    });
+  } catch (err) {
+    res.status(400).send(err);
   }
-);
+});
+
+router.get("/getUser/:username", async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.params.username });
+    res.status(200).send(user);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+router.post("/update", async (req, res) => {
+  try {
+    const user = await User.findOneAndUpdate(
+      { username: req.body.username },
+      { elo: req.body.elo },
+      { new: true }
+    );
+    res.status(200).send(user);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+router.get("/current", passport.authenticate("jwt", { session: false }), (req, res) => {
+  res.json({
+    id: req.user.id,
+    username: req.user.username,
+  });
+});
 
 router.post("/register", (req, res) => {
   // Check to make sure nobody has already registered with a duplicate username
@@ -75,17 +77,12 @@ router.post("/register", (req, res) => {
             .then((user) => {
               const payload = { id: user.id, username: user.username };
 
-              jwt.sign(
-                payload,
-                keys.secretOrKey,
-                { expiresIn: 3600 },
-                (err, token) => {
-                  res.json({
-                    success: true,
-                    token: "Bearer " + token,
-                  });
-                }
-              );
+              jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
+                res.json({
+                  success: true,
+                  token: "Bearer " + token,
+                });
+              });
             })
             .catch((err) => console.log(err));
         });
@@ -134,13 +131,13 @@ router.post("/login", (req, res) => {
   });
 });
 
-router.delete("/deleteUser/:username", (req, res) => {
-  debugger;
-  User.findOneAndDelete({ username: req.params.username }).exec((err, user) => {
-    debugger;
-    if (err) return res.status(500).send(err);
+router.delete("/deleteUser/:username", async (req, res) => {
+  try {
+    await User.findOneAndDelete({ username: req.params.username });
     res.redirect("/");
-  });
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
 
 module.exports = router;
