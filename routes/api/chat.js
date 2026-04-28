@@ -1,22 +1,23 @@
 const express = require("express");
 const router = express.Router();
-const {Chat} = require("../../models/Chat");
+const { Chat } = require("../../models/Chat");
 
-router.get("/getChats", (req, res) => {
-    Chat.find()
-        .populate('sender')
-        .exec((err, chats) =>{
-            if (err) return res.status(400).send(err)
-            res.status(200).send(chats)
-        })
-})
+router.get("/getChats", async (req, res) => {
+  try {
+    const chats = await Chat.find().populate("sender");
+    res.status(200).send(chats);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
 
-router.delete("/resetChats", (req, res) => {
-   Chat.remove({}, function(err,chat){
-       if (err) return console.error(err);
-       console.log('User successfully removed from polls collection!');
-       res.status(200).send();
-   })
-})
+router.delete("/resetChats", async (req, res) => {
+  try {
+    await Chat.deleteMany({});
+    res.status(200).send();
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
 
 module.exports = router;

@@ -1,4 +1,14 @@
-/config/keys_dev.js
-/node_modules
-/frontend/node_modules
+node_modules/
+frontend/build/
 
+# Env files (use .env.example as the template)
+.env
+.env.local
+.env.*.local
+/config/keys_dev.js
+
+# OS / editor cruft
+.DS_Store
+*.log
+.vscode
+.idea

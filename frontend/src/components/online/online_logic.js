@@ -13,10 +13,7 @@ export class Board {
 
   lastPiecePos(col) {
     for (let row = 0; row < 6; row++) {
-      if (
-        this.emptyAt(row, col) &&
-        (!this.emptyAt(row + 1, col) || row === 5)
-      ) {
+      if (this.emptyAt(row, col) && (!this.emptyAt(row + 1, col) || row === 5)) {
         return [row, col];
       }
     }
@@ -29,12 +26,7 @@ export class Board {
   //
 
   win(x, y) {
-    return (
-      this.winDiagL(x, y) ||
-      this.winDiagR(x, y) ||
-      this.winRow(x, y) ||
-      this.winCol(x, y)
-    );
+    return this.winDiagL(x, y) || this.winDiagR(x, y) || this.winRow(x, y) || this.winCol(x, y);
   }
 
   winDiagL(x, y) {

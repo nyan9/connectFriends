@@ -101,9 +101,7 @@ class LoginForm extends React.Component {
               <label for="username" className="login__input__label">
                 Username
               </label>
-              <div className="login__errors__item">
-                {this.state.errors.username}
-              </div>
+              <div className="login__errors__item">{this.state.errors.username}</div>
             </div>
             <div className="login__input login__input--password">
               <input
@@ -116,16 +114,10 @@ class LoginForm extends React.Component {
               <label for="password" className="login__input__label">
                 Password
               </label>
-              <div className="login__errors__item">
-                {this.state.errors.password}
-              </div>
+              <div className="login__errors__item">{this.state.errors.password}</div>
             </div>
           </div>
-          <input
-            className="login__btn login__btn--login"
-            type="submit"
-            value="Login"
-          />
+          <input className="login__btn login__btn--login" type="submit" value="Login" />
           <div className="login__btns">
             <input
               className="login__btn login__btn--other"

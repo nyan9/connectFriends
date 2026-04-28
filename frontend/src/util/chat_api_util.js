@@ -5,5 +5,5 @@ export const getChats = () => {
 };
 
 export const resetChats = () => {
-  return axios.delete("/api/chat/resetChats")
-} 
+  return axios.delete("/api/chat/resetChats");
+};

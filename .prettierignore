@@ -1,0 +1,11 @@
+node_modules
+frontend/node_modules
+frontend/build
+package-lock.json
+frontend/package-lock.json
+connect4.gif
+*.svg
+*.png
+*.ico
+.git
+.DS_Store

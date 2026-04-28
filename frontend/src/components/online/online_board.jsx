@@ -28,11 +28,11 @@ export default class OnlineBoard extends React.Component {
       if (lastPos) {
         if (this.checkWin(lastPos)) {
           let color = this.board.grid[lastPos[0]][lastPos[1]].color;
-          lastPos = null
+          lastPos = null;
           this.props.winGame(color);
           lastPos = null;
         } else if (!this.checkWin(lastPos) && this.board.full()) {
-          lastPos = null
+          lastPos = null;
           this.props.tieGame();
           lastPos = null;
         }
@@ -48,7 +48,7 @@ export default class OnlineBoard extends React.Component {
     let lastPos = null;
 
     this.props.socket.off("allow turn").on("allow turn", () => {
-      console.log("allow turn: ", this.props.currentUser)
+      console.log("allow turn: ", this.props.currentUser);
 
       lastPos = this.board.lastPiecePos(parseInt(e.target.className));
     });
@@ -66,10 +66,8 @@ export default class OnlineBoard extends React.Component {
     let pos = lastPos_and_color[0];
     let color = lastPos_and_color[1];
     this.board.fillPos(pos[0], pos[1], color);
-    document.getElementById(
-      `${pos[0]},${pos[1]}`
-    ).classList.add("fall",`${color}`);
-    console.log("updateBoard was called")
+    document.getElementById(`${pos[0]},${pos[1]}`).classList.add("fall", `${color}`);
+    console.log("updateBoard was called");
   }
 
   checkWin(pos) {

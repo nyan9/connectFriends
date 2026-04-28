@@ -4,8 +4,7 @@ import errors from "./errors_reducer";
 import chat from "./chat_reducer";
 import users from "./user_reducer";
 import ui from "./ui_reducer";
-import rating from './rating_reducer'
-
+import rating from "./rating_reducer";
 
 const RootReducer = combineReducers({
   session,

@@ -26,10 +26,10 @@ class Leaderboard extends React.Component {
               idx === 0
                 ? "leaderboard-info-top1"
                 : idx === 1
-                ? "leaderboard-info-top2"
-                : idx === 2
-                ? "leaderboard-info-top3"
-                : "leaderboard-info1";
+                  ? "leaderboard-info-top2"
+                  : idx === 2
+                    ? "leaderboard-info-top3"
+                    : "leaderboard-info1";
             {
               n += 1;
             }
